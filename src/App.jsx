@@ -262,6 +262,7 @@ function BrandCard({ brand, delay, onPendingClick }) {
 }
 
 export default function App() {
+  const currentYear = new Date().getFullYear();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -941,19 +942,85 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer className="border-t border-slate-900 bg-slate-950">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-center sm:px-6 md:flex-row md:text-left lg:px-8">
-          <div className="text-lg font-black uppercase tracking-[0.22em] text-white">
-            Grupo <span className="text-red-500">NBG</span> Import
+      <footer className="border-t border-slate-800/80 bg-gradient-to-b from-slate-950 to-black">
+        <div className="mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
+          <div className="grid gap-10 border-b border-slate-800/80 pb-10 md:grid-cols-[1.1fr_0.9fr_1fr]">
+            <div>
+              <div className="text-xl font-black uppercase tracking-[0.22em] text-white">
+                Grupo <span className="text-red-500">NBG</span> Import
+              </div>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-slate-300">
+                Importacion y distribucion de repuestos automotrices con enfoque comercial, tiempos de respuesta rapidos y respaldo para cada linea.
+              </p>
+              <div className="mt-5 inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">
+                Atencion comercial activa
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Navegacion</h4>
+              <ul className="mt-4 space-y-3">
+                {NAV_ITEMS.map((item) => (
+                  <li key={`footer-${item.href}`}>
+                    <a
+                      href={item.href}
+                      onClick={() => trackEvent('nav_click', { target: item.href, location: 'footer' })}
+                      className="text-sm font-medium text-slate-200 transition hover:text-red-300"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Contacto directo</h4>
+              <div className="mt-4 space-y-3">
+                <a
+                  href="https://wa.me/51956701218"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackEvent('contact_click', { channel: 'footer_whatsapp' })}
+                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-sm text-slate-200 transition hover:border-red-500/40 hover:text-red-300"
+                >
+                  <MessageCircle className="h-4 w-4 text-red-400" />
+                  <span>+51 956 701 218</span>
+                </a>
+
+                <a
+                  href="mailto:marketing@nbg.pe"
+                  onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
+                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-sm text-slate-200 transition hover:border-red-500/40 hover:text-red-300"
+                >
+                  <Mail className="h-4 w-4 text-red-400" />
+                  <span>marketing@nbg.pe</span>
+                </a>
+
+                <a
+                  href="#contacto"
+                  onClick={() => trackEvent('cta_click', { cta: 'footer_cotizar' })}
+                  className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-red-500"
+                >
+                  Cotizar ahora
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
           </div>
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">2026 Grupo NBG Import. Todos los derechos reservados</p>
-          <a
-            href="mailto:marketing@nbg.pe"
-            onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
-            className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition hover:text-red-400"
-          >
-            marketing@nbg.pe
-          </a>
+
+          <div className="mt-5 flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+              {currentYear} Grupo NBG Import. Todos los derechos reservados.
+            </p>
+            <a
+              href="mailto:marketing@nbg.pe"
+              onClick={() => trackEvent('contact_click', { channel: 'footer_email_legal' })}
+              className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition hover:text-red-400"
+            >
+              Soporte comercial: marketing@nbg.pe
+            </a>
+          </div>
         </div>
       </footer>
 
