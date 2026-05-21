@@ -545,7 +545,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="marcas" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <section id="marcas" className="mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28">
           <Reveal>
             <SectionHeader
               eyebrow="Nuestras marcas"

@@ -89,8 +89,8 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
   const ActiveIcon = activeTab.icon;
 
   return (
-    <section className="relative border-y border-red-500/10 bg-slate-950/70">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section className="relative">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-10 max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
             <span className="h-px w-10 bg-red-500" />
@@ -104,7 +104,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
           </p>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-800 bg-slate-900/55 p-4 shadow-2xl shadow-black/20 backdrop-blur">
+        <div className="rounded-[2rem] border border-slate-800 bg-slate-900/45 p-4 shadow-2xl shadow-black/20 backdrop-blur sm:p-5">
           <div className="grid gap-3 md:grid-cols-3" role="tablist" aria-label="Razones para elegir Grupo NBG Import">
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
