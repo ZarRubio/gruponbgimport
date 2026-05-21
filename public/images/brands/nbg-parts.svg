@@ -1,0 +1,11 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder NBG Parts">
+  <rect width="1200" height="900" fill="#020617"/>
+  <rect x="70" y="70" width="1060" height="760" rx="34" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+  <path d="M684 300H932L1008 450L932 600H684L608 450L684 300Z" fill="#111827" stroke="#EF4444" stroke-width="24"/>
+  <path d="M722 450H896" stroke="#F87171" stroke-width="28" stroke-linecap="round"/>
+  <path d="M810 362V538" stroke="#F87171" stroke-width="28" stroke-linecap="round" opacity=".55"/>
+  <text x="120" y="340" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="6">NBG</text>
+  <text x="120" y="430" fill="#F87171" font-family="Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="5">PARTS</text>
+  <text x="120" y="520" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="31" font-weight="600">Imagen local pendiente</text>
+  <text x="120" y="570" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Reemplazar por fotografia o arte oficial.</text>
+</svg>

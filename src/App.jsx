@@ -12,39 +12,12 @@ import {
   Globe2,
   PackageSearch,
 } from 'lucide-react';
+import { BrandGrid } from './components/ui/brand-grid';
 
 const NAV_ITEMS = [
   { label: 'Marcas', href: '#marcas' },
   { label: 'Nosotros', href: '#nosotros' },
   { label: 'Contacto', href: '#contacto' },
-];
-
-const BRANDS = [
-  {
-    id: '01',
-    name: 'CST Tires',
-    tag: 'Neumaticos',
-    href: 'https://csttires.pe/',
-    accent: 'from-orange-500 via-red-600 to-zinc-900',
-    kicker: 'CST',
-    description: 'Neumaticos y lineas especializadas con presencia internacional.',
-  },
-  {
-    id: '02',
-    name: 'SHAM',
-    tag: 'Repuestos',
-    accent: 'from-slate-500 via-slate-700 to-slate-950',
-    kicker: 'SHAM',
-    description: 'Repuestos y componentes para distintas necesidades del mercado.',
-  },
-  {
-    id: '03',
-    name: 'NBG',
-    tag: 'Marca propia',
-    accent: 'from-amber-500 via-orange-600 to-zinc-950',
-    kicker: 'NBG',
-    description: 'Linea propia con proyeccion comercial y crecimiento progresivo.',
-  },
 ];
 
 const FEATURES = [
@@ -205,59 +178,6 @@ function SectionHeader({ eyebrow, title, description, center = false }) {
         <p className={cn('mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base', center ? 'mx-auto' : '')}>{description}</p>
       ) : null}
     </div>
-  );
-}
-
-function BrandCard({ brand, delay, onPendingClick }) {
-  const content = (
-    <div className="group">
-      <div className="overflow-hidden rounded-md border border-slate-700 bg-slate-900 shadow-lg transition duration-300 hover:-translate-y-1 hover:border-red-500/40">
-        <div className={cn('relative aspect-[3/4] overflow-hidden bg-gradient-to-br', brand.accent)}>
-          <div className="absolute inset-0 bg-black/20 transition duration-300 group-hover:bg-black/10" />
-
-          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-3">
-            <div className="rounded-sm bg-red-600 px-3 py-1 text-sm font-black uppercase tracking-[0.18em] text-white shadow-md">{brand.kicker}</div>
-            <div className="rounded-full border border-white/20 bg-black/30 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">{brand.tag}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-1 pt-3 text-center">
-        <h3 className="text-2xl font-black uppercase leading-tight text-white sm:text-3xl">{brand.name}</h3>
-        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">{brand.description}</p>
-      </div>
-    </div>
-  );
-
-  return (
-    <Reveal delay={delay}>
-      <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-        {brand.href ? (
-          <a
-            href={brand.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Ir a ${brand.name}`}
-            className="block h-full"
-            onClick={() => trackEvent('brand_click', { brand: brand.name, type: 'external' })}
-          >
-            {content}
-          </a>
-        ) : (
-          <button
-            type="button"
-            onClick={() => {
-              trackEvent('brand_click', { brand: brand.name, type: 'pending' });
-              onPendingClick?.(brand.name);
-            }}
-            aria-label={`Ver disponibilidad de ${brand.name}`}
-            className="block h-full w-full text-left"
-          >
-            {content}
-          </button>
-        )}
-      </motion.div>
-    </Reveal>
   );
 }
 
@@ -628,21 +548,17 @@ export default function App() {
           <Reveal>
             <SectionHeader
               eyebrow="Nuestras marcas"
-              title={
-                <>
-                  Marcas que
-                  <br />
-                  importamos
-                </>
-              }
-              description="Explora nuestras marcas principales en un formato visual mas limpio, directo y comercial."
+              title="Nuestras marcas"
+              description="Grupo NBG Import reune marcas especializadas para motociclistas, distribuidores y talleres de todo el Peru."
             />
           </Reveal>
 
-          <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {BRANDS.map((brand, index) => (
-              <BrandCard key={brand.id} brand={brand} delay={index * 0.08} onPendingClick={setPendingBrand} />
-            ))}
+          <div className="mt-12">
+            <BrandGrid
+              reduceMotion={reduceMotion}
+              onBrandClick={(brand, type) => trackEvent('brand_click', { brand, type })}
+              onPendingClick={setPendingBrand}
+            />
           </div>
         </section>
 
