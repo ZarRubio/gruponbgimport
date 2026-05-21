@@ -13,6 +13,7 @@ import {
   PackageSearch,
 } from 'lucide-react';
 import { BrandGrid } from './components/ui/brand-grid';
+import { WhyUsTabs } from './components/ui/why-us-tabs';
 
 const NAV_ITEMS = [
   { label: 'Marcas', href: '#marcas' },
@@ -561,6 +562,12 @@ export default function App() {
             />
           </div>
         </section>
+
+        <WhyUsTabs
+          reduceMotion={reduceMotion}
+          onTabChange={(tab, source) => trackEvent('why_us_tab_change', { tab, source })}
+          onCtaClick={(cta) => trackEvent('cta_click', { cta })}
+        />
 
         <section id="nosotros" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
