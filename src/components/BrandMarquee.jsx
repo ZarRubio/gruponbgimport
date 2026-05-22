@@ -1,37 +1,45 @@
 const rowOne = [
-  'CST TIRES',
-  'SAHM PARTS',
-  'NBG PARTS',
-  'LIMA · PERÚ',
-  'IMPORTACIÓN DIRECTA',
-  'DISTRIBUCIÓN NACIONAL',
-  'CST TIRES',
-  'SAHM PARTS',
+  { label: 'CST TIRES', logo: '/images/brands/cst-tires-logo-orange.png', logoClassName: 'h-5' },
+  { label: 'SAHM PARTS', logo: '/images/brands/sahm-logo-yellow.png' },
+  { label: 'NBG PARTS', logo: '/images/brands/nbg-parts-logo-red.png', logoClassName: 'h-7' },
+  { label: 'LIMA · PERÚ' },
+  { label: 'IMPORTACIÓN DIRECTA' },
+  { label: 'DISTRIBUCIÓN NACIONAL' },
+  { label: 'TALLERES' },
+  { label: 'DISTRIBUIDORES' },
+  { label: 'FLOTAS' },
+  { label: 'REPUESTOS' },
+  { label: 'LLANTAS' },
+  { label: 'ACCESORIOS MOTO' },
+  { label: 'COBERTURA NACIONAL' },
 ];
 
-const rowTwo = [
-  'TALLERES',
-  'DISTRIBUIDORES',
-  'FLOTAS',
-  'REPUESTOS',
-  'LLANTAS',
-  'ACCESORIOS MOTO',
-  'COBERTURA NACIONAL',
-  'TALLERES',
-];
-
-function MarqueeRow({ items, reverse = false }) {
+function MarqueeRow({ items }) {
   const loopItems = [...items, ...items];
 
   return (
     <div className="flex overflow-hidden">
-      <div className={reverse ? 'flex min-w-max animate-marquee-right' : 'flex min-w-max animate-marquee-left'}>
+      <div className="flex min-w-max animate-marquee-left">
         {loopItems.map((item, index) => (
           <span
-            key={`${item}-${index}`}
-            className="mx-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-5 py-2 text-[13px] font-medium tracking-[0.04em] text-white/60"
+            key={`${item.label}-${index}`}
+            className="mx-2 inline-flex h-10 items-center rounded-full border border-white/[0.12] bg-white/[0.065] px-5 text-[13px] font-medium tracking-[0.04em] text-white/70"
           >
-            {item}
+            {item.logo ? (
+              <>
+                <span className="sr-only">{item.label}</span>
+                <img
+                  src={item.logo}
+                  alt=""
+                  aria-hidden="true"
+                  className={`${item.logoClassName || 'h-5'} w-auto object-contain`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </>
+            ) : (
+              item.label
+            )}
           </span>
         ))}
       </div>
@@ -47,20 +55,12 @@ export function BrandMarquee() {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
         }
-        @keyframes marquee-right {
-          from { transform: translateX(-50%); }
-          to { transform: translateX(0); }
-        }
         .animate-marquee-left {
           animation: marquee-left 30s linear infinite;
         }
-        .animate-marquee-right {
-          animation: marquee-right 30s linear infinite;
-        }
       `}</style>
-      <div className="space-y-3">
+      <div>
         <MarqueeRow items={rowOne} />
-        <MarqueeRow items={rowTwo} reverse />
       </div>
     </section>
   );

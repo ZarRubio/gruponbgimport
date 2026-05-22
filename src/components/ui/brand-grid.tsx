@@ -9,6 +9,8 @@ type Brand = {
   cta: string;
   href: string;
   image: string;
+  logo?: string;
+  logoClassName?: string;
   ariaLabel: string;
   quoteValue: string;
   isFeatured?: boolean;
@@ -26,11 +28,13 @@ const brands: Brand[] = [
   {
     id: 'cst',
     name: 'CST Tires Perú',
-    category: 'Llantas para motocicletas',
-    description: 'Llantas para motos urbanas, doble propósito, scooters, mototaxis, ATV, UTV y más.',
+    category: 'Llantas para negocios',
+    description: 'Línea de llantas para talleres, tiendas y distribuidores que buscan rotación, variedad y respaldo.',
     cta: 'Visitar CST Tires',
     href: 'https://csttires.pe',
     image: '/images/brands/cst-tires-peru.png',
+    logo: '/images/brands/cst-tires-logo-orange.png',
+    logoClassName: 'h-12 sm:h-16',
     ariaLabel: 'Visitar ecommerce de CST Tires Perú',
     quoteValue: 'CST Tires Peru',
     isFeatured: true,
@@ -39,10 +43,12 @@ const brands: Brand[] = [
     id: 'sahm',
     name: 'SAHM Parts',
     category: 'Repuestos y accesorios',
-    description: 'Cámaras, carburadores, repuestos y accesorios para el mercado motero peruano.',
+    description: 'Cámaras, carburadores, repuestos y accesorios para abastecimiento comercial del mercado motero peruano.',
     cta: 'Visitar SAHM Parts',
     href: 'https://sahmparts.com',
     image: '/images/brands/sahm-parts.png',
+    logo: '/images/brands/sahm-logo-yellow.png',
+    logoClassName: 'h-12 sm:h-14',
     ariaLabel: 'Visitar ecommerce de SAHM Parts',
     quoteValue: 'SAHM Parts',
   },
@@ -50,10 +56,12 @@ const brands: Brand[] = [
     id: 'nbg',
     name: 'NBG Parts',
     category: 'Componentes para motos',
-    description: 'Productos y soluciones para talleres, distribuidores y motociclistas en todo el Perú.',
+    description: 'Productos y soluciones para talleres, distribuidores y empresas que necesitan compras recurrentes.',
     cta: 'Consultar disponibilidad',
     href: '#contacto',
     image: '/images/brands/nbg-parts.png',
+    logo: '/images/brands/nbg-parts-logo-red.png',
+    logoClassName: 'h-16 sm:h-20',
     ariaLabel: 'Consultar disponibilidad de NBG Parts',
     quoteValue: 'NBG Parts',
     isPending: true,
@@ -99,7 +107,7 @@ function BrandCard({
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={cn(
-        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/[0.06] shadow-2xl shadow-black/20 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#230000]',
+        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B]',
         isFeatured && 'lg:row-span-2 lg:min-h-[620px]'
       )}
     >
@@ -111,7 +119,7 @@ function BrandCard({
         loading="lazy"
         decoding="async"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/72 to-[#230000]/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/74 to-[#0B0B0B]/10" />
       <div className="absolute inset-0 bg-red-600/0 transition duration-300 group-hover:bg-red-600/12" />
 
       <div className="relative z-10 mt-auto flex w-full flex-col p-6 sm:p-7">
@@ -119,9 +127,23 @@ function BrandCard({
           {brand.category}
         </div>
 
-        <h3 className={cn('font-black uppercase leading-none text-white', isFeatured ? 'text-4xl sm:text-5xl' : 'text-3xl')}>
-          {brand.name}
-        </h3>
+        {brand.logo ? (
+          <>
+            <h3 className="sr-only">{brand.name}</h3>
+            <img
+              src={brand.logo}
+              alt=""
+              aria-hidden="true"
+              className={cn('mb-1 w-auto object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)]', brand.logoClassName)}
+              loading="lazy"
+              decoding="async"
+            />
+          </>
+        ) : (
+          <h3 className={cn('font-black uppercase leading-none text-white', isFeatured ? 'text-4xl sm:text-5xl' : 'text-3xl')}>
+            {brand.name}
+          </h3>
+        )}
         <p className={cn('mt-4 max-w-xl leading-7 text-white/80', isFeatured ? 'text-base sm:text-lg' : 'text-sm')}>
           {brand.description}
         </p>
@@ -145,7 +167,7 @@ function BrandCard({
         <button
           type="button"
           onClick={() => onQuoteClick?.(brand.quoteValue)}
-          className="mt-2 inline-flex w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-xs text-white/60 underline underline-offset-[3px] transition hover:text-white"
+          className="mt-2 inline-flex w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-xs text-white/70 underline underline-offset-[3px] transition hover:text-white"
         >
           Cotizar esta marca →
         </button>

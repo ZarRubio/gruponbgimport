@@ -3,13 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
   X,
-  ArrowRight,
-  CheckCircle2,
   MessageCircle,
   Mail,
   Phone,
-  ShieldCheck,
-  Globe2,
 } from 'lucide-react';
 import { BrandGrid } from './components/ui/brand-grid';
 import { WhyUsTabs } from './components/ui/why-us-tabs';
@@ -20,23 +16,18 @@ import { BrandMarquee } from './components/BrandMarquee';
 import { ComoFunciona } from './components/ComoFunciona';
 import { Testimonios } from './components/Testimonios';
 import { FAQ } from './components/FAQ';
+import { SolucionesNegocios } from './components/SolucionesNegocios';
+import { PortafolioComercial } from './components/PortafolioComercial';
+import { PruebaComercial } from './components/PruebaComercial';
 
 const NAV_ITEMS = [
+  { label: 'Soluciones', href: '#soluciones' },
   { label: 'Marcas', href: '#marcas' },
-  { label: 'Nosotros', href: '#nosotros' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
-const FEATURES = [
-  'Importación directa desde fabricante',
-  'Marcas reconocidas internacionalmente',
-  'Asesoría técnica especializada',
-  'Distribución a nivel nacional',
-  'Garantía y respaldo en los productos',
-];
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[+]?[0-9\s-]{7,20}$/;
+const WHATSAPP_PHONE = '51956701218';
 
 function validateField(name, value) {
   const trimmed = value.trim();
@@ -50,17 +41,21 @@ function validateField(name, value) {
     }
   }
 
-  if (name === 'email') {
+  if (name === 'phone') {
     if (!trimmed) {
-      return 'Ingresa tu correo.';
+      return 'Ingresa tu celular o WhatsApp.';
     }
-    if (!EMAIL_PATTERN.test(trimmed)) {
-      return 'Correo no válido.';
+    if (!PHONE_PATTERN.test(trimmed)) {
+      return 'Teléfono no válido.';
     }
   }
 
-  if (name === 'phone' && trimmed && !PHONE_PATTERN.test(trimmed)) {
-    return 'Teléfono no válido.';
+  if (name === 'businessType' && !trimmed) {
+    return 'Selecciona el tipo de negocio.';
+  }
+
+  if (name === 'productInterest' && !trimmed) {
+    return 'Selecciona un producto de interés.';
   }
 
   if (name === 'message' && trimmed && trimmed.length < 10) {
@@ -87,11 +82,26 @@ function cn(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+function buildWhatsAppQuoteUrl(formData) {
+  const message = [
+    'Hola, quiero cotizar con Grupo NBG Import.',
+    '',
+    `Nombre y empresa: ${formData.name}`,
+    `Celular / WhatsApp: ${formData.phone}`,
+    `Tipo de negocio: ${formData.businessType}`,
+    `Producto de interés: ${formData.productInterest}`,
+    '',
+    `Mensaje: ${formData.message}`,
+  ].join('\n');
+
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
 function Button({ asChild = false, className = '', variant = 'default', size = 'default', children, ...props }) {
   const variantClass =
     variant === 'outline'
-      ? 'border border-red-900/30 bg-[#0a0000]/40 text-white hover:bg-[#1a0000]'
-      : 'bg-red-600 text-white hover:bg-red-500';
+      ? 'border border-white/20 bg-transparent text-white hover:bg-white/[0.06]'
+      : 'bg-[#E82127] text-white hover:bg-[#FF2A2A]';
   const sizeClass = size === 'lg' ? 'h-12 px-7 text-sm' : 'h-10 px-5 text-xs';
   const classes = cn(
     'inline-flex items-center justify-center rounded-full font-bold uppercase tracking-[0.22em] transition-all duration-200 hover:-translate-y-px active:scale-[0.98]',
@@ -118,7 +128,7 @@ function Button({ asChild = false, className = '', variant = 'default', size = '
 }
 
 function Card({ className = '', children }) {
-  return <div className={cn('rounded-2xl border border-red-900/30 bg-[#0a0000]/70', className)}>{children}</div>;
+  return <div className={cn('rounded-2xl border border-white/[0.12] bg-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.32)]', className)}>{children}</div>;
 }
 
 function CardContent({ className = '', children }) {
@@ -129,7 +139,8 @@ function Input({ className = '', ...props }) {
   return (
     <input
       className={cn(
-        'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.05] px-4 text-white placeholder:text-white/35',
+        'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white placeholder:text-white/40',
+        'focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
         className
       )}
       {...props}
@@ -141,7 +152,8 @@ function Textarea({ className = '', ...props }) {
   return (
     <textarea
       className={cn(
-        'w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.05] px-4 py-3 text-white placeholder:text-white/35',
+        'w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 py-3 text-white placeholder:text-white/40',
+        'focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
         className
       )}
       {...props}
@@ -190,14 +202,14 @@ export default function App() {
   const [pendingBrand, setPendingBrand] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
-    brand: '',
+    businessType: '',
+    productInterest: '',
     message: '',
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
-  const redGlassCard = 'border-red-900/25 bg-[rgba(30,0,0,0.6)] backdrop-blur-md';
+  const redGlassCard = 'border-white/[0.12] bg-white/[0.06] backdrop-blur-md';
   const scrollMilestonesRef = useRef({
     25: false,
     50: false,
@@ -301,17 +313,17 @@ export default function App() {
 
     const nextTouched = {
       name: true,
-      email: true,
       phone: true,
-      brand: true,
+      businessType: true,
+      productInterest: true,
       message: true,
     };
 
     const nextErrors = {
       name: validateField('name', formData.name),
-      email: validateField('email', formData.email),
       phone: validateField('phone', formData.phone),
-      brand: '',
+      businessType: validateField('businessType', formData.businessType),
+      productInterest: validateField('productInterest', formData.productInterest),
       message: validateField('message', formData.message),
     };
 
@@ -328,22 +340,19 @@ export default function App() {
       return;
     }
 
-    const subject = encodeURIComponent(`Consulta web de ${formData.name || 'cliente'}`);
-    const body = encodeURIComponent(`Nombre: ${formData.name}\nCorreo: ${formData.email}\nTeléfono: ${formData.phone}\nMarca: ${formData.brand || 'No especificada'}\n\nMensaje:\n${formData.message}`);
-
-    trackEvent('lead_form_submit', { source: 'contact_form', channel: 'mailto' });
-    window.location.href = `mailto:marketing@nbg.pe?subject=${subject}&body=${body}`;
+    trackEvent('lead_form_submit', { source: 'contact_form', channel: 'whatsapp' });
+    window.open(buildWhatsAppQuoteUrl(formData), '_blank', 'noopener,noreferrer');
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
   };
 
   const handleBrandQuote = (brand) => {
-    setFormData((prev) => ({ ...prev, brand }));
+    setFormData((prev) => ({ ...prev, productInterest: brand }));
     document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#1a0000] text-white">
+    <div className="min-h-screen overflow-x-hidden bg-[#0B0B0B] text-white">
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
@@ -392,7 +401,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-red-900/30 bg-[#0a0000]/80 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0B0B0B]/85 md:hidden"
               aria-label="Abrir menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -409,7 +418,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               id="mobile-nav"
-              className="border-t border-red-500/10 bg-[#0a0000]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
+              className="border-t border-red-500/10 bg-[#0B0B0B]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
             >
               <div className="flex flex-col gap-3">
                 {NAV_ITEMS.map((item) => (
@@ -424,7 +433,7 @@ export default function App() {
                       'rounded-2xl border px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition',
                       activeSection === item.href
                         ? 'border-red-500/40 bg-red-500/10 text-red-300'
-                        : 'border-red-900/30 text-white/80 hover:border-red-500/40 hover:text-red-400'
+                        : 'border-white/10 text-white/80 hover:border-red-500/40 hover:text-red-400'
                     )}
                   >
                     {item.label}
@@ -450,20 +459,21 @@ export default function App() {
       <main>
         <HeroNBG onAction={(cta) => trackEvent('cta_click', { cta })} />
         <BrandMarquee />
+        <SolucionesNegocios />
 
         <section
           id="marcas"
-          className="relative overflow-hidden px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28"
+          className="nbg-ambient relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
           style={{
-            background: 'linear-gradient(180deg, #4A0000 0%, #2C1010 25%, #1a0000 60%, #0f0000 100%)',
+            background: 'linear-gradient(180deg, #111111 0%, #140909 52%, #0B0B0B 100%)',
           }}
         >
           <CurvedLines />
           <Reveal className="relative z-10 mx-auto max-w-7xl">
             <SectionHeader
-              eyebrow="Nuestras marcas"
-              title="Nuestras marcas"
-              description="Grupo NBG Import reúne marcas especializadas para motociclistas, distribuidores y talleres de todo el Perú."
+              eyebrow="Marcas importadas"
+              title="Marcas importadas para un portafolio más competitivo"
+              description="Representamos y comercializamos líneas especializadas para negocios que buscan calidad, rotación y respaldo."
             />
           </Reveal>
 
@@ -482,114 +492,54 @@ export default function App() {
             }}
           />
         </section>
-        <div
-          aria-hidden="true"
-          className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
-        />
+        <PortafolioComercial />
 
-        <ComoFunciona />
+        <section className="nbg-ambient overflow-hidden bg-[#0B0B0B] px-4 py-14 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Cotización comercial</p>
+              <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
+                ¿Buscas abastecer tu taller, tienda o distribuidora?
+              </h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[#B8B8B8]">
+                Cuéntanos qué línea necesitas y un asesor te orienta con disponibilidad, marcas y condiciones comerciales.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">
+              <Button asChild size="lg" className="bg-[#E82127] hover:bg-[#FF2A2A]">
+                <a
+                  href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('cta_click', { cta: 'cta_intermedio_whatsapp' })}
+                >
+                  Cotizar por WhatsApp
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <a href="#contacto" onClick={() => trackEvent('cta_click', { cta: 'cta_intermedio_formulario' })}>
+                  Formulario
+                </a>
+              </Button>
+            </div>
+          </Reveal>
+        </section>
 
         <WhyUsTabs
           reduceMotion={reduceMotion}
           onTabChange={(tab, source) => trackEvent('why_us_tab_change', { tab, source })}
           onCtaClick={(cta) => trackEvent('cta_click', { cta })}
         />
-        <div
-          aria-hidden="true"
-          className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
-        />
 
-        <section id="nosotros" className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-            <Reveal>
-              <div className="relative mx-auto w-full max-w-xl">
-                <div className="rounded-[2rem] border border-red-900/30 bg-[#0a0000] p-8 shadow-2xl shadow-black/20">
-                  <p className="text-center text-2xl font-black uppercase leading-tight text-white sm:text-4xl">
-                    Importación
-                    <br />
-                    directa
-                    <br />
-                    de calidad
-                  </p>
-                </div>
-
-                <motion.div
-                  initial={{ y: 8 }}
-                  animate={{ y: [8, -8, 8] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="relative ml-auto mt-4 w-fit rounded-[1.75rem] bg-red-600 px-8 py-7 text-center shadow-2xl shadow-red-950/30"
-                >
-                  <div className="text-4xl font-black text-white sm:text-6xl">100%</div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-red-100/80">Importación garantizada</div>
-                </motion.div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <SectionHeader
-                eyebrow="Quienes somos"
-                title={
-                  <>
-                    Expertos en
-                    <br />
-                    importación
-                  </>
-                }
-                description="Grupo NBG Import es una empresa especializada en importación y distribución de repuestos automotrices. Esta versión mejora la jerarquía visual, la lectura del contenido y la presentación comercial del sitio original."
-              />
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {[
-                  {
-                    icon: ShieldCheck,
-                    title: 'Respaldo',
-                    text: 'Productos con enfoque en calidad, soporte y confianza comercial.',
-                  },
-                  {
-                    icon: Globe2,
-                    title: 'Cobertura',
-                    text: 'Capacidad para atender oportunidades en distintos puntos del país.',
-                  },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Card key={item.title} className="rounded-[1.75rem]">
-                      <CardContent className="p-5">
-                        <Icon size={20} strokeWidth={1.5} className="text-red-400" />
-                        <h3 className="mt-4 text-lg font-black uppercase text-white">{item.title}</h3>
-                        <p className="mt-2 text-sm leading-7 text-white/70">{item.text}</p>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-
-              <div className="mt-8 grid gap-3">
-                {FEATURES.map((feature) => (
-                  <div key={feature} className="flex items-start gap-3 rounded-2xl border border-red-900/30 bg-[#0a0000]/60 px-4 py-3">
-                    <CheckCircle2 size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-400" />
-                    <span className="text-sm leading-7 text-white/80">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-        <div
-          aria-hidden="true"
-          className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
-        />
-
+        <ComoFunciona />
+        <PruebaComercial />
         <Testimonios />
         <FAQ />
 
         <section
           id="contacto"
-          className="relative border-t border-white/10"
-          style={{ background: 'linear-gradient(180deg, #1a0000 0%, #3D0000 50%, #6B0000 100%)' }}
+          className="nbg-ambient relative overflow-hidden border-t border-white/10"
+          style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #1A0B0B 55%, #120909 100%)' }}
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
@@ -602,7 +552,7 @@ export default function App() {
                     cotizar?
                   </>
                 }
-                description="Escríbenos y un asesor podrá ayudarte con marcas, repuestos, categorías o una consulta comercial más específica."
+                description="También puedes escribirnos directamente por WhatsApp para una atención más rápida."
               />
 
               <div className="mt-8 grid gap-4">
@@ -662,13 +612,13 @@ export default function App() {
               <Card className={cn('rounded-[2rem] shadow-2xl shadow-black/20', redGlassCard)}>
                 <CardContent className="p-6 sm:p-8">
                   <p className="mb-5 text-sm text-white/70" aria-live="polite">
-                    {submitted ? 'Abriendo tu correo con la consulta cargada.' : 'Completa tus datos y te ayudamos a cotizar rápido.'}
+                    {submitted ? 'Abriendo WhatsApp con tu cotización cargada.' : 'Completa tus datos y te ayudamos a cotizar rápido.'}
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label htmlFor="name" className="sr-only">
-                          Nombre completo
+                          Nombre y empresa
                         </label>
                         <Input
                           id="name"
@@ -677,7 +627,7 @@ export default function App() {
                           value={formData.name}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="Nombre completo"
+                          placeholder="Nombre y empresa"
                           aria-invalid={Boolean(errors.name)}
                           aria-describedby={errors.name ? 'name-error' : undefined}
                           className={errors.name ? 'border-red-500/70' : ''}
@@ -690,81 +640,108 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label htmlFor="email" className="sr-only">
-                          Correo electrónico
+                        <label htmlFor="phone" className="sr-only">
+                          Celular o WhatsApp
                         </label>
                         <Input
-                          id="email"
+                          id="phone"
                           required
-                          name="email"
-                          value={formData.email}
+                          name="phone"
+                          value={formData.phone}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          type="email"
-                          placeholder="Correo electrónico"
-                          aria-invalid={Boolean(errors.email)}
-                          aria-describedby={errors.email ? 'email-error' : undefined}
-                          className={errors.email ? 'border-red-500/70' : ''}
+                          type="tel"
+                          placeholder="Celular / WhatsApp"
+                          aria-invalid={Boolean(errors.phone)}
+                          aria-describedby={errors.phone ? 'phone-error' : undefined}
+                          className={errors.phone ? 'border-red-500/70' : ''}
                         />
-                        {errors.email && touched.email ? (
-                          <p id="email-error" className="mt-2 text-xs text-red-300">
-                            {errors.email}
+                        {errors.phone && touched.phone ? (
+                          <p id="phone-error" className="mt-2 text-xs text-red-300">
+                            {errors.phone}
                           </p>
                         ) : null}
                       </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="phone" className="sr-only">
-                        Teléfono o WhatsApp
-                      </label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        type="tel"
-                        placeholder="Teléfono / WhatsApp"
-                        aria-invalid={Boolean(errors.phone)}
-                        aria-describedby={errors.phone ? 'phone-error' : undefined}
-                        className={errors.phone ? 'border-red-500/70' : ''}
-                      />
-                      {errors.phone && touched.phone ? (
-                        <p id="phone-error" className="mt-2 text-xs text-red-300">
-                          {errors.phone}
-                        </p>
-                      ) : null}
-                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="businessType" className="sr-only">
+                          Tipo de negocio
+                        </label>
+                        <select
+                          id="businessType"
+                          required
+                          name="businessType"
+                          value={formData.businessType}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          aria-invalid={Boolean(errors.businessType)}
+                          aria-describedby={errors.businessType ? 'businessType-error' : undefined}
+                          className={cn(
+                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+                            errors.businessType ? 'border-red-500/70' : ''
+                          )}
+                        >
+                          <option className="bg-[#0B0B0B]" value="">
+                            Tipo de negocio
+                          </option>
+                          <option className="bg-[#0B0B0B]" value="Taller">
+                            Taller
+                          </option>
+                          <option className="bg-[#0B0B0B]" value="Tienda">
+                            Tienda
+                          </option>
+                          <option className="bg-[#0B0B0B]" value="Distribuidor">
+                            Distribuidor
+                          </option>
+                          <option className="bg-[#0B0B0B]" value="Empresa">
+                            Empresa
+                          </option>
+                          <option className="bg-[#0B0B0B]" value="Otro">
+                            Otro
+                          </option>
+                        </select>
+                        {errors.businessType && touched.businessType ? (
+                          <p id="businessType-error" className="mt-2 text-xs text-red-300">
+                            {errors.businessType}
+                          </p>
+                        ) : null}
+                      </div>
 
-                    <div>
-                      <label htmlFor="brand" className="sr-only">
-                        Marca de interés
-                      </label>
-                      <select
-                        id="brand"
-                        name="brand"
-                        value={formData.brand}
+                      <div>
+                        <label htmlFor="productInterest" className="sr-only">
+                          Producto de interés
+                        </label>
+                        <select
+                          id="productInterest"
+                          required
+                          name="productInterest"
+                          value={formData.productInterest}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className="h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.05] px-4 text-white"
-                      >
-                        <option className="bg-[#0a0000]" value="">
-                          Selecciona una marca
-                        </option>
-                        <option className="bg-[#0a0000]" value="CST Tires Peru">
-                          CST Tires Peru
-                        </option>
-                        <option className="bg-[#0a0000]" value="SAHM Parts">
-                          SAHM Parts
-                        </option>
-                        <option className="bg-[#0a0000]" value="NBG Parts">
-                          NBG Parts
-                        </option>
-                        <option className="bg-[#0a0000]" value="Otra / No sé">
-                          Otra / No sé
-                        </option>
-                      </select>
+                          aria-invalid={Boolean(errors.productInterest)}
+                          aria-describedby={errors.productInterest ? 'productInterest-error' : undefined}
+                          className={cn(
+                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+                            errors.productInterest ? 'border-red-500/70' : ''
+                          )}
+                        >
+                          <option className="bg-[#0B0B0B]" value="">
+                            Producto de interés
+                          </option>
+                          {['Llantas', 'Cámaras', 'Repuestos', 'Rodajes', 'Carburadores', 'Accesorios', 'CST Tires Peru', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
+                            <option key={option} className="bg-[#0B0B0B]" value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.productInterest && touched.productInterest ? (
+                          <p id="productInterest-error" className="mt-2 text-xs text-red-300">
+                            {errors.productInterest}
+                          </p>
+                        ) : null}
+                      </div>
                     </div>
 
                     <div>
@@ -778,7 +755,7 @@ export default function App() {
                         value={formData.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="¿Qué repuestos, categorías o marcas necesitas?"
+                        placeholder="Cuéntanos qué producto, volumen o línea necesitas cotizar."
                         aria-invalid={Boolean(errors.message)}
                         aria-describedby={errors.message ? 'message-error' : undefined}
                         className={errors.message ? 'border-red-500/70' : ''}
@@ -793,11 +770,11 @@ export default function App() {
                     <Button
                       type="submit"
                       className={cn(
-                        'h-12 w-full rounded-2xl text-sm tracking-[0.24em]',
-                        submitted ? 'bg-emerald-600 hover:bg-emerald-600' : 'bg-red-600 hover:bg-red-500'
+                        'h-12 w-full rounded-2xl text-sm tracking-[0.18em]',
+                        submitted ? 'bg-emerald-600 hover:bg-emerald-600' : 'bg-[#E82127] hover:bg-[#FF2A2A]'
                       )}
                     >
-                      {submitted ? 'Abrir correo' : 'Enviar consulta'}
+                      {submitted ? 'Abrir WhatsApp' : 'Enviar cotización'}
                     </Button>
                   </form>
                 </CardContent>
@@ -808,7 +785,7 @@ export default function App() {
         <div
           aria-hidden="true"
           className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #6B0000, #3D0000)' }}
+          style={{ background: 'linear-gradient(to bottom, #120909, #080808)' }}
         />
       </main>
 
@@ -826,7 +803,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.96 }}
               transition={{ duration: 0.2 }}
-              className="w-full max-w-md rounded-[2rem] border border-red-900/30 bg-[#0a0000] p-7 shadow-2xl shadow-black/40"
+              className="w-full max-w-md rounded-[2rem] border border-white/[0.12] bg-[#0B0B0B] p-7 shadow-2xl shadow-black/35"
               onClick={(event) => event.stopPropagation()}
             >
               <div className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Consultar disponibilidad</div>
@@ -845,36 +822,43 @@ export default function App() {
       </AnimatePresence>
 
       <footer
-        className="relative border-t border-white/10"
-        style={{ background: 'linear-gradient(180deg, #1a0000 0%, #0D0000 50%, #050000 100%)' }}
+        className="relative overflow-hidden border-t border-white/10"
+        style={{ background: 'linear-gradient(180deg, #120909 0%, #0B0B0B 55%, #070707 100%)' }}
       >
-        <div className="mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 border-b border-red-900/30 pb-10 md:grid-cols-[1.1fr_0.9fr_1fr]">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:56px_56px]" />
+        <div className="pointer-events-none absolute -right-28 top-10 h-72 w-72 rounded-full bg-[#E82127]/10 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
+          <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.15fr_0.85fr_1.2fr]">
             <div>
               <img
                 src="/images/brand/nbg-logo-white.png"
                 alt="Grupo NBG Import"
-                className="h-24 w-auto object-contain"
+                className="h-20 w-auto object-contain"
                 loading="lazy"
                 decoding="async"
               />
-              <p className="mt-4 max-w-sm text-sm leading-7 text-white/70">
-                Importación y distribución de repuestos automotrices con enfoque comercial, tiempos de respuesta rápidos y respaldo para cada línea.
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#B8B8B8]">
+                Importación B2B de repuestos, llantas, cámaras y motopartes para talleres, tiendas, distribuidores y empresas del sector moto en Perú.
               </p>
-              <div className="mt-5 inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">
-                Atención comercial activa
+              <div className="mt-5 grid max-w-md grid-cols-2 gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
+                {['Importación directa', 'Atención B2B', 'Despacho nacional', 'Portafolio moto'].map((item) => (
+                  <span key={item} className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-2">
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Navegación</h4>
-              <ul className="mt-4 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Secciones</h4>
+              <ul className="mt-5 grid gap-3">
                 {NAV_ITEMS.map((item) => (
                   <li key={`footer-${item.href}`}>
                     <a
                       href={item.href}
                       onClick={() => trackEvent('nav_click', { target: item.href, location: 'footer' })}
-                      className="text-sm font-medium text-white/80 transition hover:text-red-300"
+                      className="inline-flex min-h-11 items-center text-sm font-medium text-[#B8B8B8] transition hover:text-red-300"
                     >
                       {item.label}
                     </a>
@@ -884,42 +868,46 @@ export default function App() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Contacto directo</h4>
-              <div className="mt-4 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Canal comercial</h4>
+              <p className="mt-4 text-sm leading-7 text-[#B8B8B8]">
+                Para una respuesta más rápida, envíanos tu requerimiento por WhatsApp y un asesor revisará disponibilidad y condiciones.
+              </p>
+              <div className="mt-5 grid gap-3">
                 <a
-                  href="https://wa.me/51956701218"
+                  href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackEvent('contact_click', { channel: 'footer_whatsapp' })}
-                  className="flex items-center gap-3 rounded-xl border border-red-900/30 bg-[#0a0000]/70 px-3 py-2.5 text-sm text-white/80 transition hover:border-red-500/40 hover:text-red-300"
+                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#E82127] px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#FF2A2A] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
                 >
-                  <MessageCircle size={20} strokeWidth={1.5} className="text-red-400" />
-                  <span>+51 956 701 218</span>
+                  <MessageCircle size={20} strokeWidth={1.5} className="text-white" />
+                  <span>Cotizar por WhatsApp</span>
                 </a>
 
-                <a
-                  href="mailto:marketing@nbg.pe"
-                  onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
-                  className="flex items-center gap-3 rounded-xl border border-red-900/30 bg-[#0a0000]/70 px-3 py-2.5 text-sm text-white/80 transition hover:border-red-500/40 hover:text-red-300"
-                >
-                  <Mail size={20} strokeWidth={1.5} className="text-red-400" />
-                  <span>marketing@nbg.pe</span>
-                </a>
-
-                <a
-                  href="#contacto"
-                  onClick={() => trackEvent('cta_click', { cta: 'footer_cotizar' })}
-                  className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
-                >
-                  Cotizar ahora
-                  <ArrowRight size={18} strokeWidth={1.5} />
-                </a>
+                <div className="grid gap-2 rounded-2xl border border-white/12 bg-white/[0.06] p-4 text-sm text-[#B8B8B8]">
+                  <a
+                    href="tel:+51956701218"
+                    onClick={() => trackEvent('contact_click', { channel: 'footer_phone' })}
+                    className="inline-flex min-h-10 items-center gap-3 transition hover:text-red-300"
+                  >
+                    <Phone size={18} strokeWidth={1.5} className="text-red-400" />
+                    <span>+51 956 701 218</span>
+                  </a>
+                  <a
+                    href="mailto:marketing@nbg.pe"
+                    onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
+                    className="inline-flex min-h-10 items-center gap-3 transition hover:text-red-300"
+                  >
+                    <Mail size={18} strokeWidth={1.5} className="text-red-400" />
+                    <span>marketing@nbg.pe</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-            <p className="text-xs uppercase tracking-[0.16em] text-white/40">
+          <div className="mt-5 flex flex-col gap-3 pb-16 text-center sm:flex-row sm:items-center sm:justify-between sm:pb-0 sm:text-left">
+            <p className="text-xs uppercase tracking-[0.16em] text-white/50">
               {currentYear} Grupo NBG Import. Todos los derechos reservados.
             </p>
             <a

@@ -46,7 +46,7 @@ function Star() {
 
 export function Testimonios() {
   return (
-    <section className="px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #1a0000 0%, #2C1010 50%, #1a0000 100%)' }}>
+    <section className="nbg-ambient overflow-hidden px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #120909 50%, #0B0B0B 100%)' }}>
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
@@ -65,7 +65,7 @@ export function Testimonios() {
           {testimonials.map((item) => (
             <article
               key={item.name}
-              className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red-600/30"
+              className="rounded-2xl border border-white/[0.12] bg-white/[0.06] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red-600/30"
             >
               <div className="flex gap-1">
                 {Array.from({ length: item.rating }).map((_, index) => (
@@ -80,7 +80,7 @@ export function Testimonios() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-white">{item.name}</h3>
-                  <p className="text-xs text-white/50">
+                  <p className="text-xs text-[#B8B8B8]">
                     {item.role} · {item.company}
                   </p>
                   <p className="mt-0.5 text-[11px] text-red-500">{item.city}</p>

@@ -104,7 +104,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
     <section
       className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #1a0000 0%, #2C1010 40%, #3D0808 70%, #1a0000 100%)',
+        background: 'linear-gradient(180deg, #0B0B0B 0%, #120909 100%)',
       }}
     >
       <CurvedLines />
@@ -112,17 +112,17 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
         <div className="mb-10 max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
             <span className="h-px w-10 bg-white/60" />
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">Ventajas comerciales</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">Ventajas comerciales</span>
           </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
-            ¿Por qué elegir Grupo NBG Import?
+          <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Un aliado importador para hacer crecer tu negocio
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-            Unimos importación, red comercial y conocimiento técnico para atender al mercado motero peruano con respaldo.
+            Combinamos experiencia comercial, portafolio especializado y atención directa para ayudarte a comprar mejor.
           </p>
         </div>
 
-        <div className="rounded-[2rem] border border-white/20 bg-white/[0.055] p-4 shadow-2xl shadow-black/20 backdrop-blur sm:p-5">
+        <div className="rounded-[2rem] border border-white/[0.12] bg-white/[0.06] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur sm:p-5">
           {showSwipeHint ? (
             <p className="mb-3 text-[11px] text-white/40 md:hidden">Desliza para ver más →</p>
           ) : null}
@@ -150,13 +150,13 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                     'flex min-w-[250px] items-center gap-3 rounded-[1.35rem] border px-4 py-4 text-left transition md:min-w-0 md:w-full',
                     selected
                       ? 'border-red-600/40 bg-red-600/20 font-semibold text-white shadow-lg shadow-red-950/20'
-                      : 'border-white/[0.08] bg-white/[0.04] text-white/55 hover:bg-white/[0.08]'
+                      : 'border-white/[0.12] bg-white/[0.06] text-white/70 hover:bg-white/[0.09]'
                   )}
                 >
                   <span
                     className={cn(
                       'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border',
-                      selected ? 'border-red-600/40 bg-red-600/20 text-white' : 'border-white/[0.08] bg-white/[0.04] text-white/55'
+                      selected ? 'border-red-600/40 bg-red-600/20 text-white' : 'border-white/[0.12] bg-white/[0.06] text-white/70'
                     )}
                   >
                     <Icon size={18} strokeWidth={1.5} aria-hidden="true" />
@@ -190,7 +190,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             id={`${activeTab.id}-panel`}
             role="tabpanel"
             aria-labelledby={`${activeTab.id}-tab`}
-            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-white/20 bg-[#230000]/70"
+            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-[#0B0B0B]/82"
           >
             <img
               src={activeTab.image}
@@ -199,8 +199,8 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
               loading="lazy"
               decoding="async"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#230000] via-[#230000]/82 to-[#230000]/18" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/25 to-[#230000]/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/80 to-[#0B0B0B]/16" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/22 to-[#0B0B0B]/8" />
             <div className="absolute inset-0 bg-red-950/10" />
 
             <div className="relative z-10 grid min-h-[560px] lg:grid-cols-[0.85fr_1.15fr]">
