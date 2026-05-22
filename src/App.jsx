@@ -10,10 +10,10 @@ import {
   Phone,
   ShieldCheck,
   Globe2,
-  PackageSearch,
 } from 'lucide-react';
 import { BrandGrid } from './components/ui/brand-grid';
 import { WhyUsTabs } from './components/ui/why-us-tabs';
+import { HeroNBG } from './components/HeroNBG';
 
 const NAV_ITEMS = [
   { label: 'Marcas', href: '#marcas' },
@@ -38,18 +38,6 @@ const TICKER = [
   'Grupo NBG Import',
   'Cobertura nacional',
   'Asesoria tecnica',
-];
-
-const STATS = [
-  { value: '3+', label: 'Marcas lideres' },
-  { value: '100%', label: 'Importacion directa' },
-  { value: 'Peru', label: 'Cobertura comercial' },
-];
-
-const CONTACT_PILLS = [
-  { label: 'Respuesta rapida', value: '< 1h habil' },
-  { label: 'Canal principal', value: 'WhatsApp' },
-  { label: 'Atencion', value: 'Lun - Sab' },
 ];
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -145,10 +133,6 @@ function Input({ className = '', ...props }) {
 
 function Textarea({ className = '', ...props }) {
   return <textarea className={cn('w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 placeholder:text-slate-500', className)} {...props} />;
-}
-
-function Badge({ className = '', children }) {
-  return <span className={cn('inline-flex items-center rounded-full px-4 py-1.5 text-[11px] uppercase tracking-[0.28em]', className)}>{children}</span>;
 }
 
 function Reveal({ children, delay = 0, className = '' }) {
@@ -336,8 +320,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,68,68,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(239,68,68,0.08),transparent_24%)]" />
+    <div className="min-h-screen overflow-x-hidden bg-[#230000] text-slate-100">
+      <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(180deg,#9f0000_0%,#9f3d3d_22%,#8b5f5f_48%,#4a1717_77%,#230000_100%)]" />
       <div className="pointer-events-none fixed inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:56px_56px]" />
 
       <header
@@ -347,8 +331,12 @@ export default function App() {
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#inicio" className="text-xl font-black uppercase tracking-[0.25em] sm:text-2xl">
-            Grupo <span className="text-red-500">NBG</span> Import
+          <a href="#inicio" className="flex items-center" aria-label="Grupo NBG Import">
+            <img
+              src="/images/brand/nbg-logo-white-extracted.png"
+              alt=""
+              className="h-12 w-auto object-contain"
+            />
           </a>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -436,99 +424,9 @@ export default function App() {
       </header>
 
       <main>
-        <section id="inicio" className="relative">
-          <div className="mx-auto grid min-h-screen max-w-7xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:pt-36">
-            <Reveal>
-              <div>
-                <Badge className="mb-5 border border-red-500/20 bg-red-500/10 text-red-300">Importacion de repuestos</Badge>
+        <HeroNBG onAction={(cta) => trackEvent('cta_click', { cta })} />
 
-                <h1 className="text-5xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl lg:text-[7rem]">
-                  <span className="text-red-500">Grupo</span>
-                  <br />
-                  <span className="text-white">NBG</span>
-                  <br />
-                  <span className="text-transparent [-webkit-text-stroke:1px_rgb(226_232_240)]">Import</span>
-                </h1>
-
-                <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
-                  Distribuimos marcas lideres en repuestos y accesorios de importacion para el sector automotriz peruano, con enfoque en calidad, respaldo y atencion comercial agil.
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {CONTACT_PILLS.map((pill) => (
-                    <span key={pill.label} className="rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-300">
-                      {pill.label}: <span className="text-red-300">{pill.value}</span>
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Button asChild size="lg">
-                    <a href="#marcas" onClick={() => trackEvent('cta_click', { cta: 'hero_ver_marcas' })}>
-                      Ver marcas
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-
-                  <Button asChild size="lg" variant="outline">
-                    <a href="#contacto" onClick={() => trackEvent('cta_click', { cta: 'hero_contactarnos' })}>
-                      Contactarnos
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="grid gap-4">
-                <Card className="overflow-hidden rounded-[2rem] border-red-500/10 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 shadow-2xl shadow-red-950/20">
-                  <CardContent className="p-6 sm:p-7">
-                    <div className="mb-5 flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Respaldo comercial</p>
-                        <h3 className="mt-2 text-2xl font-black uppercase text-white sm:text-3xl">Importacion confiable</h3>
-                      </div>
-                      <ShieldCheck className="h-9 w-9 text-red-400" />
-                    </div>
-
-                    <div className="grid gap-3 sm:grid-cols-3">
-                      {STATS.map((item) => (
-                        <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                          <div className="text-2xl font-black text-red-400">{item.value}</div>
-                          <div className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-400">{item.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Card className="rounded-[2rem]">
-                    <CardContent className="p-6">
-                      <PackageSearch className="h-8 w-8 text-red-400" />
-                      <h4 className="mt-4 text-xl font-black uppercase text-white">Catalogo multimarca</h4>
-                      <p className="mt-2 text-sm leading-7 text-slate-300">
-                        Una propuesta mas clara y ordenada para mostrar lineas, categorias y beneficios de cada marca.
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="rounded-[2rem]">
-                    <CardContent className="p-6">
-                      <Globe2 className="h-8 w-8 text-red-400" />
-                      <h4 className="mt-4 text-xl font-black uppercase text-white">Presencia comercial</h4>
-                      <p className="mt-2 text-sm leading-7 text-slate-300">
-                        Diseno preparado para una presentacion mas moderna, profesional y adaptable a desktop y movil.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="border-y border-red-500/10 bg-red-600 py-4">
+        <section className="relative border-y border-red-950/40 bg-black py-4">
           <div className="overflow-hidden whitespace-nowrap">
             <motion.div
               className="flex w-max gap-10 px-4"
@@ -545,7 +443,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="marcas" className="mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28">
+        <section id="marcas" className="relative mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28">
           <Reveal>
             <SectionHeader
               eyebrow="Nuestras marcas"
@@ -569,7 +467,7 @@ export default function App() {
           onCtaClick={(cta) => trackEvent('cta_click', { cta })}
         />
 
-        <section id="nosotros" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <section id="nosotros" className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
               <div className="relative mx-auto w-full max-w-xl">
@@ -646,7 +544,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="contacto" className="border-t border-red-500/10 bg-slate-900/50">
+        <section id="contacto" className="relative border-t border-white/10 bg-transparent">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
               <SectionHeader
@@ -865,13 +763,15 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer className="border-t border-slate-800/80 bg-gradient-to-b from-slate-950 to-black">
+      <footer className="relative border-t border-white/10 bg-gradient-to-b from-[#360707] to-[#160000]">
         <div className="mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
           <div className="grid gap-10 border-b border-slate-800/80 pb-10 md:grid-cols-[1.1fr_0.9fr_1fr]">
             <div>
-              <div className="text-xl font-black uppercase tracking-[0.22em] text-white">
-                Grupo <span className="text-red-500">NBG</span> Import
-              </div>
+              <img
+                src="/images/brand/nbg-logo-white-extracted.png"
+                alt="Grupo NBG Import"
+                className="h-24 w-auto object-contain"
+              />
               <p className="mt-4 max-w-sm text-sm leading-7 text-slate-300">
                 Importacion y distribucion de repuestos automotrices con enfoque comercial, tiempos de respuesta rapidos y respaldo para cada linea.
               </p>

@@ -93,18 +93,18 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-10 max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-10 bg-red-500" />
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Ventajas comerciales</span>
+            <span className="h-px w-10 bg-white/60" />
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">Ventajas comerciales</span>
           </div>
           <h2 className="text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
             Por que elegir Grupo NBG Import?
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
             Unimos importacion, red comercial y conocimiento tecnico para atender al mercado motero peruano con respaldo.
           </p>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-800 bg-slate-900/45 p-4 shadow-2xl shadow-black/20 backdrop-blur sm:p-5">
+        <div className="rounded-[2rem] border border-white/20 bg-white/[0.055] p-4 shadow-2xl shadow-black/20 backdrop-blur sm:p-5">
           <div className="grid gap-3 md:grid-cols-3" role="tablist" aria-label="Razones para elegir Grupo NBG Import">
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
@@ -122,14 +122,14 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                   className={cn(
                     'flex w-full items-center gap-3 rounded-[1.35rem] border px-4 py-4 text-left transition',
                     selected
-                      ? 'border-red-500/40 bg-red-500/12 text-white shadow-lg shadow-red-950/20'
-                      : 'border-slate-800 bg-slate-950/60 text-slate-300 hover:border-red-500/30 hover:text-white'
+                      ? 'border-white/55 bg-[#ef2428]/25 text-white shadow-lg shadow-red-950/20'
+                      : 'border-white/20 bg-white/[0.045] text-white/75 hover:border-white/40 hover:text-white'
                   )}
                 >
                   <span
                     className={cn(
                       'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border',
-                      selected ? 'border-red-400/40 bg-red-500/20 text-red-300' : 'border-slate-700 bg-slate-900 text-slate-400'
+                      selected ? 'border-white/45 bg-[#ef2428]/35 text-white' : 'border-white/25 bg-white/10 text-white/65'
                     )}
                   >
                     <Icon className="h-5 w-5" aria-hidden="true" />
@@ -140,14 +140,14 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             })}
           </div>
 
-          <div className="mt-4 flex flex-col gap-2 rounded-[1.25rem] border border-slate-800 bg-slate-950/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+          <div className="mt-4 flex flex-col gap-2 rounded-[1.25rem] border border-white/20 bg-white/[0.045] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
               Cambia automaticamente cada 30 segundos
             </p>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-800 sm:w-56" aria-hidden="true">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/20 sm:w-56" aria-hidden="true">
               <motion.div
                 key={activeTab.id}
-                className="h-full rounded-full bg-red-500"
+                className="h-full rounded-full bg-[#ef2428]"
                 initial={{ width: '0%' }}
                 animate={reduceMotion ? { width: '100%' } : { width: '100%' }}
                 transition={reduceMotion ? { duration: 0 } : { duration: AUTO_CHANGE_MS / 1000, ease: 'linear' }}
@@ -159,7 +159,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             id={`${activeTab.id}-panel`}
             role="tabpanel"
             aria-labelledby={`${activeTab.id}-tab`}
-            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-950/80"
+            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-white/20 bg-[#230000]/70"
           >
             <img
               src={activeTab.image}
@@ -167,23 +167,23 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/82 to-slate-950/18" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-slate-950/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#230000] via-[#230000]/82 to-[#230000]/18" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/25 to-[#230000]/10" />
             <div className="absolute inset-0 bg-red-950/10" />
 
             <div className="relative z-10 grid min-h-[560px] lg:grid-cols-[0.85fr_1.15fr]">
               <div className="relative z-10 flex flex-col justify-center p-6 sm:p-8 lg:p-10">
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-red-400/30 bg-red-500/15 text-red-300">
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white">
                   <ActiveIcon className="h-7 w-7" aria-hidden="true" />
                 </div>
                 <h3 className="max-w-xl text-3xl font-black uppercase leading-tight text-white sm:text-4xl">
                   {activeTab.title}
                 </h3>
-                <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">{activeTab.description}</p>
+                <p className="mt-5 max-w-xl text-sm leading-7 text-white/75 sm:text-base">{activeTab.description}</p>
                 <a
                   href={activeTab.href}
                   onClick={() => onCtaClick?.(activeTab.cta)}
-                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-red-600 px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-red-500"
+                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-red-500"
                 >
                   {activeTab.cta}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />

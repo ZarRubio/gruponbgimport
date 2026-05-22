@@ -97,7 +97,7 @@ function BrandCard({
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={cn(
-        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-900/70 shadow-2xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
+        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/[0.06] shadow-2xl shadow-black/20 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#230000]',
         isFeatured && 'lg:row-span-2 lg:min-h-[620px]'
       )}
     >
@@ -108,11 +108,11 @@ function BrandCard({
         className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
         loading={isFeatured ? 'eager' : 'lazy'}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/72 to-slate-950/10" />
-      <div className="absolute inset-0 bg-red-600/0 transition duration-300 group-hover:bg-red-600/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/72 to-[#230000]/10" />
+      <div className="absolute inset-0 bg-red-600/0 transition duration-300 group-hover:bg-red-600/12" />
 
       <div className="relative z-10 mt-auto flex w-full flex-col p-6 sm:p-7">
-        <div className="mb-4 inline-flex w-fit rounded-full border border-red-500/25 bg-red-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-red-300">
+        <div className="mb-4 inline-flex w-fit rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
           {brand.category}
         </div>
 
@@ -123,7 +123,7 @@ function BrandCard({
           {brand.description}
         </p>
 
-        <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-red-600 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white transition group-hover:bg-red-500">
+        <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition group-hover:bg-red-500">
           {brand.cta}
           {!brand.isPending && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
         </span>

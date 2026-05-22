@@ -4,7 +4,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Bebas Neue', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        gradient: 'gradient 8s linear infinite',
+      },
+      keyframes: {
+        gradient: {
+          to: {
+            backgroundPosition: 'var(--bg-size, 300%) 0',
+          },
+        },
       },
     },
   },
