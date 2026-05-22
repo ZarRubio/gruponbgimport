@@ -10,6 +10,7 @@ type Brand = {
   href: string;
   image: string;
   ariaLabel: string;
+  quoteValue: string;
   isFeatured?: boolean;
   isPending?: boolean;
 };
@@ -17,6 +18,7 @@ type Brand = {
 type BrandGridProps = {
   reduceMotion?: boolean;
   onBrandClick?: (brandName: string, type: 'external' | 'pending') => void;
+  onQuoteClick?: (brandName: string) => void;
   onPendingClick?: (brandName: string) => void;
 };
 
@@ -30,6 +32,7 @@ const brands: Brand[] = [
     href: 'https://csttires.pe',
     image: '/images/brands/cst-tires-peru.png',
     ariaLabel: 'Visitar ecommerce de CST Tires Perú',
+    quoteValue: 'CST Tires Peru',
     isFeatured: true,
   },
   {
@@ -41,16 +44,18 @@ const brands: Brand[] = [
     href: 'https://sahmparts.com',
     image: '/images/brands/sahm-parts.png',
     ariaLabel: 'Visitar ecommerce de SAHM Parts',
+    quoteValue: 'SAHM Parts',
   },
   {
     id: 'nbg',
     name: 'NBG Parts',
     category: 'Componentes para motos',
     description: 'Productos y soluciones para talleres, distribuidores y motociclistas en todo el Perú.',
-    cta: 'Próximamente',
-    href: '#',
+    cta: 'Consultar disponibilidad',
+    href: '#contacto',
     image: '/images/brands/nbg-parts.png',
-    ariaLabel: 'NBG Parts próximamente',
+    ariaLabel: 'Consultar disponibilidad de NBG Parts',
+    quoteValue: 'NBG Parts',
     isPending: true,
   },
 ];
@@ -64,21 +69,23 @@ function BrandCard({
   index,
   reduceMotion,
   onBrandClick,
+  onQuoteClick,
   onPendingClick,
 }: {
   brand: Brand;
   index: number;
   reduceMotion?: boolean;
   onBrandClick?: BrandGridProps['onBrandClick'];
+  onQuoteClick?: BrandGridProps['onQuoteClick'];
   onPendingClick?: BrandGridProps['onPendingClick'];
 }) {
   const isFeatured = Boolean(brand.isFeatured);
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handlePrimaryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (brand.isPending) {
       event.preventDefault();
       onBrandClick?.(brand.name, 'pending');
-      onPendingClick?.(brand.name);
+      document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
 
@@ -86,18 +93,13 @@ function BrandCard({
   };
 
   return (
-    <motion.a
-      href={brand.href}
-      target={brand.isPending ? undefined : '_blank'}
-      rel={brand.isPending ? undefined : 'noreferrer'}
-      aria-label={brand.ariaLabel}
-      onClick={handleClick}
+    <motion.article
       initial={reduceMotion ? false : { opacity: 0, y: 22 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={cn(
-        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/[0.06] shadow-2xl shadow-black/20 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#230000]',
+        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/[0.06] shadow-2xl shadow-black/20 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#230000]',
         isFeatured && 'lg:row-span-2 lg:min-h-[620px]'
       )}
     >
@@ -106,7 +108,8 @@ function BrandCard({
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-        loading={isFeatured ? 'eager' : 'lazy'}
+        loading="lazy"
+        decoding="async"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/72 to-[#230000]/10" />
       <div className="absolute inset-0 bg-red-600/0 transition duration-300 group-hover:bg-red-600/12" />
@@ -123,16 +126,35 @@ function BrandCard({
           {brand.description}
         </p>
 
-        <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition group-hover:bg-red-500">
+        <a
+          href={brand.href}
+          target={brand.isPending ? undefined : '_blank'}
+          rel={brand.isPending ? undefined : 'noreferrer'}
+          aria-label={brand.ariaLabel}
+          onClick={handlePrimaryClick}
+          className={cn(
+            'mt-6 inline-flex w-fit items-center gap-2 rounded-xl px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] transition-all duration-200',
+            brand.isPending
+              ? 'cursor-pointer border border-white/25 bg-transparent text-white/70 hover:-translate-y-px hover:border-red-600/50 hover:bg-red-900/20 hover:text-white'
+              : 'bg-[#ef2428] text-white hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]'
+          )}
+        >
           {brand.cta}
           {!brand.isPending && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
-        </span>
+        </a>
+        <button
+          type="button"
+          onClick={() => onQuoteClick?.(brand.quoteValue)}
+          className="mt-2 inline-flex w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-xs text-white/60 underline underline-offset-[3px] transition hover:text-white"
+        >
+          Cotizar esta marca →
+        </button>
       </div>
-    </motion.a>
+    </motion.article>
   );
 }
 
-export function BrandGrid({ reduceMotion, onBrandClick, onPendingClick }: BrandGridProps) {
+export function BrandGrid({ reduceMotion, onBrandClick, onQuoteClick, onPendingClick }: BrandGridProps) {
   return (
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr] lg:auto-rows-fr">
       {brands.map((brand, index) => (
@@ -142,6 +164,7 @@ export function BrandGrid({ reduceMotion, onBrandClick, onPendingClick }: BrandG
           index={index}
           reduceMotion={reduceMotion}
           onBrandClick={onBrandClick}
+          onQuoteClick={onQuoteClick}
           onPendingClick={onPendingClick}
         />
       ))}

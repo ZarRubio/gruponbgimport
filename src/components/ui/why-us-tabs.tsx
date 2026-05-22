@@ -68,6 +68,12 @@ function cn(...classes: Array<string | false | undefined>) {
 
 export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showSwipeHint, setShowSwipeHint] = useState(() => {
+    if (typeof window === 'undefined') {
+      return true;
+    }
+    return window.localStorage.getItem('nbg-tabs-swiped') !== 'true';
+  });
   const activeTab = tabs[activeIndex];
 
   useEffect(() => {
@@ -85,6 +91,11 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
   const selectTab = (index: number) => {
     setActiveIndex(index);
     onTabChange?.(tabs[index].label, 'manual');
+  };
+
+  const dismissSwipeHint = () => {
+    setShowSwipeHint(false);
+    window.localStorage.setItem('nbg-tabs-swiped', 'true');
   };
 
   const ActiveIcon = activeTab.icon;
@@ -112,7 +123,16 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
         </div>
 
         <div className="rounded-[2rem] border border-white/20 bg-white/[0.055] p-4 shadow-2xl shadow-black/20 backdrop-blur sm:p-5">
-          <div className="grid gap-3 md:grid-cols-3" role="tablist" aria-label="Razones para elegir Grupo NBG Import">
+          {showSwipeHint ? (
+            <p className="mb-3 text-[11px] text-white/40 md:hidden">Desliza para ver más →</p>
+          ) : null}
+          <div
+            className="flex gap-3 overflow-x-auto [scrollbar-width:none] md:grid md:grid-cols-3 [&::-webkit-scrollbar]:hidden"
+            role="tablist"
+            aria-label="Razones para elegir Grupo NBG Import"
+            onScroll={dismissSwipeHint}
+            onTouchStart={dismissSwipeHint}
+          >
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
               const selected = index === activeIndex;
@@ -127,19 +147,19 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                   aria-controls={`${tab.id}-panel`}
                   onClick={() => selectTab(index)}
                   className={cn(
-                    'flex w-full items-center gap-3 rounded-[1.35rem] border px-4 py-4 text-left transition',
+                    'flex min-w-[250px] items-center gap-3 rounded-[1.35rem] border px-4 py-4 text-left transition md:min-w-0 md:w-full',
                     selected
-                      ? 'border-white/55 bg-[#ef2428]/25 text-white shadow-lg shadow-red-950/20'
-                      : 'border-white/20 bg-white/[0.045] text-white/75 hover:border-white/40 hover:text-white'
+                      ? 'border-red-600/40 bg-red-600/20 font-semibold text-white shadow-lg shadow-red-950/20'
+                      : 'border-white/[0.08] bg-white/[0.04] text-white/55 hover:bg-white/[0.08]'
                   )}
                 >
                   <span
                     className={cn(
                       'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border',
-                      selected ? 'border-white/45 bg-[#ef2428]/35 text-white' : 'border-white/25 bg-white/10 text-white/65'
+                      selected ? 'border-red-600/40 bg-red-600/20 text-white' : 'border-white/[0.08] bg-white/[0.04] text-white/55'
                     )}
                   >
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                    <Icon size={18} strokeWidth={1.5} aria-hidden="true" />
                   </span>
                   <span className="text-xs font-black uppercase tracking-[0.18em] sm:text-sm">{tab.label}</span>
                 </button>
@@ -148,7 +168,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
           </div>
 
           <div className="mt-4 flex flex-col gap-2 rounded-[1.25rem] border border-white/20 bg-white/[0.045] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
               Cambia automáticamente cada 30 segundos
             </p>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/20 sm:w-56" aria-hidden="true">
@@ -162,7 +182,11 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             </div>
           </div>
 
-          <div
+          <motion.div
+            key={activeTab.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             id={`${activeTab.id}-panel`}
             role="tabpanel"
             aria-labelledby={`${activeTab.id}-tab`}
@@ -173,6 +197,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
               alt={activeTab.imageAlt}
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#230000] via-[#230000]/82 to-[#230000]/18" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#230000] via-[#230000]/25 to-[#230000]/10" />
@@ -181,7 +206,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             <div className="relative z-10 grid min-h-[560px] lg:grid-cols-[0.85fr_1.15fr]">
               <div className="relative z-10 flex flex-col justify-center p-6 sm:p-8 lg:p-10">
                 <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white">
-                  <ActiveIcon className="h-7 w-7" aria-hidden="true" />
+                  <ActiveIcon size={24} strokeWidth={1.5} aria-hidden="true" />
                 </div>
                 <h3 className="max-w-xl text-3xl font-black uppercase leading-tight text-white sm:text-4xl">
                   {activeTab.title}
@@ -190,16 +215,16 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                 <a
                   href={activeTab.href}
                   onClick={() => onCtaClick?.(activeTab.cta)}
-                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-red-500"
+                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
                 >
                   {activeTab.cta}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
                 </a>
               </div>
 
               <div className="hidden lg:block" aria-hidden="true" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div

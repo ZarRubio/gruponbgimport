@@ -1,15 +1,12 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Boxes, MapPin, Phone, Ship, Truck } from 'lucide-react';
-import { AnimatedGradientText } from './magicui/animated-gradient-text';
+import { ArrowRight, Boxes, Phone, Ship, Truck } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
-import { NumberTicker } from './magicui/number-ticker';
 import { Particles } from './magicui/particles';
-import { WordRotate } from './magicui/word-rotate';
 
 const heroStats = [
-  { value: 3, suffix: '+', label: 'Marcas del grupo' },
-  { value: 100, suffix: '%', label: 'Importación directa' },
-  { value: 1, suffix: '', label: 'Hub comercial en Lima' },
+  { value: '+500', label: 'Referencias disponibles' },
+  { value: '100%', label: 'Importación directa' },
+  { value: '+8', label: 'Años en el mercado' },
 ];
 
 const operationCards = [
@@ -66,66 +63,68 @@ export function HeroNBG({ onAction }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <div className="mb-6 inline-flex items-center rounded-full border border-white/35 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-lg shadow-red-950/20">
-            <MapPin className="mr-2 h-4 w-4 text-white" />
-            Lima, Perú
+          <div
+            className="mb-5 inline-flex items-center gap-2 rounded-full border px-[14px] py-1 text-xs uppercase tracking-[0.06em] text-white/80"
+            style={{
+              background: 'rgba(220,38,38,0.15)',
+              borderColor: 'rgba(220,38,38,0.35)',
+            }}
+          >
+            ✓ Importación directa · Lima, Perú
           </div>
 
-          <h1 className="max-w-2xl">
-            <span className="sr-only">Grupo NBG Import</span>
-            <img
-              src="/images/brand/nbg-logo-white.png"
-              alt=""
-              className="w-full max-w-[520px] object-contain drop-shadow-2xl"
-            />
+          <h1
+            className="max-w-2xl uppercase text-white"
+            style={{
+              fontSize: 'clamp(42px, 6vw, 72px)',
+              fontWeight: 900,
+              lineHeight: 0.92,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            REPUESTOS DIRECTOS
+            <br />
+            DE FÁBRICA
           </h1>
 
-          <div className="mt-4 font-display text-4xl uppercase leading-none text-white/90 sm:text-6xl">
-            <span className="text-white/80">Soluciones para </span>
-            <WordRotate
-              words={['repuestos', 'llantas', 'talleres', 'distribuidores']}
-              duration={2100}
-              className="text-white"
-              motionProps={{
-                initial: { opacity: 0, y: -28 },
-                animate: { opacity: 1, y: 0 },
-                exit: { opacity: 0, y: 28 },
-                transition: { duration: 0.22, ease: 'easeOut' },
-              }}
-            />
-          </div>
-
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
-            Importadora de repuestos automotrices y productos para motocicletas en Lima, Perú.
-            Conectamos marcas especializadas con distribuidores, talleres y negocios del sector.
+          <p
+            className="mt-4 max-w-[420px] text-base"
+            style={{
+              color: 'rgba(255,255,255,0.70)',
+              lineHeight: 1.6,
+            }}
+          >
+            CST Tires, SAHM Parts y NBG Parts para talleres, distribuidores y flotas en Lima y todo el Perú.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#marcas"
               onClick={() => onAction?.('hero_magic_ver_marcas')}
-              className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ef2428] px-7 text-sm font-black uppercase tracking-[0.16em] text-white shadow-lg shadow-red-950/25 transition hover:bg-red-500"
+              className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ef2428] px-7 text-sm font-black uppercase tracking-[0.16em] text-white shadow-lg shadow-red-950/25 transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
             >
               Ver marcas
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight size={18} strokeWidth={1.5} className="ml-2" />
             </a>
             <a
               href="#contacto"
               onClick={() => onAction?.('hero_magic_contacto')}
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-white/35 bg-white/20 px-7 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-white/30"
+              className="inline-flex h-12 items-center justify-center rounded-xl border border-white/35 bg-white/20 px-7 text-sm font-black uppercase tracking-[0.16em] text-white transition-all duration-200 hover:-translate-y-px hover:border-red-600/50 hover:bg-red-900/20"
             >
               Contactar
             </a>
           </div>
 
-          <div className="mt-9 grid max-w-2xl grid-cols-3 gap-3">
+          <div className="mt-8 flex max-w-2xl border-t border-white/[0.08] pt-6">
             {heroStats.map((stat, index) => (
-              <div key={stat.label} className="rounded-xl border border-white/45 bg-white/[0.06] p-4 backdrop-blur">
-                <div className="font-display text-4xl leading-none text-white sm:text-5xl">
-                  <NumberTicker value={stat.value} delay={index * 0.12} />
-                  {stat.suffix}
+              <div
+                key={stat.label}
+                className={index === 0 ? 'flex-1 pr-5' : 'flex-1 border-l border-white/10 px-5'}
+              >
+                <div className="text-[28px] font-black leading-none text-[#ef4444]">
+                  {stat.value}
                 </div>
-                <div className="mt-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/65">
+                <div className="mt-2 text-[11px] font-bold uppercase tracking-[0.08em] text-white/50">
                   {stat.label}
                 </div>
               </div>
@@ -145,6 +144,8 @@ export function HeroNBG({ onAction }) {
               alt=""
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rotate-6 object-contain opacity-20 sm:h-96 sm:w-96"
+              loading="eager"
+              decoding="async"
             />
             <BorderBeam size={90} duration={8} colorFrom="#ffffff" colorTo="#ef2428" borderWidth={1.5} />
             <BorderBeam size={60} duration={10} delay={4} colorFrom="#fecaca" colorTo="#ffffff" borderWidth={1} reverse />
@@ -160,7 +161,13 @@ export function HeroNBG({ onAction }) {
                   </h2>
                 </div>
                 <div className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl bg-white/10 p-1.5 text-white ring-1 ring-white/30">
-                  <img src="/images/brand/nbg-isotipo.png" alt="" className="h-full w-full rounded-xl object-cover" />
+                  <img
+                    src="/images/brand/nbg-isotipo.png"
+                    alt=""
+                    className="h-full w-full rounded-xl object-cover"
+                    loading="eager"
+                    decoding="async"
+                  />
                 </div>
               </div>
 
@@ -171,7 +178,7 @@ export function HeroNBG({ onAction }) {
                     <div key={item.title} className="group rounded-xl border border-white/30 bg-white/[0.05] p-4 transition hover:border-white/60 hover:bg-white/10">
                       <div className="flex gap-4">
                         <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white">
-                          <Icon className="h-5 w-5" />
+                          <Icon size={20} strokeWidth={1.5} />
                         </div>
                         <div>
                           <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">{item.title}</h3>
