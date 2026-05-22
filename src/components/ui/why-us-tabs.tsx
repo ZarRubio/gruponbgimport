@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Bike, Handshake, Ship } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CurvedLines } from '../CurvedLines';
 
 type WhyUsItem = {
   id: string;
@@ -25,10 +26,10 @@ const AUTO_CHANGE_MS = 30000;
 const tabs: WhyUsItem[] = [
   {
     id: 'importacion-directa',
-    label: 'Importacion directa',
+    label: 'Importación directa',
     icon: Ship,
     image: '/images/why-us/importacion-directa.webp',
-    imageAlt: 'Contenedores maritimos, almacen moderno y cajas de importacion en ambiente logistico premium',
+    imageAlt: 'Contenedores marítimos, almacén moderno y cajas de importación en ambiente logístico premium',
     title: 'Trabajamos directamente con marcas y fabricantes.',
     description:
       'Grupo NBG Import selecciona, importa y distribuye productos especializados para el sector motero peruano, manteniendo una oferta enfocada en calidad, disponibilidad y respaldo.',
@@ -40,10 +41,10 @@ const tabs: WhyUsItem[] = [
     label: 'Red comercial nacional',
     icon: Handshake,
     image: '/images/why-us/red-comercial-nacional.webp',
-    imageAlt: 'Distribuidor de motos y atencion comercial profesional en taller especializado',
-    title: 'Trabajamos con distribuidores y talleres en todo el Peru.',
+    imageAlt: 'Distribuidor de motos y atención comercial profesional en taller especializado',
+    title: 'Trabajamos con distribuidores y talleres en todo el Perú.',
     description:
-      'Construimos relaciones comerciales con negocios, talleres y puntos de venta especializados en motocicletas, fortaleciendo nuestra presencia en distintas regiones del pais.',
+      'Construimos relaciones comerciales con negocios, talleres y puntos de venta especializados en motocicletas, fortaleciendo nuestra presencia en distintas regiones del país.',
     cta: 'Ver red comercial',
     href: '#contacto',
   },
@@ -52,7 +53,7 @@ const tabs: WhyUsItem[] = [
     label: 'Especialistas en motos',
     icon: Bike,
     image: '/images/why-us/especialistas-en-motos.webp',
-    imageAlt: 'Motocicleta moderna con mecanico especializado, llantas, repuestos y accesorios',
+    imageAlt: 'Motocicleta moderna con mecánico especializado, llantas, repuestos y accesorios',
     title: 'Conocemos el mercado de motocicletas desde dentro.',
     description:
       'Trabajamos con marcas enfocadas en llantas, repuestos y accesorios para motos, conectando soluciones comerciales con las necesidades reales de motociclistas, talleres y distribuidores.',
@@ -89,18 +90,24 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
   const ActiveIcon = activeTab.icon;
 
   return (
-    <section className="relative">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+    <section
+      className="relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #1a0000 0%, #2C1010 40%, #3D0808 70%, #1a0000 100%)',
+      }}
+    >
+      <CurvedLines />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-10 max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
             <span className="h-px w-10 bg-white/60" />
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">Ventajas comerciales</span>
           </div>
           <h2 className="text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Por que elegir Grupo NBG Import?
+            ¿Por qué elegir Grupo NBG Import?
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-            Unimos importacion, red comercial y conocimiento tecnico para atender al mercado motero peruano con respaldo.
+            Unimos importación, red comercial y conocimiento técnico para atender al mercado motero peruano con respaldo.
           </p>
         </div>
 
@@ -142,7 +149,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
 
           <div className="mt-4 flex flex-col gap-2 rounded-[1.25rem] border border-white/20 bg-white/[0.045] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
-              Cambia automaticamente cada 30 segundos
+              Cambia automáticamente cada 30 segundos
             </p>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/20 sm:w-56" aria-hidden="true">
               <motion.div
@@ -195,6 +202,12 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
           </div>
         </div>
       </div>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)',
+        }}
+      />
     </section>
   );
 }

@@ -23,20 +23,20 @@ type BrandGridProps = {
 const brands: Brand[] = [
   {
     id: 'cst',
-    name: 'CST Tires Peru',
+    name: 'CST Tires Perú',
     category: 'Llantas para motocicletas',
-    description: 'Llantas para motos urbanas, doble proposito, scooters, mototaxis, ATV, UTV y mas.',
+    description: 'Llantas para motos urbanas, doble propósito, scooters, mototaxis, ATV, UTV y más.',
     cta: 'Visitar CST Tires',
     href: 'https://csttires.pe',
     image: '/images/brands/cst-tires-peru.png',
-    ariaLabel: 'Visitar ecommerce de CST Tires Peru',
+    ariaLabel: 'Visitar ecommerce de CST Tires Perú',
     isFeatured: true,
   },
   {
     id: 'sahm',
     name: 'SAHM Parts',
     category: 'Repuestos y accesorios',
-    description: 'Camaras, carburadores, repuestos y accesorios para el mercado motero peruano.',
+    description: 'Cámaras, carburadores, repuestos y accesorios para el mercado motero peruano.',
     cta: 'Visitar SAHM Parts',
     href: 'https://sahmparts.com',
     image: '/images/brands/sahm-parts.png',
@@ -46,11 +46,11 @@ const brands: Brand[] = [
     id: 'nbg',
     name: 'NBG Parts',
     category: 'Componentes para motos',
-    description: 'Productos y soluciones para talleres, distribuidores y motociclistas en todo el Peru.',
-    cta: 'Proximamente',
+    description: 'Productos y soluciones para talleres, distribuidores y motociclistas en todo el Perú.',
+    cta: 'Próximamente',
     href: '#',
     image: '/images/brands/nbg-parts.png',
-    ariaLabel: 'NBG Parts proximamente',
+    ariaLabel: 'NBG Parts próximamente',
     isPending: true,
   },
 ];
@@ -119,7 +119,7 @@ function BrandCard({
         <h3 className={cn('font-black uppercase leading-none text-white', isFeatured ? 'text-4xl sm:text-5xl' : 'text-3xl')}>
           {brand.name}
         </h3>
-        <p className={cn('mt-4 max-w-xl leading-7 text-slate-200', isFeatured ? 'text-base sm:text-lg' : 'text-sm')}>
+        <p className={cn('mt-4 max-w-xl leading-7 text-white/80', isFeatured ? 'text-base sm:text-lg' : 'text-sm')}>
           {brand.description}
         </p>
 

@@ -14,6 +14,7 @@ import {
 import { BrandGrid } from './components/ui/brand-grid';
 import { WhyUsTabs } from './components/ui/why-us-tabs';
 import { HeroNBG } from './components/HeroNBG';
+import { CurvedLines } from './components/CurvedLines';
 
 const NAV_ITEMS = [
   { label: 'Marcas', href: '#marcas' },
@@ -22,22 +23,22 @@ const NAV_ITEMS = [
 ];
 
 const FEATURES = [
-  'Importacion directa desde fabricante',
+  'Importación directa desde fabricante',
   'Marcas reconocidas internacionalmente',
-  'Asesoria tecnica especializada',
-  'Distribucion a nivel nacional',
-  'Garantia y respaldo en los productos',
+  'Asesoría técnica especializada',
+  'Distribución a nivel nacional',
+  'Garantía y respaldo en los productos',
 ];
 
 const TICKER = [
   'CST Tires',
   'SHAM',
   'NBG',
-  'Importacion directa',
+  'Importación directa',
   'Repuestos de calidad',
   'Grupo NBG Import',
   'Cobertura nacional',
-  'Asesoria tecnica',
+  'Asesoría técnica',
 ];
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,16 +61,16 @@ function validateField(name, value) {
       return 'Ingresa tu correo.';
     }
     if (!EMAIL_PATTERN.test(trimmed)) {
-      return 'Correo no valido.';
+      return 'Correo no válido.';
     }
   }
 
   if (name === 'phone' && trimmed && !PHONE_PATTERN.test(trimmed)) {
-    return 'Telefono no valido.';
+    return 'Teléfono no válido.';
   }
 
   if (name === 'message' && trimmed && trimmed.length < 10) {
-    return 'Describe un poco mas tu consulta.';
+    return 'Describe un poco más tu consulta.';
   }
 
   return '';
@@ -95,7 +96,7 @@ function cn(...classes) {
 function Button({ asChild = false, className = '', variant = 'default', size = 'default', children, ...props }) {
   const variantClass =
     variant === 'outline'
-      ? 'border border-slate-700 bg-slate-900/40 text-slate-100 hover:bg-slate-800'
+      ? 'border border-red-900/30 bg-[#0a0000]/40 text-white hover:bg-[#1a0000]'
       : 'bg-red-600 text-white hover:bg-red-500';
   const sizeClass = size === 'lg' ? 'h-12 px-7 text-sm' : 'h-10 px-5 text-xs';
   const classes = cn(
@@ -120,7 +121,7 @@ function Button({ asChild = false, className = '', variant = 'default', size = '
 }
 
 function Card({ className = '', children }) {
-  return <div className={cn('rounded-2xl border border-slate-800 bg-slate-900/70', className)}>{children}</div>;
+  return <div className={cn('rounded-2xl border border-red-900/30 bg-[#0a0000]/70', className)}>{children}</div>;
 }
 
 function CardContent({ className = '', children }) {
@@ -128,11 +129,27 @@ function CardContent({ className = '', children }) {
 }
 
 function Input({ className = '', ...props }) {
-  return <input className={cn('h-12 w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 text-slate-100 placeholder:text-slate-500', className)} {...props} />;
+  return (
+    <input
+      className={cn(
+        'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.05] px-4 text-white placeholder:text-white/35',
+        className
+      )}
+      {...props}
+    />
+  );
 }
 
 function Textarea({ className = '', ...props }) {
-  return <textarea className={cn('w-full rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-slate-100 placeholder:text-slate-500', className)} {...props} />;
+  return (
+    <textarea
+      className={cn(
+        'w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.05] px-4 py-3 text-white placeholder:text-white/35',
+        className
+      )}
+      {...props}
+    />
+  );
 }
 
 function Reveal({ children, delay = 0, className = '' }) {
@@ -160,7 +177,7 @@ function SectionHeader({ eyebrow, title, description, center = false }) {
       <h2 className="text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h2>
 
       {description ? (
-        <p className={cn('mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base', center ? 'mx-auto' : '')}>{description}</p>
+        <p className={cn('mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base', center ? 'mx-auto' : '')}>{description}</p>
       ) : null}
     </div>
   );
@@ -182,6 +199,7 @@ export default function App() {
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const redGlassCard = 'border-red-900/25 bg-[rgba(30,0,0,0.6)] backdrop-blur-md';
   const scrollMilestonesRef = useRef({
     25: false,
     50: false,
@@ -311,7 +329,7 @@ export default function App() {
     }
 
     const subject = encodeURIComponent(`Consulta web de ${formData.name || 'cliente'}`);
-    const body = encodeURIComponent(`Nombre: ${formData.name}\nCorreo: ${formData.email}\nTelefono: ${formData.phone}\n\nMensaje:\n${formData.message}`);
+    const body = encodeURIComponent(`Nombre: ${formData.name}\nCorreo: ${formData.email}\nTeléfono: ${formData.phone}\n\nMensaje:\n${formData.message}`);
 
     trackEvent('lead_form_submit', { source: 'contact_form', channel: 'mailto' });
     window.location.href = `mailto:marketing@nbg.pe?subject=${subject}&body=${body}`;
@@ -320,20 +338,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#230000] text-slate-100">
-      <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(180deg,#9f0000_0%,#9f3d3d_22%,#8b5f5f_48%,#4a1717_77%,#230000_100%)]" />
-      <div className="pointer-events-none fixed inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:56px_56px]" />
-
+    <div className="min-h-screen overflow-x-hidden bg-[#1a0000] text-white">
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-          scrolled ? 'border-b border-red-500/15 bg-slate-950/85 backdrop-blur-xl' : 'bg-transparent'
+          scrolled
+            ? 'border-b border-[rgba(180,20,20,0.2)] bg-[rgba(10,0,0,0.85)] backdrop-blur-[12px]'
+            : 'bg-transparent'
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <a href="#inicio" className="flex items-center" aria-label="Grupo NBG Import">
             <img
-              src="/images/brand/nbg-logo-white-extracted.png"
+              src="/images/brand/nbg-logo-white.png"
               alt=""
               className="h-12 w-auto object-contain"
             />
@@ -350,7 +367,7 @@ export default function App() {
                   'rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] transition',
                   activeSection === item.href
                     ? 'bg-red-500/20 text-red-300'
-                    : 'text-slate-300 hover:text-red-400'
+                    : 'text-white/75 hover:text-red-400'
                 )}
               >
                 {item.label}
@@ -368,7 +385,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900/80 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-red-900/30 bg-[#0a0000]/80 md:hidden"
               aria-label="Abrir menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -385,7 +402,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               id="mobile-nav"
-              className="border-t border-red-500/10 bg-slate-950/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
+              className="border-t border-red-500/10 bg-[#0a0000]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
             >
               <div className="flex flex-col gap-3">
                 {NAV_ITEMS.map((item) => (
@@ -400,7 +417,7 @@ export default function App() {
                       'rounded-2xl border px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition',
                       activeSection === item.href
                         ? 'border-red-500/40 bg-red-500/10 text-red-300'
-                        : 'border-slate-800 text-slate-200 hover:border-red-500/40 hover:text-red-400'
+                        : 'border-red-900/30 text-white/80 hover:border-red-500/40 hover:text-red-400'
                     )}
                   >
                     {item.label}
@@ -425,8 +442,10 @@ export default function App() {
 
       <main>
         <HeroNBG onAction={(cta) => trackEvent('cta_click', { cta })} />
-
-        <section className="relative border-y border-red-950/40 bg-black py-4">
+        <section
+          className="relative border-y border-red-950/40 py-4"
+          style={{ background: '#1a0000' }}
+        >
           <div className="overflow-hidden whitespace-nowrap">
             <motion.div
               className="flex w-max gap-10 px-4"
@@ -443,37 +462,60 @@ export default function App() {
           </div>
         </section>
 
-        <section id="marcas" className="relative mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28">
-          <Reveal>
+        <section
+          id="marcas"
+          className="relative overflow-hidden px-4 pb-10 pt-20 sm:px-6 lg:px-8 lg:pb-10 lg:pt-28"
+          style={{
+            background: 'linear-gradient(180deg, #4A0000 0%, #2C1010 25%, #1a0000 60%, #0f0000 100%)',
+          }}
+        >
+          <CurvedLines />
+          <Reveal className="relative z-10 mx-auto max-w-7xl">
             <SectionHeader
               eyebrow="Nuestras marcas"
               title="Nuestras marcas"
-              description="Grupo NBG Import reune marcas especializadas para motociclistas, distribuidores y talleres de todo el Peru."
+              description="Grupo NBG Import reúne marcas especializadas para motociclistas, distribuidores y talleres de todo el Perú."
             />
           </Reveal>
 
-          <div className="mt-12">
+          <div className="relative z-10 mx-auto mt-12 max-w-7xl">
             <BrandGrid
               reduceMotion={reduceMotion}
               onBrandClick={(brand, type) => trackEvent('brand_click', { brand, type })}
               onPendingClick={setPendingBrand}
             />
           </div>
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)',
+            }}
+          />
         </section>
+        <div
+          aria-hidden="true"
+          className="h-20"
+          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
+        />
 
         <WhyUsTabs
           reduceMotion={reduceMotion}
           onTabChange={(tab, source) => trackEvent('why_us_tab_change', { tab, source })}
           onCtaClick={(cta) => trackEvent('cta_click', { cta })}
         />
+        <div
+          aria-hidden="true"
+          className="h-20"
+          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
+        />
 
-        <section id="nosotros" className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <section id="nosotros" className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+          <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
               <div className="relative mx-auto w-full max-w-xl">
-                <div className="rounded-[2rem] border border-slate-800 bg-slate-900 p-8 shadow-2xl shadow-black/20">
+                <div className="rounded-[2rem] border border-red-900/30 bg-[#0a0000] p-8 shadow-2xl shadow-black/20">
                   <p className="text-center text-2xl font-black uppercase leading-tight text-white sm:text-4xl">
-                    Importacion
+                    Importación
                     <br />
                     directa
                     <br />
@@ -485,10 +527,10 @@ export default function App() {
                   initial={{ y: 8 }}
                   animate={{ y: [8, -8, 8] }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -bottom-6 -right-2 rounded-[1.75rem] bg-red-600 px-8 py-7 text-center shadow-2xl shadow-red-950/30 sm:-right-6"
+                  className="relative ml-auto mt-4 w-fit rounded-[1.75rem] bg-red-600 px-8 py-7 text-center shadow-2xl shadow-red-950/30"
                 >
                   <div className="text-4xl font-black text-white sm:text-6xl">100%</div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-red-100/80">Importacion garantizada</div>
+                  <div className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-red-100/80">Importación garantizada</div>
                 </motion.div>
               </div>
             </Reveal>
@@ -500,10 +542,10 @@ export default function App() {
                   <>
                     Expertos en
                     <br />
-                    importacion
+                    importación
                   </>
                 }
-                description="Grupo NBG Import es una empresa especializada en importacion y distribucion de repuestos automotrices. Esta version mejora la jerarquia visual, la lectura del contenido y la presentacion comercial del sitio original."
+                description="Grupo NBG Import es una empresa especializada en importación y distribución de repuestos automotrices. Esta versión mejora la jerarquía visual, la lectura del contenido y la presentación comercial del sitio original."
               />
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -516,7 +558,7 @@ export default function App() {
                   {
                     icon: Globe2,
                     title: 'Cobertura',
-                    text: 'Capacidad para atender oportunidades en distintos puntos del pais.',
+                    text: 'Capacidad para atender oportunidades en distintos puntos del país.',
                   },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -525,7 +567,7 @@ export default function App() {
                       <CardContent className="p-5">
                         <Icon className="h-7 w-7 text-red-400" />
                         <h3 className="mt-4 text-lg font-black uppercase text-white">{item.title}</h3>
-                        <p className="mt-2 text-sm leading-7 text-slate-300">{item.text}</p>
+                        <p className="mt-2 text-sm leading-7 text-white/70">{item.text}</p>
                       </CardContent>
                     </Card>
                   );
@@ -534,33 +576,42 @@ export default function App() {
 
               <div className="mt-8 grid gap-3">
                 {FEATURES.map((feature) => (
-                  <div key={feature} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3">
+                  <div key={feature} className="flex items-start gap-3 rounded-2xl border border-red-900/30 bg-[#0a0000]/60 px-4 py-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-red-400" />
-                    <span className="text-sm leading-7 text-slate-200">{feature}</span>
+                    <span className="text-sm leading-7 text-white/80">{feature}</span>
                   </div>
                 ))}
               </div>
             </Reveal>
           </div>
         </section>
+        <div
+          aria-hidden="true"
+          className="h-20"
+          style={{ background: 'linear-gradient(to bottom, #1a0000, #1a0000)' }}
+        />
 
-        <section id="contacto" className="relative border-t border-white/10 bg-transparent">
+        <section
+          id="contacto"
+          className="relative border-t border-white/10"
+          style={{ background: 'linear-gradient(180deg, #1a0000 0%, #3D0000 50%, #6B0000 100%)' }}
+        >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
               <SectionHeader
-                eyebrow="Contactanos"
+                eyebrow="Contáctanos"
                 title={
                   <>
-                    Listo para
+                    ¿Listo para
                     <br />
                     cotizar?
                   </>
                 }
-                description="Escribenos y un asesor podra ayudarte con marcas, repuestos, categorias o una consulta comercial mas especifica."
+                description="Escríbenos y un asesor podrá ayudarte con marcas, repuestos, categorías o una consulta comercial más específica."
               />
 
               <div className="mt-8 grid gap-4">
-                <Card className="rounded-[1.75rem] bg-slate-950/80">
+                <Card className={cn('rounded-[1.75rem]', redGlassCard)}>
                   <CardContent className="flex items-start gap-4 p-5">
                     <MessageCircle className="mt-1 h-5 w-5 text-red-400" />
                     <div>
@@ -570,7 +621,7 @@ export default function App() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={() => trackEvent('contact_click', { channel: 'whatsapp_card' })}
-                        className="mt-1 inline-block text-sm text-slate-300 transition hover:text-red-400"
+                        className="mt-1 inline-block text-sm text-white/70 transition hover:text-red-400"
                       >
                         +51 956 701 218
                       </a>
@@ -578,7 +629,7 @@ export default function App() {
                   </CardContent>
                 </Card>
 
-                <Card className="rounded-[1.75rem] bg-slate-950/80">
+                <Card className={cn('rounded-[1.75rem]', redGlassCard)}>
                   <CardContent className="flex items-start gap-4 p-5">
                     <Mail className="mt-1 h-5 w-5 text-red-400" />
                     <div>
@@ -586,7 +637,7 @@ export default function App() {
                       <a
                         href="mailto:marketing@nbg.pe"
                         onClick={() => trackEvent('contact_click', { channel: 'email_card' })}
-                        className="mt-1 inline-block text-sm text-slate-300 transition hover:text-red-400"
+                        className="mt-1 inline-block text-sm text-white/70 transition hover:text-red-400"
                       >
                         marketing@nbg.pe
                       </a>
@@ -594,15 +645,15 @@ export default function App() {
                   </CardContent>
                 </Card>
 
-                <Card className="rounded-[1.75rem] bg-slate-950/80">
+                <Card className={cn('rounded-[1.75rem]', redGlassCard)}>
                   <CardContent className="flex items-start gap-4 p-5">
                     <Phone className="mt-1 h-5 w-5 text-red-400" />
                     <div>
-                      <div className="text-sm font-black uppercase tracking-[0.18em] text-white">Telefono</div>
+                      <div className="text-sm font-black uppercase tracking-[0.18em] text-white">Teléfono</div>
                       <a
                         href="tel:+51956701218"
                         onClick={() => trackEvent('contact_click', { channel: 'phone_card' })}
-                        className="mt-1 inline-block text-sm text-slate-300 transition hover:text-red-400"
+                        className="mt-1 inline-block text-sm text-white/70 transition hover:text-red-400"
                       >
                         +51 956 701 218
                       </a>
@@ -613,10 +664,10 @@ export default function App() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <Card className="rounded-[2rem] bg-slate-950/80 shadow-2xl shadow-black/20">
+              <Card className={cn('rounded-[2rem] shadow-2xl shadow-black/20', redGlassCard)}>
                 <CardContent className="p-6 sm:p-8">
-                  <p className="mb-5 text-sm text-slate-300" aria-live="polite">
-                    {submitted ? 'Abriendo tu correo con la consulta cargada.' : 'Completa tus datos y te ayudamos a cotizar rapido.'}
+                  <p className="mb-5 text-sm text-white/70" aria-live="polite">
+                    {submitted ? 'Abriendo tu correo con la consulta cargada.' : 'Completa tus datos y te ayudamos a cotizar rápido.'}
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -645,7 +696,7 @@ export default function App() {
 
                       <div>
                         <label htmlFor="email" className="sr-only">
-                          Correo electronico
+                          Correo electrónico
                         </label>
                         <Input
                           id="email"
@@ -655,7 +706,7 @@ export default function App() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           type="email"
-                          placeholder="Correo electronico"
+                          placeholder="Correo electrónico"
                           aria-invalid={Boolean(errors.email)}
                           aria-describedby={errors.email ? 'email-error' : undefined}
                           className={errors.email ? 'border-red-500/70' : ''}
@@ -670,7 +721,7 @@ export default function App() {
 
                     <div>
                       <label htmlFor="phone" className="sr-only">
-                        Telefono o WhatsApp
+                        Teléfono o WhatsApp
                       </label>
                       <Input
                         id="phone"
@@ -679,7 +730,7 @@ export default function App() {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         type="tel"
-                        placeholder="Telefono / WhatsApp"
+                        placeholder="Teléfono / WhatsApp"
                         aria-invalid={Boolean(errors.phone)}
                         aria-describedby={errors.phone ? 'phone-error' : undefined}
                         className={errors.phone ? 'border-red-500/70' : ''}
@@ -702,7 +753,7 @@ export default function App() {
                         value={formData.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Que repuestos, categorias o marcas necesitas?"
+                        placeholder="¿Qué repuestos, categorías o marcas necesitas?"
                         aria-invalid={Boolean(errors.message)}
                         aria-describedby={errors.message ? 'message-error' : undefined}
                         className={errors.message ? 'border-red-500/70' : ''}
@@ -729,6 +780,11 @@ export default function App() {
             </Reveal>
           </div>
         </section>
+        <div
+          aria-hidden="true"
+          className="h-20"
+          style={{ background: 'linear-gradient(to bottom, #6B0000, #3D0000)' }}
+        />
       </main>
 
       <AnimatePresence>
@@ -745,13 +801,13 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.96 }}
               transition={{ duration: 0.2 }}
-              className="w-full max-w-md rounded-[2rem] border border-slate-800 bg-slate-950 p-7 shadow-2xl shadow-black/40"
+              className="w-full max-w-md rounded-[2rem] border border-red-900/30 bg-[#0a0000] p-7 shadow-2xl shadow-black/40"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Proximamente</div>
+              <div className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Próximamente</div>
               <h3 className="text-2xl font-black uppercase text-white">{pendingBrand}</h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Esta seccion todavia no esta lista. Proximamente estara disponible su pagina oficial dentro del sitio.
+              <p className="mt-4 text-sm leading-7 text-white/70">
+                Esta sección todavía no está lista. Próximamente estará disponible su página oficial dentro del sitio.
               </p>
               <div className="mt-6 flex justify-end">
                 <Button type="button" onClick={() => setPendingBrand(null)} className="px-6">
@@ -763,32 +819,35 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer className="relative border-t border-white/10 bg-gradient-to-b from-[#360707] to-[#160000]">
+      <footer
+        className="relative border-t border-white/10"
+        style={{ background: 'linear-gradient(180deg, #1a0000 0%, #0D0000 50%, #050000 100%)' }}
+      >
         <div className="mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 border-b border-slate-800/80 pb-10 md:grid-cols-[1.1fr_0.9fr_1fr]">
+          <div className="grid gap-10 border-b border-red-900/30 pb-10 md:grid-cols-[1.1fr_0.9fr_1fr]">
             <div>
               <img
-                src="/images/brand/nbg-logo-white-extracted.png"
+                src="/images/brand/nbg-logo-white.png"
                 alt="Grupo NBG Import"
                 className="h-24 w-auto object-contain"
               />
-              <p className="mt-4 max-w-sm text-sm leading-7 text-slate-300">
-                Importacion y distribucion de repuestos automotrices con enfoque comercial, tiempos de respuesta rapidos y respaldo para cada linea.
+              <p className="mt-4 max-w-sm text-sm leading-7 text-white/70">
+                Importación y distribución de repuestos automotrices con enfoque comercial, tiempos de respuesta rápidos y respaldo para cada línea.
               </p>
               <div className="mt-5 inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">
-                Atencion comercial activa
+                Atención comercial activa
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Navegacion</h4>
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/50">Navegación</h4>
               <ul className="mt-4 space-y-3">
                 {NAV_ITEMS.map((item) => (
                   <li key={`footer-${item.href}`}>
                     <a
                       href={item.href}
                       onClick={() => trackEvent('nav_click', { target: item.href, location: 'footer' })}
-                      className="text-sm font-medium text-slate-200 transition hover:text-red-300"
+                      className="text-sm font-medium text-white/80 transition hover:text-red-300"
                     >
                       {item.label}
                     </a>
@@ -798,14 +857,14 @@ export default function App() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Contacto directo</h4>
+              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/50">Contacto directo</h4>
               <div className="mt-4 space-y-3">
                 <a
                   href="https://wa.me/51956701218"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackEvent('contact_click', { channel: 'footer_whatsapp' })}
-                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-sm text-slate-200 transition hover:border-red-500/40 hover:text-red-300"
+                  className="flex items-center gap-3 rounded-xl border border-red-900/30 bg-[#0a0000]/70 px-3 py-2.5 text-sm text-white/80 transition hover:border-red-500/40 hover:text-red-300"
                 >
                   <MessageCircle className="h-4 w-4 text-red-400" />
                   <span>+51 956 701 218</span>
@@ -814,7 +873,7 @@ export default function App() {
                 <a
                   href="mailto:marketing@nbg.pe"
                   onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
-                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-sm text-slate-200 transition hover:border-red-500/40 hover:text-red-300"
+                  className="flex items-center gap-3 rounded-xl border border-red-900/30 bg-[#0a0000]/70 px-3 py-2.5 text-sm text-white/80 transition hover:border-red-500/40 hover:text-red-300"
                 >
                   <Mail className="h-4 w-4 text-red-400" />
                   <span>marketing@nbg.pe</span>
@@ -833,13 +892,13 @@ export default function App() {
           </div>
 
           <div className="mt-5 flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+            <p className="text-xs uppercase tracking-[0.16em] text-white/40">
               {currentYear} Grupo NBG Import. Todos los derechos reservados.
             </p>
             <a
               href="mailto:marketing@nbg.pe"
               onClick={() => trackEvent('contact_click', { channel: 'footer_email_legal' })}
-              className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition hover:text-red-400"
+              className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50 transition hover:text-red-400"
             >
               Soporte comercial: marketing@nbg.pe
             </a>

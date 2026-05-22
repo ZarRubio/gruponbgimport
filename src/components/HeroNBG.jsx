@@ -8,19 +8,19 @@ import { WordRotate } from './magicui/word-rotate';
 
 const heroStats = [
   { value: 3, suffix: '+', label: 'Marcas del grupo' },
-  { value: 100, suffix: '%', label: 'Importacion directa' },
+  { value: 100, suffix: '%', label: 'Importación directa' },
   { value: 1, suffix: '', label: 'Hub comercial en Lima' },
 ];
 
 const operationCards = [
   {
     icon: Ship,
-    title: 'Importacion',
-    text: 'Seleccion directa de marcas y fabricantes para el mercado peruano.',
+    title: 'Importación',
+    text: 'Selección directa de marcas y fabricantes para el mercado peruano.',
   },
   {
     icon: Truck,
-    title: 'Distribucion',
+    title: 'Distribución',
     text: 'Abastecimiento para distribuidores, talleres y puntos de venta.',
   },
   {
@@ -32,7 +32,14 @@ const operationCards = [
 
 export function HeroNBG({ onAction }) {
   return (
-    <section id="inicio" className="relative isolate min-h-screen overflow-hidden bg-[linear-gradient(135deg,#a00000_0%,#a22929_48%,#8f3c3c_100%)]">
+    <section
+      id="inicio"
+      className="relative isolate overflow-hidden"
+      style={{
+        background:
+          'radial-gradient(ellipse 80% 60% at 20% 30%, #C0392B 0%, #8B0000 45%, #3D0000 100%)',
+      }}
+    >
       <Particles
         className="absolute inset-0 z-0"
         quantity={95}
@@ -44,11 +51,16 @@ export function HeroNBG({ onAction }) {
         vy={-0.01}
       />
 
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_18%_14%,rgba(255,255,255,0.14),transparent_20%),radial-gradient(circle_at_78%_24%,rgba(255,255,255,0.08),transparent_22%),linear-gradient(180deg,rgba(95,0,0,0.1),rgba(36,0,0,0.2)_82%)]" />
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'radial-gradient(ellipse 50% 40% at 70% 50%, rgba(180,30,30,0.4), transparent)',
+        }}
+      />
       <div className="absolute inset-0 z-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:58px_58px]" />
-      <div className="absolute inset-x-0 bottom-0 z-0 h-28 bg-gradient-to-t from-[#230000] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-0 h-28 bg-gradient-to-t from-[#3D0000] to-transparent" />
 
-      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 pb-16 pt-32 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:pt-36">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-10 px-4 pb-16 pt-24 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,13 +68,13 @@ export function HeroNBG({ onAction }) {
         >
           <div className="mb-6 inline-flex items-center rounded-full border border-white/35 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-lg shadow-red-950/20">
             <MapPin className="mr-2 h-4 w-4 text-white" />
-            Lima, Peru
+            Lima, Perú
           </div>
 
           <h1 className="max-w-2xl">
             <span className="sr-only">Grupo NBG Import</span>
             <img
-              src="/images/brand/nbg-logo-white-extracted.png"
+              src="/images/brand/nbg-logo-white.png"
               alt=""
               className="w-full max-w-[520px] object-contain drop-shadow-2xl"
             />
@@ -84,7 +96,7 @@ export function HeroNBG({ onAction }) {
           </div>
 
           <p className="mt-6 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
-            Importadora de repuestos automotrices y productos para motocicletas en Lima, Peru.
+            Importadora de repuestos automotrices y productos para motocicletas en Lima, Perú.
             Conectamos marcas especializadas con distribuidores, talleres y negocios del sector.
           </p>
 
@@ -140,9 +152,9 @@ export function HeroNBG({ onAction }) {
             <div className="relative rounded-xl border border-white/35 bg-white/[0.05] p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/70">Operacion comercial</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/70">Operación comercial</p>
                   <h2 className="mt-3 font-display text-5xl uppercase leading-none text-white sm:text-6xl">
-                    Importacion
+                    Importación
                     <br />
                     directa
                   </h2>
