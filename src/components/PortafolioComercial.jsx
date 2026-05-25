@@ -1,4 +1,4 @@
-import { CircleDot, Disc3, Gauge, Settings, ShoppingBag, Wrench } from 'lucide-react';
+﻿import { CircleDot, Disc3, Gauge, Settings, ShoppingBag, Wrench } from 'lucide-react';
 
 const categories = [
   { icon: CircleDot, title: 'Llantas', text: 'Opciones urbanas, trabajo y uso comercial.' },
@@ -11,7 +11,7 @@ const categories = [
 
 export function PortafolioComercial() {
   return (
-    <section className="nbg-ambient overflow-hidden bg-[#120909] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+    <section className="nbg-ambient overflow-hidden bg-[#1C0D0D] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-[1200px]">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>

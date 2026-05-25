@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
 
 const faqs = [
@@ -38,7 +38,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="nbg-ambient overflow-hidden px-6 py-24" style={{ background: 'linear-gradient(180deg,#0B0B0B 0%,#120909 100%)' }}>
+    <section className="nbg-ambient overflow-hidden px-6 py-24" style={{ background: 'linear-gradient(180deg,#101010 0%,#1C0D0D 100%)' }}>
       <div className="mx-auto max-w-[720px]">
         <div className="text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
@@ -50,7 +50,7 @@ export function FAQ() {
             <br />
             FRECUENTES
           </h2>
-          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitás saber antes de cotizar.</p>
+          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar.</p>
         </div>
 
         <div className="mt-10">

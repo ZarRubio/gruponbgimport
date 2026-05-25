@@ -1,4 +1,4 @@
-const testimonials = [
+﻿const testimonials = [
   {
     name: 'Carlos Mendoza',
     role: 'Dueño de Taller',
@@ -46,7 +46,7 @@ function Star() {
 
 export function Testimonios() {
   return (
-    <section className="nbg-ambient overflow-hidden px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #120909 50%, #0B0B0B 100%)' }}>
+    <section className="nbg-ambient overflow-hidden px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 50%, #101010 100%)' }}>
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <div className="mb-4 flex items-center gap-3">

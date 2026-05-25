@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+﻿import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 type Brand = {
@@ -107,7 +107,7 @@ function BrandCard({
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={cn(
-        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B]',
+        'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
         isFeatured && 'lg:row-span-2 lg:min-h-[620px]'
       )}
     >
@@ -119,7 +119,7 @@ function BrandCard({
         loading="lazy"
         decoding="async"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/74 to-[#0B0B0B]/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/74 to-[#101010]/10" />
       <div className="absolute inset-0 bg-red-600/0 transition duration-300 group-hover:bg-red-600/12" />
 
       <div className="relative z-10 mt-auto flex w-full flex-col p-6 sm:p-7">

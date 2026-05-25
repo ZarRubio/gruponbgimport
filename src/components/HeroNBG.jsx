@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, MessageCircle, Package, Truck } from 'lucide-react';
+﻿import { ArrowRight, CheckCircle2, Clock3, MapPinned, MessageCircle, Package, Truck, Warehouse } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { BorderBeam } from './magicui/border-beam';
 import { Particles } from './magicui/particles';
@@ -13,11 +13,17 @@ const trustItems = ['Importación directa', 'Atención a negocios', 'Despacho na
 
 const heroPills = ['Llantas', 'Cámaras', 'Rodajes', 'Carburadores', 'Accesorios', 'Motopartes'];
 
+const operationHighlights = [
+  { icon: Warehouse, label: 'Stock comercial' },
+  { icon: MapPinned, label: 'Despacho nacional' },
+  { icon: Clock3, label: 'Atención directa' },
+];
+
 export function HeroNBG({ onAction }) {
   return (
     <section
       id="inicio"
-      className="relative isolate overflow-hidden bg-[#0B0B0B]"
+      className="relative isolate overflow-hidden bg-[#101010]"
     >
       <Particles
         className="absolute inset-0 z-0 opacity-50"
@@ -30,7 +36,7 @@ export function HeroNBG({ onAction }) {
         vy={-0.01}
       />
       <div className="absolute inset-0 z-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:64px_64px]" />
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_18%_18%,rgba(232,33,39,0.18),transparent_34%),radial-gradient(ellipse_at_82%_24%,rgba(255,255,255,0.12),transparent_32%),linear-gradient(180deg,#111111_0%,#120909_100%)]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_18%_18%,rgba(232,33,39,0.18),transparent_34%),radial-gradient(ellipse_at_82%_24%,rgba(255,255,255,0.12),transparent_32%),linear-gradient(180deg,#151515_0%,#1C0D0D_100%)]" />
       <div
         className="hero-red-breath pointer-events-none absolute -left-[14%] top-[6%] z-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(232,33,39,0.20),rgba(232,33,39,0.08)_42%,transparent_70%)] blur-2xl"
         aria-hidden="true"
@@ -40,11 +46,11 @@ export function HeroNBG({ onAction }) {
         aria-hidden="true"
       />
       <div
-        className="hero-tech-sweep pointer-events-none absolute inset-y-0 left-1/2 z-0 w-[58%] -skew-x-12 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.035),transparent),linear-gradient(90deg,transparent,rgba(232,33,39,0.045),transparent)] opacity-70"
+        className="hero-tech-sweep pointer-events-none absolute inset-y-0 left-[56%] z-0 w-[38%] -skew-x-12 bg-[repeating-linear-gradient(90deg,transparent_0_52px,rgba(255,255,255,0.04)_52px_53px),linear-gradient(90deg,transparent,rgba(232,33,39,0.055),transparent)] opacity-25"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:pb-20 lg:pt-32">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.06fr_0.94fr] lg:px-8 lg:pb-20 lg:pt-32">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,13 +61,21 @@ export function HeroNBG({ onAction }) {
             Importador B2B en Perú
           </div>
 
-          <h1 className="max-w-3xl text-[42px] font-black leading-[0.98] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[68px]">
+          <h1 className="max-w-3xl text-[42px] font-black leading-[0.98] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[64px]">
             Importación B2B de repuestos para el sector moto
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-[1.6] text-[#B8B8B8] sm:text-lg">
             Abastecemos a talleres, tiendas, distribuidores y empresas con repuestos, llantas, cámaras y motopartes importadas con respaldo comercial y atención directa.
           </p>
+
+          <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/70">
+            {['Lima · Perú', 'Cotización por WhatsApp', 'Atención a negocios'].map((item) => (
+              <span key={item} className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5">
+                {item}
+              </span>
+            ))}
+          </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -115,15 +129,15 @@ export function HeroNBG({ onAction }) {
               src="/images/brand/nbg-isotipo.png"
               alt=""
               aria-hidden="true"
-              className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rotate-6 object-contain opacity-10"
+              className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rotate-6 object-contain opacity-[0.055]"
               loading="eager"
               decoding="async"
             />
-            <div className="relative rounded-2xl border border-white/[0.12] bg-[#141010]/82 p-6">
+            <div className="relative rounded-2xl border border-white/[0.12] bg-[#1A1414]/82 p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B8B8B8]">Portafolio importador</p>
-                  <h2 className="mt-3 text-4xl font-black leading-none text-white sm:text-5xl">
+                  <h2 className="mt-3 text-4xl font-black leading-none text-white sm:text-[46px]">
                     Stock para
                     <br />
                     negocios
@@ -134,7 +148,19 @@ export function HeroNBG({ onAction }) {
                 </div>
               </div>
 
-              <div className="mt-8 grid grid-cols-2 gap-3">
+              <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                {operationHighlights.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.label} className="rounded-2xl border border-white/[0.10] bg-white/[0.045] px-3 py-3">
+                      <Icon size={18} strokeWidth={1.5} className="text-[#E82127]" />
+                      <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/70">{item.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 grid grid-cols-2 gap-3">
                 {heroPills.map((item) => (
                   <div key={item} className="rounded-xl border border-white/[0.12] bg-white/[0.06] px-4 py-3 text-sm font-semibold text-[#C9C9C9]">
                     {item}

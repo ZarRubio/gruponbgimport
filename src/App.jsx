@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
@@ -352,7 +352,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#0B0B0B] text-white">
+    <div className="min-h-screen overflow-x-hidden bg-[#101010] text-white">
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
@@ -401,7 +401,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0B0B0B]/85 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#101010]/85 md:hidden"
               aria-label="Abrir menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -418,7 +418,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               id="mobile-nav"
-              className="border-t border-red-500/10 bg-[#0B0B0B]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
+              className="border-t border-red-500/10 bg-[#101010]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
             >
               <div className="flex flex-col gap-3">
                 {NAV_ITEMS.map((item) => (
@@ -465,7 +465,7 @@ export default function App() {
           id="marcas"
           className="nbg-ambient relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
           style={{
-            background: 'linear-gradient(180deg, #111111 0%, #140909 52%, #0B0B0B 100%)',
+            background: 'linear-gradient(180deg, #151515 0%, #1A0D0D 52%, #101010 100%)',
           }}
         >
           <CurvedLines />
@@ -494,7 +494,7 @@ export default function App() {
         </section>
         <PortafolioComercial />
 
-        <section className="nbg-ambient overflow-hidden bg-[#0B0B0B] px-4 py-14 sm:px-6 lg:px-8">
+        <section className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8">
           <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Cotización comercial</p>
@@ -539,7 +539,7 @@ export default function App() {
         <section
           id="contacto"
           className="nbg-ambient relative overflow-hidden border-t border-white/10"
-          style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #1A0B0B 55%, #120909 100%)' }}
+          style={{ background: 'linear-gradient(180deg, #101010 0%, #221010 55%, #1C0D0D 100%)' }}
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
@@ -683,22 +683,22 @@ export default function App() {
                             errors.businessType ? 'border-red-500/70' : ''
                           )}
                         >
-                          <option className="bg-[#0B0B0B]" value="">
+                          <option className="bg-[#101010]" value="">
                             Tipo de negocio
                           </option>
-                          <option className="bg-[#0B0B0B]" value="Taller">
+                          <option className="bg-[#101010]" value="Taller">
                             Taller
                           </option>
-                          <option className="bg-[#0B0B0B]" value="Tienda">
+                          <option className="bg-[#101010]" value="Tienda">
                             Tienda
                           </option>
-                          <option className="bg-[#0B0B0B]" value="Distribuidor">
+                          <option className="bg-[#101010]" value="Distribuidor">
                             Distribuidor
                           </option>
-                          <option className="bg-[#0B0B0B]" value="Empresa">
+                          <option className="bg-[#101010]" value="Empresa">
                             Empresa
                           </option>
-                          <option className="bg-[#0B0B0B]" value="Otro">
+                          <option className="bg-[#101010]" value="Otro">
                             Otro
                           </option>
                         </select>
@@ -727,11 +727,11 @@ export default function App() {
                             errors.productInterest ? 'border-red-500/70' : ''
                           )}
                         >
-                          <option className="bg-[#0B0B0B]" value="">
+                          <option className="bg-[#101010]" value="">
                             Producto de interés
                           </option>
-                          {['Llantas', 'Cámaras', 'Repuestos', 'Rodajes', 'Carburadores', 'Accesorios', 'CST Tires Peru', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
-                            <option key={option} className="bg-[#0B0B0B]" value={option}>
+                          {['Llantas', 'Cámaras', 'Repuestos', 'Rodajes', 'Carburadores', 'Accesorios', 'CST Tires Perú', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
+                            <option key={option} className="bg-[#101010]" value={option}>
                               {option}
                             </option>
                           ))}
@@ -785,7 +785,7 @@ export default function App() {
         <div
           aria-hidden="true"
           className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #120909, #080808)' }}
+          style={{ background: 'linear-gradient(to bottom, #1C0D0D, #0A0A0A)' }}
         />
         <BrandMarquee placement="bottom" />
       </main>
@@ -804,7 +804,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.96 }}
               transition={{ duration: 0.2 }}
-              className="w-full max-w-md rounded-[2rem] border border-white/[0.12] bg-[#0B0B0B] p-7 shadow-2xl shadow-black/35"
+              className="w-full max-w-md rounded-[2rem] border border-white/[0.12] bg-[#101010] p-7 shadow-2xl shadow-black/35"
               onClick={(event) => event.stopPropagation()}
             >
               <div className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Consultar disponibilidad</div>
@@ -824,7 +824,7 @@ export default function App() {
 
       <footer
         className="relative overflow-hidden border-t border-white/10"
-        style={{ background: 'linear-gradient(180deg, #120909 0%, #0B0B0B 55%, #070707 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #1C0D0D 0%, #101010 55%, #0A0A0A 100%)' }}
       >
         <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:56px_56px]" />
         <div className="pointer-events-none absolute -right-28 top-10 h-72 w-72 rounded-full bg-[#E82127]/10 blur-3xl" />

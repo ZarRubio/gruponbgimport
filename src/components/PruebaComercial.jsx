@@ -1,4 +1,4 @@
-import { CheckCircle2, PackageCheck, Warehouse } from 'lucide-react';
+﻿import { CheckCircle2, PackageCheck, Warehouse } from 'lucide-react';
 
 const proofs = [
   'Atención comercial para empresas y negocios',
@@ -8,18 +8,18 @@ const proofs = [
 
 export function PruebaComercial() {
   return (
-    <section className="nbg-ambient overflow-hidden bg-[#0B0B0B] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+    <section className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
         <div className="relative overflow-hidden rounded-[28px] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)]">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-white/[0.12] bg-[#141010] p-5">
+            <div className="rounded-2xl border border-white/[0.12] bg-[#1A1414] p-5">
               <Warehouse size={28} strokeWidth={1.5} className="text-[#E82127]" />
               <h3 className="mt-5 text-xl font-black text-white">Almacén y stock</h3>
               <p className="mt-3 text-sm leading-[1.6] text-[#B8B8B8]">
                 Líneas comerciales para abastecimiento de talleres, tiendas y distribuidores.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/[0.12] bg-[#141010] p-5 sm:mt-10">
+            <div className="rounded-2xl border border-white/[0.12] bg-[#1A1414] p-5 sm:mt-10">
               <PackageCheck size={28} strokeWidth={1.5} className="text-[#E82127]" />
               <h3 className="mt-5 text-xl font-black text-white">Despacho coordinado</h3>
               <p className="mt-3 text-sm leading-[1.6] text-[#B8B8B8]">

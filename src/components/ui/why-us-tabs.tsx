@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { ArrowRight, Bike, Handshake, Ship } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CurvedLines } from '../CurvedLines';
@@ -104,7 +104,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
     <section
       className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0B0B0B 0%, #120909 100%)',
+        background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 100%)',
       }}
     >
       <CurvedLines />
@@ -190,7 +190,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
             id={`${activeTab.id}-panel`}
             role="tabpanel"
             aria-labelledby={`${activeTab.id}-tab`}
-            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-[#0B0B0B]/82"
+            className="relative mt-5 overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-[#101010]/82"
           >
             <img
               src={activeTab.image}
@@ -199,8 +199,8 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
               loading="lazy"
               decoding="async"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/80 to-[#0B0B0B]/16" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/22 to-[#0B0B0B]/8" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#101010] via-[#101010]/80 to-[#101010]/16" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/22 to-[#101010]/8" />
             <div className="absolute inset-0 bg-red-950/10" />
 
             <div className="relative z-10 grid min-h-[560px] lg:grid-cols-[0.85fr_1.15fr]">

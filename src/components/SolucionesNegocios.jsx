@@ -1,4 +1,4 @@
-import { Building2, Factory, Store, Wrench } from 'lucide-react';
+﻿import { Building2, Factory, Store, Wrench } from 'lucide-react';
 
 const solutions = [
   {
@@ -25,7 +25,7 @@ const solutions = [
 
 export function SolucionesNegocios() {
   return (
-    <section id="soluciones" className="nbg-ambient overflow-hidden bg-[#0B0B0B] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+    <section id="soluciones" className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-[1200px]">
         <div className="max-w-3xl">
           <div className="mb-4 flex items-center gap-3">
