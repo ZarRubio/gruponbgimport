@@ -787,6 +787,7 @@ export default function App() {
           className="h-20"
           style={{ background: 'linear-gradient(to bottom, #120909, #080808)' }}
         />
+        <BrandMarquee placement="bottom" />
       </main>
 
       <AnimatePresence>
