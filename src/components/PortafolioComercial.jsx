@@ -1,12 +1,12 @@
 ﻿import { CircleDot, Disc3, Gauge, Settings, ShoppingBag, Wrench } from 'lucide-react';
 
 const categories = [
-  { icon: CircleDot, title: 'Llantas', text: 'Opciones urbanas, trabajo y uso comercial.' },
-  { icon: Disc3, title: 'Cámaras', text: 'Medidas de rotación para tiendas y talleres.' },
-  { icon: Settings, title: 'Repuestos', text: 'Componentes para atención recurrente.' },
-  { icon: Gauge, title: 'Rodajes', text: 'Líneas para mantenimiento y reparación.' },
-  { icon: Wrench, title: 'Carburadores', text: 'Soluciones para mercado motero peruano.' },
-  { icon: ShoppingBag, title: 'Accesorios', text: 'Productos complementarios para venta comercial.' },
+  { icon: CircleDot, title: 'Llantas para motos', text: 'Opciones urbanas, trabajo y uso comercial, incluyendo líneas CST Tires Perú.' },
+  { icon: Disc3, title: 'Cámaras para motos', text: 'Medidas de rotación para tiendas, talleres y compras recurrentes.' },
+  { icon: Settings, title: 'Repuestos para motos', text: 'Componentes importados para mantenimiento, reparación y atención recurrente.' },
+  { icon: Gauge, title: 'Rodajes y transmisión', text: 'Líneas para mantenimiento preventivo, reparación y reposición comercial.' },
+  { icon: Wrench, title: 'Carburadores y partes', text: 'Soluciones para marcas del mercado motero peruano como Honda, Yamaha, Bajaj y TVS.' },
+  { icon: ShoppingBag, title: 'Accesorios para motos', text: 'Productos complementarios para venta comercial y abastecimiento B2B.' },
 ];
 
 export function PortafolioComercial() {
@@ -19,9 +19,9 @@ export function PortafolioComercial() {
               <span className="h-px w-10 bg-[#E82127]" />
               <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">PORTAFOLIO</span>
             </div>
-            <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">Portafolio comercial para negocios</h2>
+            <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">Portafolio de repuestos, llantas y accesorios para motos</h2>
             <p className="mt-4 text-base leading-[1.6] text-[#B8B8B8]">
-              Categorías pensadas para abastecimiento, rotación y compras recurrentes.
+              Categorías pensadas para abastecimiento, rotación y compras recurrentes de talleres, tiendas y distribuidores en Perú.
             </p>
           </div>
           <a

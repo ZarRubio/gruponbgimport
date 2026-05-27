@@ -4,7 +4,7 @@ import { BorderBeam } from './magicui/border-beam';
 import { Particles } from './magicui/particles';
 
 const stats = [
-  { value: '+500', label: 'productos disponibles' },
+  { value: '+500', label: 'repuestos y motopartes' },
   { value: '100%', label: 'enfoque B2B' },
   { value: '+8', label: 'líneas de producto' },
 ];
@@ -62,15 +62,15 @@ export function HeroNBG({ onAction }) {
           </div>
 
           <h1 className="max-w-3xl text-[42px] font-black leading-[0.98] tracking-[-0.02em] text-white sm:text-[56px] lg:text-[64px]">
-            Importación B2B de repuestos para el sector moto
+            Importador de repuestos para motos en Perú
           </h1>
 
           <p className="mt-6 max-w-2xl text-base leading-[1.6] text-[#B8B8B8] sm:text-lg">
-            Abastecemos a talleres, tiendas, distribuidores y empresas con repuestos, llantas, cámaras y motopartes importadas con respaldo comercial y atención directa.
+            Abastecemos a talleres, tiendas, distribuidores y empresas con repuestos para motos al por mayor, llantas, cámaras, rodajes, carburadores y accesorios importados con respaldo comercial.
           </p>
 
           <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white/70">
-            {['Lima · Perú', 'Cotización por WhatsApp', 'Atención a negocios'].map((item) => (
+            {['Lima · cobertura nacional', 'Cotización por WhatsApp', 'Atención B2B'].map((item) => (
               <span key={item} className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5">
                 {item}
               </span>
@@ -93,7 +93,7 @@ export function HeroNBG({ onAction }) {
               onClick={() => onAction?.('hero_marcas_importadas')}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:border-[#E82127]/60 hover:bg-white/[0.06]"
             >
-              Ver marcas importadas
+              Ver marcas y productos
               <ArrowRight size={18} strokeWidth={1.5} />
             </a>
           </div>
@@ -138,7 +138,7 @@ export function HeroNBG({ onAction }) {
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B8B8B8]">Portafolio importador</p>
                   <h2 className="mt-3 text-4xl font-black leading-none text-white sm:text-[46px]">
-                    Stock para
+                    Repuestos para
                     <br />
                     negocios
                   </h2>
@@ -170,7 +170,7 @@ export function HeroNBG({ onAction }) {
 
               <div className="mt-6 rounded-xl border border-[#E82127]/25 bg-[#E82127]/10 px-4 py-4">
                 <p className="text-sm leading-6 text-white">
-                  Atención comercial directa para compras recurrentes, abastecimiento por línea y coordinación de despacho nacional.
+                  Atención comercial directa para compras recurrentes, abastecimiento por línea, marcas de motos y coordinación de despacho nacional.
                 </p>
               </div>
             </div>

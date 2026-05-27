@@ -730,7 +730,7 @@ export default function App() {
                           <option className="bg-[#101010]" value="">
                             Producto de interés
                           </option>
-                          {['Llantas', 'Cámaras', 'Repuestos', 'Rodajes', 'Carburadores', 'Accesorios', 'CST Tires Perú', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
+                          {['Llantas para motos', 'Cámaras para motos', 'Repuestos para motos', 'Rodajes y transmisión', 'Carburadores', 'Accesorios para motos', 'CST Tires Perú', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
                             <option key={option} className="bg-[#101010]" value={option}>
                               {option}
                             </option>
@@ -840,7 +840,7 @@ export default function App() {
                 decoding="async"
               />
               <p className="mt-4 max-w-md text-sm leading-7 text-[#B8B8B8]">
-                Importación B2B de repuestos, llantas, cámaras y motopartes para talleres, tiendas, distribuidores y empresas del sector moto en Perú.
+                Importador y distribuidor B2B de repuestos para motos, llantas, cámaras, accesorios y motopartes para talleres, tiendas, distribuidores y empresas en Perú.
               </p>
               <div className="mt-5 grid max-w-md grid-cols-2 gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
                 {['Importación directa', 'Atención B2B', 'Despacho nacional', 'Portafolio moto'].map((item) => (

@@ -4,17 +4,17 @@ const solutions = [
   {
     icon: Wrench,
     title: 'Talleres mecánicos',
-    text: 'Abastecimiento confiable para trabajos recurrentes, mantenimientos y pedidos urgentes.',
+    text: 'Repuestos para motos, llantas y consumibles para mantenimientos, reparaciones y pedidos recurrentes.',
   },
   {
     icon: Store,
     title: 'Tiendas de repuestos',
-    text: 'Líneas de alta rotación para ampliar tu vitrina y responder mejor a tus clientes.',
+    text: 'Líneas de alta rotación para ampliar vitrina: cámaras, rodajes, accesorios y motopartes importadas.',
   },
   {
     icon: Factory,
     title: 'Distribuidores',
-    text: 'Portafolio comercial para compras por volumen, variedad y continuidad de stock.',
+    text: 'Portafolio comercial para compras por volumen, variedad de marcas y continuidad de stock en Perú.',
   },
   {
     icon: Building2,
@@ -33,10 +33,10 @@ export function SolucionesNegocios() {
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">NEGOCIOS</span>
           </div>
           <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">
-            Soluciones para negocios del sector moto
+            Distribuidor de repuestos para motos y negocios del sector moto
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-[1.6] text-[#B8B8B8]">
-            Trabajamos con empresas que necesitan abastecimiento constante, variedad de productos y atención comercial confiable.
+            Trabajamos con empresas que necesitan abastecimiento constante, variedad de productos, cotización rápida y atención comercial confiable para compras B2B.
           </p>
         </div>
 

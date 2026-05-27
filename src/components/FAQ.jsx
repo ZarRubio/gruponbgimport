@@ -3,9 +3,14 @@ import { Minus, Plus } from 'lucide-react';
 
 const faqs = [
   {
+    question: '¿Grupo NBG Import vende repuestos para motos al por mayor?',
+    answer:
+      'Sí. Atendemos talleres, tiendas, distribuidores y empresas que necesitan abastecimiento de repuestos para motos, llantas, cámaras, rodajes, carburadores y accesorios en Perú.',
+  },
+  {
     question: '¿Hacen envíos fuera de Lima?',
     answer:
-      'Sí, tenemos cobertura nacional. Coordinamos despacho a Arequipa, Trujillo, Cusco, Piura y todas las regiones del Perú a través de transportistas asociados.',
+      'Sí, tenemos cobertura nacional. Coordinamos despacho a Arequipa, Trujillo, Cusco, Piura y otras regiones del Perú según disponibilidad, volumen y transportista.',
   },
   {
     question: '¿Cuál es el pedido mínimo?',
@@ -15,7 +20,7 @@ const faqs = [
   {
     question: '¿Los productos tienen garantía?',
     answer:
-      'Sí. Todos nuestros productos son originales de fábrica con garantía del fabricante. CST Tires, SAHM Parts y NBG Parts cuentan con respaldo internacional.',
+      'Sí. Trabajamos productos originales de fábrica y líneas comerciales con respaldo. CST Tires, SAHM Parts y NBG Parts forman parte de nuestro portafolio para el sector moto.',
   },
   {
     question: '¿Cómo recibo mi cotización?',
@@ -30,7 +35,7 @@ const faqs = [
   {
     question: '¿Qué marcas de motos cubren los repuestos?',
     answer:
-      'Nuestro catálogo cubre las principales marcas del mercado peruano: Honda, Yamaha, Bajaj, TVS, Lifan, Ronco y más. Consúltanos por tu marca específica.',
+      'Nuestro catálogo cubre necesidades frecuentes del mercado peruano: Honda, Yamaha, Bajaj, TVS, Lifan, Ronco y más. Consúltanos por tu marca, medida o producto específico.',
   },
 ];
 
@@ -50,7 +55,7 @@ export function FAQ() {
             <br />
             FRECUENTES
           </h2>
-          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar.</p>
+          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar repuestos, llantas y accesorios para motos.</p>
         </div>
 
         <div className="mt-10">

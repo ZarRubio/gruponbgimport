@@ -1,6 +1,7 @@
 ﻿import { CheckCircle2, PackageCheck, Warehouse } from 'lucide-react';
 
 const proofs = [
+  'Importador de repuestos para motos en Perú',
   'Atención comercial para empresas y negocios',
   'Coordinación de compras y despacho nacional',
   'Portafolio especializado en sector moto',
@@ -16,7 +17,7 @@ export function PruebaComercial() {
               <Warehouse size={28} strokeWidth={1.5} className="text-[#E82127]" />
               <h3 className="mt-5 text-xl font-black text-white">Almacén y stock</h3>
               <p className="mt-3 text-sm leading-[1.6] text-[#B8B8B8]">
-                Líneas comerciales para abastecimiento de talleres, tiendas y distribuidores.
+                Líneas comerciales de llantas, cámaras, rodajes, carburadores, accesorios y repuestos para motos.
               </p>
             </div>
             <div className="rounded-2xl border border-white/[0.12] bg-[#1A1414] p-5 sm:mt-10">
@@ -35,10 +36,10 @@ export function PruebaComercial() {
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">RESPALDO</span>
           </div>
           <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">
-            Confianza comercial para comprar mejor
+            Confianza comercial para importar y comprar mejor
           </h2>
           <p className="mt-4 text-base leading-[1.6] text-[#B8B8B8]">
-            Grupo NBG Import trabaja con líneas especializadas para negocios que buscan disponibilidad, rotación y respaldo en cada compra.
+            Grupo NBG Import trabaja con líneas especializadas para negocios que buscan disponibilidad, rotación, respaldo y atención directa en cada compra de motopartes.
           </p>
           <div className="mt-8 grid gap-3">
             {proofs.map((item) => (
