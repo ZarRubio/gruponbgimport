@@ -1,5 +1,5 @@
-﻿import { useEffect, useState } from 'react';
-import { ArrowRight, Bike, Handshake, Ship } from 'lucide-react';
+﻿import { useState } from 'react';
+import { Bike, Handshake, Ship } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CurvedLines } from '../CurvedLines';
 
@@ -20,8 +20,6 @@ type WhyUsTabsProps = {
   onTabChange?: (tab: string, source: 'auto' | 'manual') => void;
   onCtaClick?: (cta: string) => void;
 };
-
-const AUTO_CHANGE_MS = 30000;
 
 const tabs: WhyUsItem[] = [
   {
@@ -68,34 +66,12 @@ function cn(...classes: Array<string | false | undefined>) {
 
 export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showSwipeHint, setShowSwipeHint] = useState(() => {
-    if (typeof window === 'undefined') {
-      return true;
-    }
-    return window.localStorage.getItem('nbg-tabs-swiped') !== 'true';
-  });
   const activeTab = tabs[activeIndex];
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => {
-        const next = (current + 1) % tabs.length;
-        onTabChange?.(tabs[next].label, 'auto');
-        return next;
-      });
-    }, AUTO_CHANGE_MS);
-
-    return () => window.clearInterval(timer);
-  }, [activeIndex, onTabChange]);
-
+  // Sin rotación automática: el contenido solo cambia cuando la persona elige una pestaña (WCAG 2.2.2).
   const selectTab = (index: number) => {
     setActiveIndex(index);
     onTabChange?.(tabs[index].label, 'manual');
-  };
-
-  const dismissSwipeHint = () => {
-    setShowSwipeHint(false);
-    window.localStorage.setItem('nbg-tabs-swiped', 'true');
   };
 
   const ActiveIcon = activeTab.icon;
@@ -111,10 +87,6 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
       <CurvedLines />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-10 max-w-3xl">
-          <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-10 bg-white/60" />
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">Ventajas comerciales</span>
-          </div>
           <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
             Un aliado importador para hacer crecer tu negocio
           </h2>
@@ -124,15 +96,10 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
         </div>
 
         <div className="rounded-[2rem] border border-white/[0.12] bg-white/[0.06] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur sm:p-5">
-          {showSwipeHint ? (
-            <p className="mb-3 text-[11px] text-white/40 md:hidden">Desliza para ver más →</p>
-          ) : null}
           <div
-            className="flex gap-3 overflow-x-auto [scrollbar-width:none] md:grid md:grid-cols-3 [&::-webkit-scrollbar]:hidden"
+            className="grid gap-3 md:grid-cols-3"
             role="tablist"
             aria-label="Razones para elegir Grupo NBG Import"
-            onScroll={dismissSwipeHint}
-            onTouchStart={dismissSwipeHint}
           >
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
@@ -148,7 +115,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                   aria-controls={`${tab.id}-panel`}
                   onClick={() => selectTab(index)}
                   className={cn(
-                    'flex min-w-[250px] items-center gap-3 rounded-[1.35rem] border px-4 py-4 text-left transition md:min-w-0 md:w-full',
+                    'flex w-full items-center gap-3 rounded-[1.35rem] border px-4 py-3 text-left transition md:py-4',
                     selected
                       ? 'border-red-600/40 bg-red-600/20 font-semibold text-white shadow-lg shadow-red-950/20'
                       : 'border-white/[0.12] bg-white/[0.06] text-white/70 hover:bg-white/[0.09]'
@@ -162,30 +129,15 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                   >
                     <Icon size={18} strokeWidth={1.5} aria-hidden="true" />
                   </span>
-                  <span className="text-xs font-black uppercase tracking-[0.18em] sm:text-sm">{tab.label}</span>
+                  <span className="text-sm font-bold sm:text-base">{tab.label}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="mt-4 flex flex-col gap-2 rounded-[1.25rem] border border-white/20 bg-white/[0.045] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-              Cambia automáticamente cada 30 segundos
-            </p>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/20 sm:w-56" aria-hidden="true">
-              <motion.div
-                key={activeTab.id}
-                className="h-full rounded-full bg-[#ef2428]"
-                initial={{ width: '0%' }}
-                animate={reduceMotion ? { width: '100%' } : { width: '100%' }}
-                transition={reduceMotion ? { duration: 0 } : { duration: AUTO_CHANGE_MS / 1000, ease: 'linear' }}
-              />
-            </div>
-          </div>
-
           <motion.div
             key={activeTab.id}
-            initial={{ opacity: 0 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             id={`${activeTab.id}-panel`}
@@ -209,17 +161,16 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                 <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white">
                   <ActiveIcon size={24} strokeWidth={1.5} aria-hidden="true" />
                 </div>
-                <h3 className="max-w-xl text-3xl font-black uppercase leading-tight text-white sm:text-4xl">
+                <h3 className="max-w-xl text-3xl font-black leading-tight text-white sm:text-4xl">
                   {activeTab.title}
                 </h3>
                 <p className="mt-5 max-w-xl text-sm leading-7 text-white/75 sm:text-base">{activeTab.description}</p>
                 <a
                   href={activeTab.href}
                   onClick={() => onCtaClick?.(activeTab.cta)}
-                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
+                  className="mt-8 inline-flex w-fit items-center rounded-xl bg-[#ef2428] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-red-500"
                 >
                   {activeTab.cta}
-                  <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
                 </a>
               </div>
 

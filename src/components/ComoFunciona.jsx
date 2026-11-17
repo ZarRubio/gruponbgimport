@@ -31,10 +31,6 @@ export function ComoFunciona() {
   return (
     <section className="nbg-ambient overflow-hidden bg-[#1C0D0D] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-[1200px] text-center">
-        <div className="mb-4 flex items-center justify-center gap-3">
-          <span className="h-px w-10 bg-[#E82127]" />
-          <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E82127]">PROCESO</span>
-        </div>
         <h2 className="mx-auto max-w-3xl text-3xl font-black leading-tight text-white sm:text-5xl">
           Así de simple es trabajar con nosotros
         </h2>

@@ -46,7 +46,6 @@ import { Testimonios } from './components/Testimonios';
 import { FAQ } from './components/FAQ';
 import { SolucionesNegocios } from './components/SolucionesNegocios';
 import { PortafolioComercial } from './components/PortafolioComercial';
-import { PruebaComercial } from './components/PruebaComercial';
 
 const NAV_ITEMS = [
   { label: 'Soluciones', href: '#soluciones' },
@@ -197,29 +196,15 @@ function Textarea({ className = '', ...props }) {
   );
 }
 
-function Reveal({ children, delay = 0, className = '' }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+// Antes animaba cada sección al entrar en pantalla; ahora es un contenedor simple.
+function Reveal({ children, className = '' }) {
+  return <div className={className}>{children}</div>;
 }
 
-function SectionHeader({ eyebrow, title, description, center = false }) {
+function SectionHeader({ title, description, center = false }) {
   return (
     <div className={center ? 'text-center' : ''}>
-      <div className={cn('mb-4 flex items-center gap-3', center ? 'justify-center' : '')}>
-        {!center && <span className="h-px w-10 bg-red-500" />}
-        <span className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">{eyebrow}</span>
-      </div>
-
-      <h2 className="text-4xl font-black uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h2>
+      <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">{title}</h2>
 
       {description ? (
         <p className={cn('mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base', center ? 'mx-auto' : '')}>{description}</p>
@@ -545,7 +530,6 @@ export default function App() {
           <CurvedLines />
           <Reveal className="relative z-10 mx-auto max-w-7xl">
             <SectionHeader
-              eyebrow="Marcas importadas"
               title="Marcas importadas para un portafolio más competitivo"
               description="Representamos y comercializamos líneas especializadas para negocios que buscan calidad, rotación y respaldo."
             />
@@ -571,8 +555,7 @@ export default function App() {
         <section className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8">
           <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Cotización comercial</p>
-              <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
                 ¿Buscas abastecer tu taller, tienda o distribuidora?
               </h2>
               <p className="mt-3 max-w-2xl text-base leading-7 text-[#B8B8B8]">
@@ -606,7 +589,6 @@ export default function App() {
         />
 
         <ComoFunciona />
-        <PruebaComercial />
         <Testimonios />
         <FAQ />
 
@@ -618,14 +600,7 @@ export default function App() {
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
               <SectionHeader
-                eyebrow="Contáctanos"
-                title={
-                  <>
-                    ¿Listo para
-                    <br />
-                    cotizar?
-                  </>
-                }
+                title="¿Listo para cotizar?"
                 description="También puedes escribirnos directamente por WhatsApp para una atención más rápida."
               />
 
@@ -634,7 +609,7 @@ export default function App() {
                   <CardContent className="flex items-start gap-4 p-5">
                     <MessageCircle size={20} strokeWidth={1.5} className="mt-1 text-red-400" />
                     <div>
-                      <div className="text-sm font-black uppercase tracking-[0.18em] text-white">WhatsApp</div>
+                      <div className="text-sm font-bold text-white">WhatsApp</div>
                       <a
                         href="https://wa.me/51956701218"
                         target="_blank"
@@ -652,7 +627,7 @@ export default function App() {
                   <CardContent className="flex items-start gap-4 p-5">
                     <Mail size={20} strokeWidth={1.5} className="mt-1 text-red-400" />
                     <div>
-                      <div className="text-sm font-black uppercase tracking-[0.18em] text-white">Correo</div>
+                      <div className="text-sm font-bold text-white">Correo</div>
                       <a
                         href="mailto:marketing@nbg.pe"
                         onClick={() => trackEvent('contact_click', { channel: 'email_card' })}
@@ -668,7 +643,7 @@ export default function App() {
                   <CardContent className="flex items-start gap-4 p-5">
                     <Phone size={20} strokeWidth={1.5} className="mt-1 text-red-400" />
                     <div>
-                      <div className="text-sm font-black uppercase tracking-[0.18em] text-white">Teléfono</div>
+                      <div className="text-sm font-bold text-white">Teléfono</div>
                       <a
                         href="tel:+51956701218"
                         onClick={() => trackEvent('contact_click', { channel: 'phone_card' })}
@@ -682,7 +657,7 @@ export default function App() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.1}>
+            <Reveal>
               <Card className={cn('rounded-[2rem] shadow-2xl shadow-black/20', redGlassCard)}>
                 <CardContent className="p-6 sm:p-8">
                   <p className="mb-5 text-sm text-white/70" aria-live="polite">
@@ -691,7 +666,7 @@ export default function App() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="name" className="sr-only">
+                        <label htmlFor="name" className="mb-2 block text-sm font-semibold text-white/85">
                           Nombre y empresa
                         </label>
                         <Input
@@ -701,7 +676,7 @@ export default function App() {
                           value={formData.name}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="Nombre y empresa"
+                          placeholder="Ej.: Juan Pérez, Taller Moto Sur"
                           aria-invalid={Boolean(errors.name)}
                           aria-describedby={errors.name ? 'name-error' : undefined}
                           className={errors.name ? 'border-red-500/70' : ''}
@@ -714,7 +689,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label htmlFor="phone" className="sr-only">
+                        <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-white/85">
                           Celular o WhatsApp
                         </label>
                         <Input
@@ -725,7 +700,7 @@ export default function App() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           type="tel"
-                          placeholder="Celular / WhatsApp"
+                          placeholder="Ej.: 987 654 321"
                           aria-invalid={Boolean(errors.phone)}
                           aria-describedby={errors.phone ? 'phone-error' : undefined}
                           className={errors.phone ? 'border-red-500/70' : ''}
@@ -740,7 +715,7 @@ export default function App() {
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="businessType" className="sr-only">
+                        <label htmlFor="businessType" className="mb-2 block text-sm font-semibold text-white/85">
                           Tipo de negocio
                         </label>
                         <select
@@ -758,7 +733,7 @@ export default function App() {
                           )}
                         >
                           <option className="bg-[#101010]" value="">
-                            Tipo de negocio
+                            Selecciona una opción
                           </option>
                           <option className="bg-[#101010]" value="Taller">
                             Taller
@@ -784,7 +759,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label htmlFor="productInterest" className="sr-only">
+                        <label htmlFor="productInterest" className="mb-2 block text-sm font-semibold text-white/85">
                           Producto de interés
                         </label>
                         <select
@@ -802,7 +777,7 @@ export default function App() {
                           )}
                         >
                           <option className="bg-[#101010]" value="">
-                            Producto de interés
+                            Selecciona una opción
                           </option>
                           {['Llantas para motos', 'Cámaras para motos', 'Repuestos para motos', 'Rodajes y transmisión', 'Carburadores', 'Accesorios para motos', 'CST Tires Perú', 'SAHM Parts', 'NBG Parts', 'Otra / No sé'].map((option) => (
                             <option key={option} className="bg-[#101010]" value={option}>
@@ -819,8 +794,8 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="sr-only">
-                        Detalle de consulta
+                      <label htmlFor="message" className="mb-2 block text-sm font-semibold text-white/85">
+                        ¿Qué necesitas cotizar?
                       </label>
                       <Textarea
                         id="message"
@@ -829,7 +804,7 @@ export default function App() {
                         value={formData.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Cuéntanos qué producto, volumen o línea necesitas cotizar."
+                        placeholder="Producto, medida, marca de moto y cantidad aproximada."
                         aria-invalid={Boolean(errors.message)}
                         aria-describedby={errors.message ? 'message-error' : undefined}
                         className={errors.message ? 'border-red-500/70' : ''}
@@ -868,7 +843,6 @@ export default function App() {
           className="h-20"
           style={{ background: 'linear-gradient(to bottom, #1C0D0D, #0A0A0A)' }}
         />
-        <BrandMarquee placement="bottom" />
       </main>
 
       <AnimatePresence>

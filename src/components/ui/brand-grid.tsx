@@ -1,5 +1,4 @@
-﻿import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+﻿import { ArrowUpRight } from 'lucide-react';
 
 type Brand = {
   id: string;
@@ -101,11 +100,7 @@ function BrandCard({
   };
 
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+    <article
       className={cn(
         'group relative flex min-h-[360px] overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-[0_8px_32px_rgba(220,38,38,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
         isFeatured && 'lg:row-span-2 lg:min-h-[620px]'
@@ -162,17 +157,17 @@ function BrandCard({
           )}
         >
           {brand.cta}
-          {!brand.isPending && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
+          {!brand.isPending && <ArrowUpRight className="h-4 w-4" aria-label="(abre en otra pestaña)" />}
         </a>
         <button
           type="button"
           onClick={() => onQuoteClick?.(brand.quoteValue)}
           className="mt-2 inline-flex w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-xs text-white/70 underline underline-offset-[3px] transition hover:text-white"
         >
-          Cotizar esta marca →
+          Cotizar esta marca
         </button>
       </div>
-    </motion.article>
+    </article>
   );
 }
 

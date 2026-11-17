@@ -49,15 +49,7 @@ export function Testimonios() {
     <section className="nbg-ambient overflow-hidden px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 50%, #101010 100%)' }}>
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
-          <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-10 bg-red-500" />
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">CLIENTES</span>
-          </div>
-          <h2 className="font-black uppercase leading-tight text-white" style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}>
-            LO QUE DICEN
-            <br />
-            NUESTROS CLIENTES
-          </h2>
+          <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">Lo que dicen nuestros clientes</h2>
           <p className="mt-3 text-[15px] text-white/70">Distribuidores y talleres que ya trabajan con nosotros.</p>
         </div>
 

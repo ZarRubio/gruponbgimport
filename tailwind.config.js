@@ -5,7 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', 'Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       animation: {
         gradient: 'gradient 8s linear infinite',

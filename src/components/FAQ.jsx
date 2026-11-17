@@ -46,15 +46,7 @@ export function FAQ() {
     <section id="faq" className="nbg-ambient overflow-hidden px-6 py-24" style={{ background: 'linear-gradient(180deg,#101010 0%,#1C0D0D 100%)' }}>
       <div className="mx-auto max-w-[720px]">
         <div className="text-center">
-          <div className="mb-4 flex items-center justify-center gap-3">
-            <span className="h-px w-10 bg-red-500" />
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">FAQ</span>
-          </div>
-          <h2 className="text-4xl font-black uppercase leading-tight text-white sm:text-5xl">
-            PREGUNTAS
-            <br />
-            FRECUENTES
-          </h2>
+          <h2 className="text-4xl font-black leading-tight text-white sm:text-5xl">Preguntas frecuentes</h2>
           <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar repuestos, llantas y accesorios para motos.</p>
         </div>
 
