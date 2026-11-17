@@ -1,10 +1,11 @@
-export function WhatsAppFloat() {
+export function WhatsAppFloat({ onAction }) {
   return (
     <>
       <a
         href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => onAction?.('whatsapp_float_mobile')}
         className="fixed inset-x-4 bottom-4 z-50 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-black/30 transition hover:scale-[1.02] sm:hidden"
         aria-label="Cotizar por WhatsApp"
       >
@@ -16,6 +17,7 @@ export function WhatsAppFloat() {
         href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => onAction?.('whatsapp_float_desktop')}
         className="group fixed bottom-6 right-6 z-50 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/30 transition hover:scale-105 sm:flex"
         aria-label="Cotizar por WhatsApp"
       >

@@ -922,7 +922,7 @@ export default function App() {
         </div>
       </footer>
 
-      <WhatsAppFloat />
+      <WhatsAppFloat onAction={(cta) => trackEvent('cta_click', { cta })} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 ﻿import { ArrowRight, CheckCircle2, Clock3, MapPinned, MessageCircle, Package, Truck, Warehouse } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { BorderBeam } from './magicui/border-beam';
 import { Particles } from './magicui/particles';
 
@@ -20,21 +20,25 @@ const operationHighlights = [
 ];
 
 export function HeroNBG({ onAction }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="inicio"
       className="relative isolate overflow-hidden bg-[#101010]"
     >
-      <Particles
-        className="absolute inset-0 z-0 opacity-50"
-        quantity={70}
-        color="#ffffff"
-        staticity={42}
-        ease={70}
-        size={0.28}
-        vx={0.01}
-        vy={-0.01}
-      />
+      {!reduceMotion && (
+        <Particles
+          className="absolute inset-0 z-0 opacity-50"
+          quantity={70}
+          color="#ffffff"
+          staticity={42}
+          ease={70}
+          size={0.28}
+          vx={0.01}
+          vy={-0.01}
+        />
+      )}
       <div className="absolute inset-0 z-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:64px_64px]" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_18%_18%,rgba(232,33,39,0.18),transparent_34%),radial-gradient(ellipse_at_82%_24%,rgba(255,255,255,0.12),transparent_32%),linear-gradient(180deg,#151515_0%,#1C0D0D_100%)]" />
       <div
@@ -52,8 +56,8 @@ export function HeroNBG({ onAction }) {
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.06fr_0.94fr] lg:px-8 lg:pb-20 lg:pt-32">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { y: 24 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.65 }}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.065] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#C9C9C9]">
@@ -118,7 +122,7 @@ export function HeroNBG({ onAction }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 22, scale: 0.98 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.08 }}
           className="relative"

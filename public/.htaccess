@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Regla existente de Hostinger: bloquear acceso a la carpeta de builds
+RewriteRule ^\.builds - [F,L]
+
+# Redirigir dominio sin www → https://www (301)
+RewriteCond %{HTTP_HOST} ^gruponbgimport\.com$ [NC]
+RewriteRule ^(.*)$ https://www.gruponbgimport.com/$1 [R=301,L]
