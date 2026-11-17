@@ -38,9 +38,9 @@ function SocialIcon({ name }) {
 import { BrandGrid } from './components/ui/brand-grid';
 import { WhyUsTabs } from './components/ui/why-us-tabs';
 import { HeroNBG } from './components/HeroNBG';
-import { CurvedLines } from './components/CurvedLines';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
 import { CursorGlow } from './components/CursorGlow';
+import { AmbientBackground } from './components/AmbientBackground';
 import { BrandMarquee } from './components/BrandMarquee';
 import { ComoFunciona } from './components/ComoFunciona';
 import { Testimonios } from './components/Testimonios';
@@ -374,7 +374,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#101010] text-white">
+    <div className="min-h-screen overflow-x-hidden text-white">
+      <AmbientBackground />
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
@@ -523,12 +524,8 @@ export default function App() {
 
         <section
           id="marcas"
-          className="nbg-ambient relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
-          style={{
-            background: 'linear-gradient(180deg, #151515 0%, #1A0D0D 52%, #101010 100%)',
-          }}
+          className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
         >
-          <CurvedLines />
           <Reveal className="relative z-10 mx-auto max-w-7xl">
             <SectionHeader
               title="Marcas importadas para un portafolio más competitivo"
@@ -544,16 +541,10 @@ export default function App() {
               onPendingClick={setPendingBrand}
             />
           </div>
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)',
-            }}
-          />
         </section>
         <PortafolioComercial />
 
-        <section className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8">
+        <section className="overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
           <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
@@ -595,8 +586,7 @@ export default function App() {
 
         <section
           id="contacto"
-          className="nbg-ambient relative overflow-hidden border-t border-white/10"
-          style={{ background: 'linear-gradient(180deg, #101010 0%, #221010 55%, #1C0D0D 100%)' }}
+          className="relative overflow-hidden"
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
             <Reveal>
@@ -839,11 +829,6 @@ export default function App() {
             </Reveal>
           </div>
         </section>
-        <div
-          aria-hidden="true"
-          className="h-20"
-          style={{ background: 'linear-gradient(to bottom, #1C0D0D, #0A0A0A)' }}
-        />
       </main>
 
       <AnimatePresence>
@@ -878,34 +863,22 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer
-        className="relative overflow-hidden border-t border-white/10"
-        style={{ background: 'linear-gradient(180deg, #1C0D0D 0%, #101010 55%, #0A0A0A 100%)' }}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] [background-size:56px_56px]" />
-        <div className="pointer-events-none absolute -right-28 top-10 h-72 w-72 rounded-full bg-[#E82127]/10 blur-3xl" />
-
-        <div className="relative mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_0.8fr_1.2fr]">
-            <div>
+      <footer className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 sm:pb-8 lg:px-8 lg:pt-16">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.4fr_0.7fr_0.7fr_1.2fr] lg:gap-x-10">
+            <div className="col-span-2 lg:col-span-1">
               <img
                 src="/images/brand/nbg-logo-white.png"
                 alt="Grupo NBG Import"
-                className="h-20 w-auto object-contain"
+                className="h-16 w-auto object-contain"
                 loading="lazy"
                 decoding="async"
               />
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#B8B8B8]">
-                Importador y distribuidor B2B de llantas para motos y vehículos menores, cámaras, rodajes y carburadores para talleres, tiendas, distribuidores y empresas en Perú.
+              <p className="mt-5 max-w-sm text-sm leading-6 text-white/60">
+                Importador B2B de llantas para motos y vehículos menores, cámaras, rodajes y carburadores para talleres,
+                tiendas y distribuidores en todo el Perú.
               </p>
-              <div className="mt-5 grid max-w-md grid-cols-2 gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
-                {['Importación directa', 'Atención B2B', 'Despacho nacional', 'Portafolio moto'].map((item) => (
-                  <span key={item} className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-2">
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <ul className="mt-6 flex gap-3" aria-label="Redes sociales">
+              <ul className="-ml-3 mt-5 flex gap-1" aria-label="Redes sociales">
                 {SOCIAL_LINKS.map((social) => (
                   <li key={social.name}>
                     <a
@@ -914,7 +887,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       aria-label={`${COMPANY.tradeName} en ${social.name}`}
                       onClick={() => trackEvent('social_click', { network: social.name.toLowerCase(), location: 'footer' })}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/75 transition hover:-translate-y-px hover:border-red-400/60 hover:bg-[#E82127] hover:text-white"
+                      className="flex h-11 w-11 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.08] hover:text-white"
                     >
                       <SocialIcon name={social.name} />
                     </a>
@@ -924,14 +897,14 @@ export default function App() {
             </div>
 
             <nav aria-label="Secciones del sitio">
-              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Secciones</h2>
-              <ul className="mt-5 grid gap-1">
+              <h2 className="font-sans text-sm font-semibold normal-case text-white">Navegación</h2>
+              <ul className="mt-3">
                 {NAV_ITEMS.map((item) => (
                   <li key={`footer-${item.href}`}>
                     <a
                       href={item.href}
                       onClick={() => trackEvent('nav_click', { target: item.href, location: 'footer' })}
-                      className="inline-flex min-h-11 items-center text-sm font-medium text-[#B8B8B8] transition hover:text-red-300"
+                      className="inline-flex min-h-10 items-center text-sm text-white/60 transition-colors hover:text-white"
                     >
                       {item.label}
                     </a>
@@ -941,91 +914,76 @@ export default function App() {
             </nav>
 
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Nuestras marcas</h2>
-              <ul className="mt-5 grid gap-1">
+              <h2 className="font-sans text-sm font-semibold normal-case text-white">Marcas</h2>
+              <ul className="mt-3">
                 {FOOTER_BRANDS.map((brand) => (
                   <li key={`footer-brand-${brand.name}`}>
                     <a
                       href={brand.href}
                       {...(brand.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       onClick={() => trackEvent('brand_click', { brand: brand.name, type: 'footer' })}
-                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-[#B8B8B8] transition hover:text-red-300"
+                      className="inline-flex min-h-10 items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white"
                     >
                       {brand.name}
-                      {brand.external && <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />}
+                      {brand.external && <ArrowUpRight size={14} strokeWidth={1.75} aria-label="(abre en otra pestaña)" />}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Canal comercial</h2>
-              <p className="mt-4 text-sm leading-7 text-[#B8B8B8]">
-                Para una respuesta más rápida, envíanos tu requerimiento por WhatsApp y un asesor revisará disponibilidad y condiciones.
-              </p>
-              <div className="mt-5 grid gap-3">
-                <a
-                  href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackEvent('contact_click', { channel: 'footer_whatsapp' })}
-                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#E82127] px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#FF2A2A] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
-                >
-                  <MessageCircle size={20} strokeWidth={1.5} className="text-white" />
-                  <span>Cotizar por WhatsApp</span>
-                </a>
-
-                <div className="grid gap-2 rounded-2xl border border-white/12 bg-white/[0.06] p-4 text-sm text-[#B8B8B8]">
+            <div className="col-span-2 lg:col-span-1">
+              <h2 className="font-sans text-sm font-semibold normal-case text-white">Contacto</h2>
+              <ul className="mt-3 space-y-1 text-sm text-white/60">
+                <li>
                   <a
-                    href="tel:+51956701218"
+                    href={COMPANY.phoneHref}
                     onClick={() => trackEvent('contact_click', { channel: 'footer_phone' })}
-                    className="inline-flex min-h-10 items-center gap-3 transition hover:text-red-300"
+                    className="inline-flex min-h-10 items-center gap-3 transition-colors hover:text-white"
                   >
-                    <Phone size={18} strokeWidth={1.5} className="text-red-400" />
-                    <span>+51 956 701 218</span>
+                    <Phone size={16} strokeWidth={1.75} className="shrink-0 text-[#E82127]" aria-hidden="true" />
+                    {COMPANY.phone}
                   </a>
+                </li>
+                <li>
                   <a
-                    href="mailto:marketing@nbg.pe"
+                    href={`mailto:${COMPANY.email}`}
                     onClick={() => trackEvent('contact_click', { channel: 'footer_email' })}
-                    className="inline-flex min-h-10 items-center gap-3 transition hover:text-red-300"
+                    className="inline-flex min-h-10 items-center gap-3 transition-colors hover:text-white"
                   >
-                    <Mail size={18} strokeWidth={1.5} className="text-red-400" />
-                    <span>marketing@nbg.pe</span>
+                    <Mail size={16} strokeWidth={1.75} className="shrink-0 text-[#E82127]" aria-hidden="true" />
+                    {COMPANY.email}
                   </a>
-                  <p className="flex items-start gap-3 py-2">
-                    <MapPin size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-400" aria-hidden="true" />
-                    <span>{COMPANY.addressShort}</span>
-                  </p>
-                  <p className="flex items-center gap-3 py-2">
-                    <Clock size={18} strokeWidth={1.5} className="shrink-0 text-red-400" aria-hidden="true" />
-                    <span>{COMPANY.hoursShort}</span>
-                  </p>
-                </div>
-              </div>
+                </li>
+                <li className="flex items-start gap-3 py-2.5">
+                  <MapPin size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#E82127]" aria-hidden="true" />
+                  <span>{COMPANY.addressShort}</span>
+                </li>
+                <li className="flex items-start gap-3 py-2.5">
+                  <Clock size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#E82127]" aria-hidden="true" />
+                  <span>{COMPANY.hours}</span>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 pb-16 text-center sm:flex-row sm:items-center sm:justify-between sm:pb-0 sm:pr-20 sm:text-left">
-            <div className="text-xs leading-6 text-white/50">
-              <p className="uppercase tracking-[0.16em]">© {currentYear} Grupo NBG Import. Todos los derechos reservados.</p>
-              <p>
-                {COMPANY.legalName} · RUC {COMPANY.ruc}
-              </p>
-            </div>
-            <nav aria-label="Enlaces legales" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
+          <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/45 sm:pr-20 md:flex-row md:items-center md:justify-between">
+            <p>
+              © {currentYear} {COMPANY.legalName} — RUC {COMPANY.ruc}
+            </p>
+            <nav aria-label="Enlaces legales" className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <a
                 href={LEGAL_LINKS.libro}
                 onClick={() => trackEvent('legal_click', { target: 'libro_reclamaciones' })}
-                className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 px-3 font-semibold text-white/80 transition hover:border-red-400/60 hover:text-white"
+                className="inline-flex min-h-10 items-center gap-2 font-semibold text-white/75 transition-colors hover:text-white"
               >
-                <BookOpen size={16} strokeWidth={1.75} className="text-red-400" aria-hidden="true" />
+                <BookOpen size={16} strokeWidth={1.75} className="text-[#E82127]" aria-hidden="true" />
                 Libro de Reclamaciones
               </a>
               <a
                 href={LEGAL_LINKS.privacidad}
                 onClick={() => trackEvent('legal_click', { target: 'politica_privacidad' })}
-                className="inline-flex min-h-11 items-center text-white/60 transition hover:text-red-300"
+                className="inline-flex min-h-10 items-center transition-colors hover:text-white"
               >
                 Política de privacidad
               </a>

@@ -46,7 +46,7 @@ function Star() {
 
 export function Testimonios() {
   return (
-    <section className="nbg-ambient overflow-hidden px-4 py-24 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 50%, #101010 100%)' }}>
+    <section className="overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">Lo que dicen nuestros clientes</h2>

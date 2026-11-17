@@ -12,12 +12,8 @@ export function HeroNBG({ onAction }) {
   return (
     <section
       id="inicio"
-      className="relative isolate overflow-hidden bg-[linear-gradient(180deg,#151515_0%,#1C0D0D_100%)]"
+      className="relative isolate overflow-hidden"
     >
-      <div
-        className="pointer-events-none absolute -left-[14%] top-[6%] z-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(232,33,39,0.16),transparent_70%)] blur-2xl"
-        aria-hidden="true"
-      />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8 lg:pb-24 lg:pt-36">
         <motion.div

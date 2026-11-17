@@ -1,13 +1,15 @@
 import { ArrowLeft } from 'lucide-react';
 import { COMPANY, LEGAL_LINKS } from '../lib/company';
 import { CursorGlow } from '../components/CursorGlow';
+import { AmbientBackground } from '../components/AmbientBackground';
 
 export function LegalLayout({ eyebrow, title, intro, children }) {
   const year = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen bg-[#101010] text-white">
-      <header className="border-b border-white/10 bg-[#0A0A0A]/90">
+    <div className="min-h-screen text-white">
+      <AmbientBackground />
+      <header className="border-b border-white/10 bg-black/30 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <a href="/" className="flex items-center" aria-label={`${COMPANY.tradeName} - Inicio`}>
             <img src="/images/brand/nbg-logo-white.png" alt={COMPANY.tradeName} className="h-12 w-auto object-contain" />
@@ -29,7 +31,7 @@ export function LegalLayout({ eyebrow, title, intro, children }) {
         <div className="mt-10">{children}</div>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#0A0A0A]">
+      <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-4xl flex-col gap-3 px-4 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
             © {year} {COMPANY.legalName} · RUC {COMPANY.ruc}

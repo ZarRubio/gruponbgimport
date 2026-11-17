@@ -68,7 +68,7 @@ export function BrandMarquee({ placement = 'top' }) {
 
   return (
     <section
-      className="overflow-hidden border-y border-white/[0.08] bg-[#101010]/90 py-5"
+      className="overflow-hidden border-y border-white/[0.08] bg-black/20 py-5"
       aria-label={placement === 'bottom' ? 'Marcas y señales comerciales de cierre' : 'Marcas y señales comerciales'}
     >
       <style>{`

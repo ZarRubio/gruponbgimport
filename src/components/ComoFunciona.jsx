@@ -29,7 +29,7 @@ const steps = [
 
 export function ComoFunciona() {
   return (
-    <section className="nbg-ambient overflow-hidden bg-[#1C0D0D] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+    <section className="overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-[1200px] text-center">
         <h2 className="mx-auto max-w-3xl text-3xl font-black leading-tight text-white sm:text-5xl">
           Así de simple es trabajar con nosotros

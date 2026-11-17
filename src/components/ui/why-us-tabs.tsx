@@ -1,7 +1,6 @@
 ﻿import { useState } from 'react';
 import { Bike, Handshake, Ship } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { CurvedLines } from '../CurvedLines';
 
 type WhyUsItem = {
   id: string;
@@ -80,11 +79,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
     <section
       id="nosotros"
       className="relative overflow-hidden"
-      style={{
-        background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 100%)',
-      }}
     >
-      <CurvedLines />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-10 max-w-3xl">
           <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">

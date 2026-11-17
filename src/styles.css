@@ -32,57 +32,6 @@
   textarea:focus-visible {
     @apply outline-none ring-2 ring-red-400 ring-offset-2 ring-offset-[#0a0000];
   }
-
-  .nbg-ambient {
-    position: relative;
-    isolation: isolate;
-  }
-
-  .nbg-ambient::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 42% 34% at 12% 18%, rgba(232, 33, 39, 0.14), transparent 62%),
-      radial-gradient(ellipse 38% 28% at 86% 64%, rgba(232, 33, 39, 0.09), transparent 66%),
-      linear-gradient(115deg, transparent 0 38%, rgba(232, 33, 39, 0.035) 38% 39%, transparent 39% 100%),
-      linear-gradient(115deg, transparent 0 56%, rgba(255, 255, 255, 0.025) 56% 56.4%, transparent 56.4% 100%);
-  }
-
-  .nbg-ambient > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-red-breath {
-    animation: hero-red-breath 11s ease-in-out infinite alternate;
-  }
-
-  .hero-tech-sweep {
-    animation: hero-tech-sweep 18s linear infinite;
-  }
-}
-
-@keyframes hero-red-breath {
-  from {
-    opacity: 0.58;
-    transform: translate3d(-1.5%, -1%, 0) scale(1);
-  }
-  to {
-    opacity: 0.78;
-    transform: translate3d(1.5%, 1%, 0) scale(1.035);
-  }
-}
-
-@keyframes hero-tech-sweep {
-  from {
-    transform: translate3d(-8%, 0, 0);
-  }
-  to {
-    transform: translate3d(8%, 0, 0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -181,5 +130,49 @@ select option {
   to {
     opacity: 0;
     transform: scale(1.9);
+  }
+}
+
+/* Fondo único de la página (ver src/components/AmbientBackground.jsx).
+   Dos resplandores rojos tenues fijos al viewport que derivan lentamente. */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ambient-bg span {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  will-change: transform;
+}
+.ambient-bg__a {
+  top: -28vmax;
+  left: -22vmax;
+  background: radial-gradient(circle, rgba(232, 33, 39, 0.14) 0%, transparent 62%);
+  animation: ambient-drift-a 50s ease-in-out infinite alternate;
+}
+.ambient-bg__b {
+  bottom: -32vmax;
+  right: -26vmax;
+  background: radial-gradient(circle, rgba(232, 33, 39, 0.09) 0%, transparent 62%);
+  animation: ambient-drift-b 64s ease-in-out infinite alternate;
+}
+@keyframes ambient-drift-a {
+  to {
+    transform: translate3d(38vw, 28vh, 0);
+  }
+}
+@keyframes ambient-drift-b {
+  to {
+    transform: translate3d(-32vw, -26vh, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-bg span {
+    animation: none;
   }
 }

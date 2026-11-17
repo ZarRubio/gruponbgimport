@@ -25,7 +25,7 @@ const solutions = [
 
 export function SolucionesNegocios() {
   return (
-    <section id="soluciones" className="nbg-ambient overflow-hidden bg-[#101010] px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+    <section id="soluciones" className="overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-[1200px]">
         <div className="max-w-3xl">
           <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">
