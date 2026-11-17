@@ -4,6 +4,7 @@
 
 @layer base {
   html {
+    scroll-padding-top: 76px;
     scroll-behavior: smooth;
   }
 

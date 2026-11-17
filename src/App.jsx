@@ -51,6 +51,8 @@ import { PruebaComercial } from './components/PruebaComercial';
 const NAV_ITEMS = [
   { label: 'Soluciones', href: '#soluciones' },
   { label: 'Marcas', href: '#marcas' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Preguntas', href: '#faq' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
@@ -268,21 +270,21 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_ITEMS
-      .map((item) => document.querySelector(item.href))
+    // Se observa también #inicio para que, al volver arriba, ningún ítem del menú quede marcado.
+    const sections = ['#inicio', ...NAV_ITEMS.map((item) => item.href)]
+      .map((href) => document.querySelector(href))
       .filter(Boolean);
 
+    // La raíz es una línea de 1% de alto al 40% del viewport: la sección que la cruza es la activa.
+    // (Usar intersectionRatio no sirve: en secciones altas nunca llega al umbral.)
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
+        const visible = entries.find((entry) => entry.isIntersecting);
         if (visible?.target?.id) {
           setActiveSection(`#${visible.target.id}`);
         }
       },
-      { threshold: [0.3, 0.55], rootMargin: '-18% 0px -55% 0px' }
+      { threshold: 0, rootMargin: '-40% 0px -59% 0px' }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -390,53 +392,70 @@ export default function App() {
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-          scrolled
-            ? 'border-b border-[rgba(180,20,20,0.2)] bg-[rgba(10,0,0,0.85)] backdrop-blur-[12px]'
-            : 'bg-transparent'
+          scrolled || mobileOpen
+            ? 'border-b border-[rgba(180,20,20,0.2)] bg-[rgba(10,0,0,0.88)] backdrop-blur-[12px]'
+            : 'border-b border-transparent bg-transparent'
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#inicio" className="flex items-center" aria-label="Grupo NBG Import">
+        <div
+          className={cn(
+            'mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 transition-[padding] duration-300 sm:px-6 lg:px-8',
+            scrolled ? 'py-2.5' : 'py-4'
+          )}
+        >
+          <a href="#inicio" className="flex shrink-0 items-center" aria-label="Grupo NBG Import - Inicio">
             <img
               src="/images/brand/nbg-logo-white.png"
               alt=""
-              className="h-12 w-auto object-contain"
+              className={cn('w-auto object-contain transition-[height] duration-300', scrolled ? 'h-10' : 'h-12')}
               loading="eager"
               decoding="async"
             />
           </a>
 
-          <nav className="hidden items-center gap-8 md:flex">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => trackEvent('nav_click', { target: item.href, location: 'header_desktop' })}
-                aria-current={activeSection === item.href ? 'page' : undefined}
-                className={cn(
-                  'rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] transition',
-                  activeSection === item.href
-                    ? 'bg-red-500/20 text-red-300'
-                    : 'text-white/75 hover:text-red-400'
-                )}
-              >
-                {item.label}
-              </a>
-            ))}
+          <nav aria-label="Navegación principal" className="hidden items-center gap-1 lg:flex">
+            {NAV_ITEMS.map((item) => {
+              const active = activeSection === item.href;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => trackEvent('nav_click', { target: item.href, location: 'header_desktop' })}
+                  aria-current={active ? 'location' : undefined}
+                  className={cn(
+                    'relative px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition-colors',
+                    "after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-[#E82127] after:transition-transform after:duration-300 after:content-['']",
+                    active ? 'text-white after:scale-x-100' : 'text-white/70 after:scale-x-0 hover:text-white hover:after:scale-x-100'
+                  )}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
-            <Button asChild className="hidden rounded-full px-5 sm:inline-flex">
+            <a
+              href={COMPANY.phoneHref}
+              onClick={() => trackEvent('contact_click', { channel: 'header_phone' })}
+              className="hidden items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-white xl:inline-flex"
+            >
+              <Phone size={16} strokeWidth={1.75} className="text-red-400" aria-hidden="true" />
+              {COMPANY.phone}
+            </a>
+
+            <Button asChild className="hidden whitespace-nowrap rounded-full px-5 sm:inline-flex">
               <a href="#contacto" onClick={() => trackEvent('cta_click', { cta: 'cotizar_header' })}>
-                Cotizar
+                <span className="lg:hidden xl:inline">Solicitar cotización</span>
+                <span className="hidden lg:inline xl:hidden">Cotizar</span>
               </a>
             </Button>
 
             <button
               type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#101010]/85 md:hidden"
-              aria-label="Abrir menu"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#101010]/85 transition hover:border-red-400/60 lg:hidden"
+              aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
             >
@@ -448,13 +467,13 @@ export default function App() {
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -12 }}
+              initial={reduceMotion ? false : { opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
               id="mobile-nav"
-              className="border-t border-red-500/10 bg-[#101010]/95 px-4 pb-5 pt-4 backdrop-blur-xl md:hidden"
+              className="max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-red-500/10 bg-[#101010]/95 px-4 pb-5 pt-4 backdrop-blur-xl lg:hidden"
             >
-              <div className="flex flex-col gap-3">
+              <nav aria-label="Navegación móvil" className="flex flex-col gap-3">
                 {NAV_ITEMS.map((item) => (
                   <a
                     key={item.href}
@@ -481,10 +500,31 @@ export default function App() {
                       setMobileOpen(false);
                     }}
                   >
-                    Cotizar
+                    Solicitar cotización
                   </a>
                 </Button>
-              </div>
+                <div className="mt-2 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-sm">
+                  <a
+                    href={COMPANY.phoneHref}
+                    onClick={() => trackEvent('contact_click', { channel: 'menu_phone' })}
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/10 font-semibold text-white/80"
+                  >
+                    <Phone size={16} strokeWidth={1.75} className="text-red-400" aria-hidden="true" />
+                    Llamar
+                  </a>
+                  <a
+                    href={`https://wa.me/${COMPANY.whatsapp}?text=Hola,%20quiero%20cotizar%20repuestos`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('contact_click', { channel: 'menu_whatsapp' })}
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/10 font-semibold text-white/80"
+                  >
+                    <MessageCircle size={16} strokeWidth={1.75} className="text-[#25D366]" aria-hidden="true" />
+                    WhatsApp
+                  </a>
+                </div>
+                <p className="text-center text-xs text-white/50">{COMPANY.hoursShort}</p>
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>
@@ -991,7 +1031,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 pb-16 text-center sm:flex-row sm:items-center sm:justify-between sm:pb-0 sm:text-left">
+          <div className="mt-5 flex flex-col gap-3 pb-16 text-center sm:flex-row sm:items-center sm:justify-between sm:pb-0 sm:pr-20 sm:text-left">
             <div className="text-xs leading-6 text-white/50">
               <p className="uppercase tracking-[0.16em]">© {currentYear} Grupo NBG Import. Todos los derechos reservados.</p>
               <p>

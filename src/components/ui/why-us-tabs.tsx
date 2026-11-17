@@ -102,6 +102,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
 
   return (
     <section
+      id="nosotros"
       className="relative overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #101010 0%, #1C0D0D 100%)',

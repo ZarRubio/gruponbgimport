@@ -102,7 +102,7 @@ export function HeroNBG({ onAction }) {
             </a>
           </div>
 
-          <div className="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
             {trustItems.map((item) => (
               <div key={item} className="flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.06] px-3 py-3 text-sm text-[#C9C9C9]">
                 <CheckCircle2 size={18} strokeWidth={1.5} className="shrink-0 text-[#E82127]" />

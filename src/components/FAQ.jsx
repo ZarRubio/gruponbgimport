@@ -43,7 +43,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="nbg-ambient overflow-hidden px-6 py-24" style={{ background: 'linear-gradient(180deg,#101010 0%,#1C0D0D 100%)' }}>
+    <section id="faq" className="nbg-ambient overflow-hidden px-6 py-24" style={{ background: 'linear-gradient(180deg,#101010 0%,#1C0D0D 100%)' }}>
       <div className="mx-auto max-w-[720px]">
         <div className="text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
