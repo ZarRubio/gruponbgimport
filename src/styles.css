@@ -100,3 +100,75 @@ select option {
   background-color: #101010;
   color: #fff;
 }
+
+/* Cursor decorativo (solo mouse; ver src/components/CursorGlow.jsx) */
+.cursor-glow,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cursor-glow.is-visible,
+.cursor-ring.is-visible {
+  opacity: 1;
+}
+.cursor-glow {
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+.cursor-glow::before {
+  content: '';
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  margin: -220px 0 0 -220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 33, 39, 0.16) 0%, transparent 65%);
+}
+.cursor-ring span {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid #e82127;
+  border-radius: 50%;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease;
+}
+.cursor-ring span::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border: 1.5px solid #e82127;
+  border-radius: 50%;
+  opacity: 0;
+}
+.cursor-ring::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #e82127;
+}
+.cursor-ring.is-hover span {
+  transform: scale(1.65);
+  background: rgba(232, 33, 39, 0.14);
+}
+.cursor-ring.is-click span::after {
+  animation: cursor-pulse 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes cursor-pulse {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}

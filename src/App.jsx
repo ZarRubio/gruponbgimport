@@ -40,6 +40,7 @@ import { WhyUsTabs } from './components/ui/why-us-tabs';
 import { HeroNBG } from './components/HeroNBG';
 import { CurvedLines } from './components/CurvedLines';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
+import { CursorGlow } from './components/CursorGlow';
 import { BrandMarquee } from './components/BrandMarquee';
 import { ComoFunciona } from './components/ComoFunciona';
 import { Testimonios } from './components/Testimonios';
@@ -1034,6 +1035,7 @@ export default function App() {
       </footer>
 
       <WhatsAppFloat onAction={(cta) => trackEvent('cta_click', { cta })} />
+      <CursorGlow />
     </div>
   );
 }

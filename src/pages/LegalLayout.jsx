@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { COMPANY, LEGAL_LINKS } from '../lib/company';
+import { CursorGlow } from '../components/CursorGlow';
 
 export function LegalLayout({ eyebrow, title, intro, children }) {
   const year = new Date().getFullYear();
@@ -43,6 +44,7 @@ export function LegalLayout({ eyebrow, title, intro, children }) {
           </nav>
         </div>
       </footer>
+      <CursorGlow />
     </div>
   );
 }
