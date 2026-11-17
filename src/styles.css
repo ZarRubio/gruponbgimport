@@ -162,6 +162,17 @@ select option {
 .cursor-ring.is-click span::after {
   animation: cursor-pulse 400ms cubic-bezier(0.23, 1, 0.32, 1);
 }
+/* Sobre botones rojos el anillo pasa a blanco para que se distinga */
+.cursor-ring.is-on-accent span,
+.cursor-ring.is-on-accent span::after {
+  border-color: #fff;
+}
+.cursor-ring.is-on-accent.is-hover span {
+  background: rgba(255, 255, 255, 0.18);
+}
+.cursor-ring.is-on-accent::after {
+  background: #fff;
+}
 @keyframes cursor-pulse {
   from {
     opacity: 0.9;

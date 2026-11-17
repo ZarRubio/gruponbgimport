@@ -22,6 +22,16 @@ export function CursorGlow() {
     let ringX = -100;
     let ringY = -100;
     let frame = 0;
+    let lastInteractive = null;
+
+    // ¿El elemento tiene fondo rojo sólido (botones de marca)? Ahí el anillo rojo no se vería.
+    const isOnAccent = (el) => {
+      if (!el) return false;
+      const match = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if (!match) return false;
+      const [r, g, b, a = 1] = match.map(Number);
+      return a > 0.5 && r > 180 && g < 90 && b < 90;
+    };
 
     const tick = () => {
       ringX += (targetX - ringX) * 0.2;
@@ -39,7 +49,12 @@ export function CursorGlow() {
       targetY = event.clientY;
       ring.classList.add('is-visible');
       glow.classList.add('is-visible');
-      ring.classList.toggle('is-hover', Boolean(event.target.closest?.(INTERACTIVE)));
+      const interactive = event.target.closest?.(INTERACTIVE) || null;
+      ring.classList.toggle('is-hover', Boolean(interactive));
+      if (interactive !== lastInteractive) {
+        lastInteractive = interactive;
+        ring.classList.toggle('is-on-accent', isOnAccent(interactive));
+      }
       wake();
     };
     const onLeave = () => {
