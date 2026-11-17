@@ -87,3 +87,8 @@
     scroll-behavior: auto !important;
   }
 }
+
+select option {
+  background-color: #101010;
+  color: #fff;
+}

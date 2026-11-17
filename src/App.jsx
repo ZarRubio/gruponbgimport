@@ -6,7 +6,35 @@ import {
   MessageCircle,
   Mail,
   Phone,
+  ArrowUpRight,
+  MapPin,
+  Clock,
+  BookOpen,
 } from 'lucide-react';
+import { COMPANY, LEGAL_LINKS, SOCIAL_LINKS } from './lib/company';
+
+function SocialIcon({ name }) {
+  if (name === 'Instagram') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4.2" />
+        <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+  const paths = {
+    Facebook:
+      'M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971H15.83c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z',
+    LinkedIn:
+      'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z',
+  };
+  return (
+    <svg viewBox="0 0 24 24" className="h-[17px] w-[17px]" fill="currentColor" aria-hidden="true">
+      <path d={paths[name]} />
+    </svg>
+  );
+}
 import { BrandGrid } from './components/ui/brand-grid';
 import { WhyUsTabs } from './components/ui/why-us-tabs';
 import { HeroNBG } from './components/HeroNBG';
@@ -26,7 +54,13 @@ const NAV_ITEMS = [
   { label: 'Contacto', href: '#contacto' },
 ];
 
-const PHONE_PATTERN = /^[+]?[0-9\s-]{7,20}$/;
+const FOOTER_BRANDS = [
+  { name: 'CST Tires Perú', href: 'https://csttires.pe', external: true },
+  { name: 'SAHM Parts', href: 'https://sahmparts.com', external: true },
+  { name: 'NBG Parts', href: '#marcas', external: false },
+];
+
+const PHONE_PATTERN =/^[+]?[0-9\s-]{7,20}$/;
 const WHATSAPP_PHONE = '51956701218';
 
 function validateField(name, value) {
@@ -776,6 +810,13 @@ export default function App() {
                     >
                       {submitted ? 'Abrir WhatsApp' : 'Enviar cotización'}
                     </Button>
+                    <p className="text-center text-xs leading-5 text-white/55">
+                      Al enviar, aceptas que usemos tus datos para responder tu cotización, según nuestra{' '}
+                      <a href={LEGAL_LINKS.privacidad} className="underline underline-offset-2 hover:text-red-300">
+                        Política de privacidad
+                      </a>
+                      .
+                    </p>
                   </form>
                 </CardContent>
               </Card>
@@ -830,7 +871,7 @@ export default function App() {
         <div className="pointer-events-none absolute -right-28 top-10 h-72 w-72 rounded-full bg-[#E82127]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.15fr_0.85fr_1.2fr]">
+          <div className="grid gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_0.8fr_1.2fr]">
             <div>
               <img
                 src="/images/brand/nbg-logo-white.png"
@@ -849,11 +890,27 @@ export default function App() {
                   </span>
                 ))}
               </div>
+              <ul className="mt-6 flex gap-3" aria-label="Redes sociales">
+                {SOCIAL_LINKS.map((social) => (
+                  <li key={social.name}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${COMPANY.tradeName} en ${social.name}`}
+                      onClick={() => trackEvent('social_click', { network: social.name.toLowerCase(), location: 'footer' })}
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/75 transition hover:-translate-y-px hover:border-red-400/60 hover:bg-[#E82127] hover:text-white"
+                    >
+                      <SocialIcon name={social.name} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Secciones</h4>
-              <ul className="mt-5 grid gap-3">
+            <nav aria-label="Secciones del sitio">
+              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Secciones</h2>
+              <ul className="mt-5 grid gap-1">
                 {NAV_ITEMS.map((item) => (
                   <li key={`footer-${item.href}`}>
                     <a
@@ -866,10 +923,29 @@ export default function App() {
                   </li>
                 ))}
               </ul>
+            </nav>
+
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Nuestras marcas</h2>
+              <ul className="mt-5 grid gap-1">
+                {FOOTER_BRANDS.map((brand) => (
+                  <li key={`footer-brand-${brand.name}`}>
+                    <a
+                      href={brand.href}
+                      {...(brand.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      onClick={() => trackEvent('brand_click', { brand: brand.name, type: 'footer' })}
+                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-[#B8B8B8] transition hover:text-red-300"
+                    >
+                      {brand.name}
+                      {brand.external && <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Canal comercial</h4>
+              <h2 className="text-xs font-bold uppercase tracking-[0.24em] text-white/75">Canal comercial</h2>
               <p className="mt-4 text-sm leading-7 text-[#B8B8B8]">
                 Para una respuesta más rápida, envíanos tu requerimiento por WhatsApp y un asesor revisará disponibilidad y condiciones.
               </p>
@@ -902,22 +978,43 @@ export default function App() {
                     <Mail size={18} strokeWidth={1.5} className="text-red-400" />
                     <span>marketing@nbg.pe</span>
                   </a>
+                  <p className="flex items-start gap-3 py-2">
+                    <MapPin size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-400" aria-hidden="true" />
+                    <span>{COMPANY.addressShort}</span>
+                  </p>
+                  <p className="flex items-center gap-3 py-2">
+                    <Clock size={18} strokeWidth={1.5} className="shrink-0 text-red-400" aria-hidden="true" />
+                    <span>{COMPANY.hoursShort}</span>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="mt-5 flex flex-col gap-3 pb-16 text-center sm:flex-row sm:items-center sm:justify-between sm:pb-0 sm:text-left">
-            <p className="text-xs uppercase tracking-[0.16em] text-white/50">
-              {currentYear} Grupo NBG Import. Todos los derechos reservados.
-            </p>
-            <a
-              href="mailto:marketing@nbg.pe"
-              onClick={() => trackEvent('contact_click', { channel: 'footer_email_legal' })}
-              className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75 transition hover:text-red-400"
-            >
-              Soporte comercial: marketing@nbg.pe
-            </a>
+            <div className="text-xs leading-6 text-white/50">
+              <p className="uppercase tracking-[0.16em]">© {currentYear} Grupo NBG Import. Todos los derechos reservados.</p>
+              <p>
+                {COMPANY.legalName} · RUC {COMPANY.ruc}
+              </p>
+            </div>
+            <nav aria-label="Enlaces legales" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
+              <a
+                href={LEGAL_LINKS.libro}
+                onClick={() => trackEvent('legal_click', { target: 'libro_reclamaciones' })}
+                className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 px-3 font-semibold text-white/80 transition hover:border-red-400/60 hover:text-white"
+              >
+                <BookOpen size={16} strokeWidth={1.75} className="text-red-400" aria-hidden="true" />
+                Libro de Reclamaciones
+              </a>
+              <a
+                href={LEGAL_LINKS.privacidad}
+                onClick={() => trackEvent('legal_click', { target: 'politica_privacidad' })}
+                className="inline-flex min-h-11 items-center text-white/60 transition hover:text-red-300"
+              >
+                Política de privacidad
+              </a>
+            </nav>
           </div>
         </div>
       </footer>

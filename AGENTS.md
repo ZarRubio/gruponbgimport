@@ -26,6 +26,7 @@ Single-page React 18 + Vite + Tailwind 3 landing site for Grupo NBG Import, a Pe
 
 Key behaviors:
 - **No routing.** Anchor navigation (`#inicio`, `#soluciones`, `#marcas`, `#contacto`) driven by `NAV_ITEMS`; the active section is tracked with an `IntersectionObserver` in `App.jsx`.
+- **Legal pages are separate Vite entries**, not routes: `libro-de-reclamaciones/index.html` and `politica-de-privacidad/index.html` (registered in `vite.config.js` `rollupOptions.input`) mount components from `src/pages/` with their own `LegalLayout`. Company legal data (RUC, address, hours) lives in `src/lib/company.js`; keep the JSON-LD in `index.html` in sync with it. The Libro de Reclamaciones has no backend: it opens a `mailto:` to the company with the consumer in CC and offers a printable copy.
 - **Contact form → WhatsApp.** `handleSubmit` validates via `validateField`, then opens `wa.me/<WHATSAPP_PHONE>` with a prefilled message built by `buildWhatsAppQuoteUrl`. There is no backend. (`mailto:marketing@nbg.pe` links still appear as secondary contact options.)
 - **Pending brand modal.** Brands with `isPending: true` in `brand-grid.tsx` (currently NBG Parts) call `onPendingClick(name)` → `setPendingBrand` in `App.jsx`, which renders an `AnimatePresence` overlay (closed by click or Escape).
 - **Analytics via `trackEvent`** (in `App.jsx`): pushes to `window.dataLayer` and calls `window.gtag` if present. Every CTA/interaction should call it; child components receive callbacks that wrap it. The gtag snippet in `index.html` still has a placeholder ID (`G-XXXXXXXXXX`).
@@ -36,6 +37,8 @@ Key behaviors:
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy-hostinger.yml` (Node 20, `npm ci`, `npm run build`), which uploads `./dist/` to `public_html/` on Hostinger via FTPS. Secrets: `HOSTINGER_FTP_HOST`, `HOSTINGER_FTP_USER`, `HOSTINGER_FTP_PASSWORD`. Every push to `main` is a production deploy.
+Hostinger Git auto-deployment is connected to this repo: on every push to `main`, Hostinger clones the commit, runs `npm run build` (Node 22, app type "vite") and serves `dist/` at www.gruponbgimport.com. **Every push to `main` is a production deploy.** There is no GitHub Actions workflow.
+
+`public/.htaccess` is copied into `dist/` and replaces the server's copy on each deploy. It must keep Hostinger's `RewriteRule ^\.builds - [F,L]` line, and it holds the 301 redirect from the bare domain to `www`.
 
 `CLAUDE.md` mirrors this file for Claude Code — keep them in sync when architecture changes.
