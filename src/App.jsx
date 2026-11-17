@@ -59,7 +59,7 @@ const NAV_ITEMS = [
 const FOOTER_BRANDS = [
   { name: 'CST Tires Perú', href: 'https://csttires.pe', external: true },
   { name: 'SAHM Parts', href: 'https://sahmparts.com', external: true },
-  { name: 'NBG Parts', href: '#marcas', external: false },
+  { name: 'NBG Parts', href: '/nbg-parts/', external: false },
 ];
 
 const PHONE_PATTERN =/^[+]?[0-9\s-]{7,20}$/;
@@ -221,7 +221,6 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false);
   const [activeSection, setActiveSection] = useState('#inicio');
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [pendingBrand, setPendingBrand] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -283,7 +282,6 @@ export default function App() {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
         setMobileOpen(false);
-        setPendingBrand(null);
       }
     };
 
@@ -538,7 +536,6 @@ export default function App() {
               reduceMotion={reduceMotion}
               onBrandClick={(brand, type) => trackEvent('brand_click', { brand, type })}
               onQuoteClick={handleBrandQuote}
-              onPendingClick={setPendingBrand}
             />
           </div>
         </section>
@@ -830,38 +827,6 @@ export default function App() {
           </div>
         </section>
       </main>
-
-      <AnimatePresence>
-        {pendingBrand && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
-            onClick={() => setPendingBrand(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
-              className="w-full max-w-md rounded-[2rem] border border-white/[0.12] bg-[#101010] p-7 shadow-2xl shadow-black/35"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-red-400">Consultar disponibilidad</div>
-              <h3 className="text-2xl font-black uppercase text-white">{pendingBrand}</h3>
-              <p className="mt-4 text-sm leading-7 text-white/70">
-                Esta sección todavía no está lista. Consulta disponibilidad con nuestro equipo comercial.
-              </p>
-              <div className="mt-6 flex justify-end">
-                <Button type="button" onClick={() => setPendingBrand(null)} className="px-6">
-                  Entendido
-                </Button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <footer className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 sm:pb-8 lg:px-8 lg:pt-16">

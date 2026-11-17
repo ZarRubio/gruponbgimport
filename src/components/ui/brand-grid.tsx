@@ -13,14 +13,14 @@ type Brand = {
   ariaLabel: string;
   quoteValue: string;
   isFeatured?: boolean;
-  isPending?: boolean;
+  /** Página dentro de este mismo sitio: se abre en la misma pestaña. */
+  isInternal?: boolean;
 };
 
 type BrandGridProps = {
   reduceMotion?: boolean;
-  onBrandClick?: (brandName: string, type: 'external' | 'pending') => void;
+  onBrandClick?: (brandName: string, type: 'external' | 'internal') => void;
   onQuoteClick?: (brandName: string) => void;
-  onPendingClick?: (brandName: string) => void;
 };
 
 const brands: Brand[] = [
@@ -54,16 +54,16 @@ const brands: Brand[] = [
   {
     id: 'nbg',
     name: 'NBG Parts',
-    category: 'Componentes para motos',
-    description: 'Productos y soluciones para talleres, distribuidores y empresas que necesitan compras recurrentes.',
-    cta: 'Consultar disponibilidad',
-    href: '#contacto',
+    category: 'Rodajes y asientos para mototaxi',
+    description: 'Rodajes 2NSL en seis medidas y asientos para motokar Wanxin.',
+    cta: 'Ver NBG Parts',
+    href: '/nbg-parts/',
     image: '/images/brands/nbg-parts.jpg',
     logo: '/images/brands/nbg-parts-logo-red.png',
     logoClassName: 'h-16 sm:h-20',
-    ariaLabel: 'Consultar disponibilidad de NBG Parts',
+    ariaLabel: 'Ver la página de NBG Parts',
     quoteValue: 'NBG Parts',
-    isPending: true,
+    isInternal: true,
   },
 ];
 
@@ -77,26 +77,17 @@ function BrandCard({
   reduceMotion,
   onBrandClick,
   onQuoteClick,
-  onPendingClick,
 }: {
   brand: Brand;
   index: number;
   reduceMotion?: boolean;
   onBrandClick?: BrandGridProps['onBrandClick'];
   onQuoteClick?: BrandGridProps['onQuoteClick'];
-  onPendingClick?: BrandGridProps['onPendingClick'];
 }) {
   const isFeatured = Boolean(brand.isFeatured);
 
-  const handlePrimaryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (brand.isPending) {
-      event.preventDefault();
-      onBrandClick?.(brand.name, 'pending');
-      document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
-    onBrandClick?.(brand.name, 'external');
+  const handlePrimaryClick = () => {
+    onBrandClick?.(brand.name, brand.isInternal ? 'internal' : 'external');
   };
 
   return (
@@ -145,19 +136,14 @@ function BrandCard({
 
         <a
           href={brand.href}
-          target={brand.isPending ? undefined : '_blank'}
-          rel={brand.isPending ? undefined : 'noreferrer'}
+          target={brand.isInternal ? undefined : '_blank'}
+          rel={brand.isInternal ? undefined : 'noreferrer'}
           aria-label={brand.ariaLabel}
           onClick={handlePrimaryClick}
-          className={cn(
-            'mt-6 inline-flex w-fit items-center gap-2 rounded-xl px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] transition-all duration-200',
-            brand.isPending
-              ? 'cursor-pointer border border-white/25 bg-transparent text-white/70 hover:-translate-y-px hover:border-red-600/50 hover:bg-red-900/20 hover:text-white'
-              : 'bg-[#ef2428] text-white hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]'
-          )}
+          className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
         >
           {brand.cta}
-          {!brand.isPending && <ArrowUpRight className="h-4 w-4" aria-label="(abre en otra pestaña)" />}
+          {!brand.isInternal && <ArrowUpRight className="h-4 w-4" aria-label="(abre en otra pestaña)" />}
         </a>
         <button
           type="button"
@@ -171,7 +157,7 @@ function BrandCard({
   );
 }
 
-export function BrandGrid({ reduceMotion, onBrandClick, onQuoteClick, onPendingClick }: BrandGridProps) {
+export function BrandGrid({ reduceMotion, onBrandClick, onQuoteClick }: BrandGridProps) {
   return (
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr] lg:auto-rows-fr">
       {brands.map((brand, index) => (
@@ -182,7 +168,6 @@ export function BrandGrid({ reduceMotion, onBrandClick, onQuoteClick, onPendingC
           reduceMotion={reduceMotion}
           onBrandClick={onBrandClick}
           onQuoteClick={onQuoteClick}
-          onPendingClick={onPendingClick}
         />
       ))}
     </div>

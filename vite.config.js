@@ -14,6 +14,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         libro: resolve(__dirname, 'libro-de-reclamaciones/index.html'),
         privacidad: resolve(__dirname, 'politica-de-privacidad/index.html'),
+        nbgParts: resolve(__dirname, 'nbg-parts/index.html'),
       },
     },
   },
