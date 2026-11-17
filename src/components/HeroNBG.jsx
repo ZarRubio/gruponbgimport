@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 const trustItems = ['Importación directa', 'Atención a negocios', 'Despacho a todo el Perú', 'Marcas especializadas'];
 
-const productLines = ['Llantas', 'Cámaras', 'Rodajes', 'Carburadores', 'Accesorios'];
+const productLines = ['Llantas', 'Cámaras', 'Rodajes', 'Carburadores'];
 
 // Hero: un solo momento de movimiento (entrada de texto y foto) y la foto de producto como protagonista.
 export function HeroNBG({ onAction }) {
@@ -30,7 +30,7 @@ export function HeroNBG({ onAction }) {
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-[1.6] text-[#B8B8B8] sm:text-lg">
-            Abastecemos a talleres, tiendas, distribuidores y empresas con repuestos para motos al por mayor, llantas, cámaras, rodajes, carburadores y accesorios importados con respaldo comercial.
+            Abastecemos a talleres, tiendas, distribuidores y empresas con llantas para motos y vehículos menores, cámaras, rodajes y carburadores importados, al por mayor y con respaldo comercial.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

@@ -5,7 +5,7 @@ const faqs = [
   {
     question: '¿Grupo NBG Import vende repuestos para motos al por mayor?',
     answer:
-      'Sí. Atendemos talleres, tiendas, distribuidores y empresas que necesitan abastecimiento de repuestos para motos, llantas, cámaras, rodajes, carburadores y accesorios en Perú.',
+      'Sí. Atendemos talleres, tiendas, distribuidores y empresas que necesitan abastecimiento de llantas para motos y vehículos menores, cámaras, rodajes y carburadores en Perú.',
   },
   {
     question: '¿Hacen envíos fuera de Lima?',
@@ -47,7 +47,7 @@ export function FAQ() {
       <div className="mx-auto max-w-[720px]">
         <div className="text-center">
           <h2 className="text-4xl font-black leading-tight text-white sm:text-5xl">Preguntas frecuentes</h2>
-          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar repuestos, llantas y accesorios para motos.</p>
+          <p className="mt-3 text-[15px] text-white/70">Todo lo que necesitas saber antes de cotizar llantas, cámaras, rodajes y carburadores.</p>
         </div>
 
         <div className="mt-10">

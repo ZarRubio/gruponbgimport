@@ -51,10 +51,10 @@ const tabs: WhyUsItem[] = [
     label: 'Especialistas en motos',
     icon: Bike,
     image: '/images/why-us/especialistas-en-motos.webp',
-    imageAlt: 'Motocicleta moderna con mecánico especializado, llantas, repuestos y accesorios',
+    imageAlt: 'Motocicleta moderna con mecánico especializado',
     title: 'Conocemos el mercado de motocicletas desde dentro.',
     description:
-      'Trabajamos con marcas enfocadas en llantas, repuestos y accesorios para motos, conectando soluciones comerciales con las necesidades reales de motociclistas, talleres y distribuidores.',
+      'Trabajamos con marcas enfocadas en llantas, cámaras, rodajes y carburadores para motos y vehículos menores, conectando soluciones comerciales con las necesidades reales de motociclistas, talleres y distribuidores.',
     cta: 'Explorar soluciones',
     href: '#contacto',
   },

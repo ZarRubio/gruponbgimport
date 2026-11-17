@@ -9,7 +9,7 @@ const solutions = [
   {
     icon: Store,
     title: 'Tiendas de repuestos',
-    text: 'Líneas de alta rotación para ampliar vitrina: cámaras, rodajes, accesorios y motopartes importadas.',
+    text: 'Líneas de alta rotación para ampliar vitrina: llantas, cámaras, rodajes y carburadores importados.',
   },
   {
     icon: Factory,

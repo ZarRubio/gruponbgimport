@@ -41,8 +41,8 @@ const brands: Brand[] = [
   {
     id: 'sahm',
     name: 'SAHM Parts',
-    category: 'Repuestos y accesorios',
-    description: 'Cámaras, carburadores, repuestos y accesorios para abastecimiento comercial del mercado motero peruano.',
+    category: 'Cámaras, rodajes y carburadores',
+    description: 'Cámaras, rodajes y carburadores para abastecimiento comercial del mercado motero peruano.',
     cta: 'Visitar SAHM Parts',
     href: 'https://sahmparts.com',
     image: '/images/brands/sahm-parts.jpg',
