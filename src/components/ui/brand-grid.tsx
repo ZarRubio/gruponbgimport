@@ -140,7 +140,7 @@ function BrandCard({
           rel={brand.isInternal ? undefined : 'noreferrer'}
           aria-label={brand.ariaLabel}
           onClick={handlePrimaryClick}
-          className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-[#ef2428] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-red-500 hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.98]"
+          className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-[#D2191F] px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.03] hover:bg-[#B8151B] hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)] active:scale-[0.97]"
         >
           {brand.cta}
           {!brand.isInternal && <ArrowUpRight className="h-4 w-4" aria-label="(abre en otra pestaña)" />}
@@ -148,9 +148,9 @@ function BrandCard({
         <button
           type="button"
           onClick={() => onQuoteClick?.(brand.quoteValue)}
-          className="mt-2 inline-flex w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-xs text-white/70 underline underline-offset-[3px] transition hover:text-white"
+          className="mt-2 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 border-none bg-transparent px-0 text-sm text-white/75 underline underline-offset-[3px] transition hover:text-white"
         >
-          Cotizar esta marca
+          Cotizar esta marca por WhatsApp
         </button>
       </div>
     </article>

@@ -29,15 +29,15 @@ export function HeroNBG({ onAction }) {
             Abastecemos a talleres, tiendas, distribuidores y empresas con llantas para motos y vehículos menores, cámaras, rodajes y carburadores importados, al por mayor y con respaldo comercial.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div id="hero-cta" className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => onAction?.('hero_whatsapp_b2b')}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#E82127] px-6 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#FF2A2A] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#D2191F] px-6 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#B8151B] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
             >
-              <MessageCircle size={20} strokeWidth={1.5} />
+              <MessageCircle size={20} strokeWidth={1.5} aria-hidden="true" />
               Cotizar por WhatsApp
             </a>
             <a
@@ -49,14 +49,15 @@ export function HeroNBG({ onAction }) {
             </a>
           </div>
 
-          <div className="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
+          {/* Texto de respaldo, no botones: sin borde ni fondo para que no parezcan tocables. */}
+          <ul className="mt-8 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4 lg:grid-cols-2">
             {trustItems.map((item) => (
-              <div key={item} className="flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.06] px-3 py-3 text-sm text-[#C9C9C9]">
-                <CheckCircle2 size={18} strokeWidth={1.5} className="shrink-0 text-[#E82127]" />
+              <li key={item} className="flex items-center gap-2 text-sm text-[#C9C9C9]">
+                <CheckCircle2 size={18} strokeWidth={1.5} className="shrink-0 text-[#E82127]" aria-hidden="true" />
                 {item}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
 
         </motion.div>
 
@@ -77,9 +78,9 @@ export function HeroNBG({ onAction }) {
             decoding="async"
           />
           <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-5 pb-5 pt-16 sm:px-6">
-            <ul className="flex flex-wrap gap-2" aria-label="Líneas de producto">
+            <ul className="flex flex-wrap gap-x-5 gap-y-1" aria-label="Líneas de producto">
               {productLines.map((item) => (
-                <li key={item} className="rounded-full border border-white/20 bg-black/40 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur-sm">
+                <li key={item} className="font-display text-xl font-bold uppercase tracking-wide text-white">
                   {item}
                 </li>
               ))}

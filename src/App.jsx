@@ -62,8 +62,10 @@ const FOOTER_BRANDS = [
   { name: 'NBG Parts', href: '/nbg-parts/', external: false },
 ];
 
-const PHONE_PATTERN =/^[+]?[0-9\s-]{7,20}$/;
+const PHONE_PATTERN = /^[+]?[0-9\s-]{7,20}$/;
 const WHATSAPP_PHONE = '51956701218';
+const waLink = (text) => `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+const WA_DEFAULT = waLink('Hola, quiero cotizar repuestos.');
 
 function validateField(name, value) {
   const trimmed = value.trim();
@@ -77,17 +79,11 @@ function validateField(name, value) {
     }
   }
 
-  if (name === 'phone') {
-    if (!trimmed) {
-      return 'Ingresa tu celular o WhatsApp.';
-    }
+  // Opcional: WhatsApp ya muestra el número; solo sirve si el cliente prefiere una llamada.
+  if (name === 'phone' && trimmed) {
     if (!PHONE_PATTERN.test(trimmed)) {
       return 'Teléfono no válido.';
     }
-  }
-
-  if (name === 'businessType' && !trimmed) {
-    return 'Selecciona el tipo de negocio.';
   }
 
   if (name === 'productInterest' && !trimmed) {
@@ -119,28 +115,28 @@ function cn(...classes) {
 }
 
 function buildWhatsAppQuoteUrl(formData) {
-  const message = [
+  const lines = [
     'Hola, quiero cotizar con Grupo NBG Import.',
     '',
-    `Nombre y empresa: ${formData.name}`,
-    `Celular / WhatsApp: ${formData.phone}`,
-    `Tipo de negocio: ${formData.businessType}`,
+    `Nombre y empresa: ${formData.name.trim()}`,
+    formData.phone.trim() && `Prefiero que me llamen al: ${formData.phone.trim()}`,
+    formData.businessType && `Tipo de negocio: ${formData.businessType}`,
     `Producto de interés: ${formData.productInterest}`,
-    '',
-    `Mensaje: ${formData.message}`,
-  ].join('\n');
+    formData.message.trim() && `\nMensaje: ${formData.message.trim()}`,
+  ];
 
-  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+  // Las líneas opcionales vacías quedan como '' o false y se descartan; la línea en blanco del saludo se conserva.
+  return waLink(lines.filter((line, index) => index === 1 || Boolean(line)).join('\n'));
 }
 
 function Button({ asChild = false, className = '', variant = 'default', size = 'default', children, ...props }) {
   const variantClass =
     variant === 'outline'
       ? 'border border-white/20 bg-transparent text-white hover:bg-white/[0.06]'
-      : 'bg-[#E82127] text-white hover:bg-[#FF2A2A]';
-  const sizeClass = size === 'lg' ? 'h-12 px-7 text-sm' : 'h-10 px-5 text-xs';
+      : 'bg-[#D2191F] text-white hover:bg-[#B8151B]';
+  const sizeClass = size === 'lg' ? 'h-12 px-7' : 'h-10 px-5';
   const classes = cn(
-    'inline-flex items-center justify-center rounded-full font-bold uppercase tracking-[0.22em] transition-all duration-200 hover:-translate-y-px active:scale-[0.98]',
+    'inline-flex items-center justify-center gap-2 rounded-full text-sm font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.97]',
     variant === 'outline'
       ? 'hover:border-red-600/50 hover:bg-red-900/20'
       : 'hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(220,38,38,0.45)]',
@@ -175,8 +171,8 @@ function Input({ className = '', ...props }) {
   return (
     <input
       className={cn(
-        'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white placeholder:text-white/40',
-        'focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+        'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white placeholder:text-white/55',
+        'focus:border-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
         className
       )}
       {...props}
@@ -188,8 +184,8 @@ function Textarea({ className = '', ...props }) {
   return (
     <textarea
       className={cn(
-        'w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 py-3 text-white placeholder:text-white/40',
-        'focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+        'w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 py-3 text-white placeholder:text-white/55',
+        'focus:border-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
         className
       )}
       {...props}
@@ -363,12 +359,12 @@ export default function App() {
     trackEvent('lead_form_submit', { source: 'contact_form', channel: 'whatsapp' });
     window.open(buildWhatsAppQuoteUrl(formData), '_blank', 'noopener,noreferrer');
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => setSubmitted(false), 10000);
   };
 
   const handleBrandQuote = (brand) => {
-    setFormData((prev) => ({ ...prev, productInterest: brand }));
-    document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' });
+    trackEvent('cta_click', { cta: 'cotizar_marca', brand });
+    window.open(waLink(`Hola, quiero cotizar productos ${brand}.`), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -430,8 +426,14 @@ export default function App() {
             </a>
 
             <Button asChild className="hidden whitespace-nowrap rounded-full px-5 sm:inline-flex">
-              <a href="#contacto" onClick={() => trackEvent('cta_click', { cta: 'cotizar_header' })}>
-                <span className="lg:hidden xl:inline">Solicitar cotización</span>
+              <a
+                href={WA_DEFAULT}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('cta_click', { cta: 'cotizar_header' })}
+              >
+                <MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" />
+                <span className="lg:hidden xl:inline">Cotizar por WhatsApp</span>
                 <span className="hidden lg:inline xl:hidden">Cotizar</span>
               </a>
             </Button>
@@ -479,13 +481,16 @@ export default function App() {
                 ))}
                 <Button asChild className="mt-2 rounded-2xl">
                   <a
-                    href="#contacto"
+                    href={WA_DEFAULT}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => {
                       trackEvent('cta_click', { cta: 'cotizar_mobile' });
                       setMobileOpen(false);
                     }}
                   >
-                    Solicitar cotización
+                    <MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" />
+                    Cotizar por WhatsApp
                   </a>
                 </Button>
                 <div className="mt-2 grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-sm">
@@ -498,14 +503,12 @@ export default function App() {
                     Llamar
                   </a>
                   <a
-                    href={`https://wa.me/${COMPANY.whatsapp}?text=Hola,%20quiero%20cotizar%20repuestos`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('contact_click', { channel: 'menu_whatsapp' })}
+                    href={`mailto:${COMPANY.email}`}
+                    onClick={() => trackEvent('contact_click', { channel: 'menu_email' })}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/10 font-semibold text-white/80"
                   >
-                    <MessageCircle size={16} strokeWidth={1.75} className="text-[#25D366]" aria-hidden="true" />
-                    WhatsApp
+                    <Mail size={16} strokeWidth={1.75} className="text-red-400" aria-hidden="true" />
+                    Correo
                   </a>
                 </div>
                 <p className="text-center text-xs text-white/50">{COMPANY.hoursShort}</p>
@@ -539,7 +542,7 @@ export default function App() {
             />
           </div>
         </section>
-        <PortafolioComercial />
+        <PortafolioComercial onAction={(cta) => trackEvent('cta_click', { cta })} />
 
         <section className="overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
           <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.32)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
@@ -552,19 +555,20 @@ export default function App() {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">
-              <Button asChild size="lg" className="bg-[#E82127] hover:bg-[#FF2A2A]">
+              <Button asChild size="lg">
                 <a
-                  href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
+                  href={WA_DEFAULT}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('cta_click', { cta: 'cta_intermedio_whatsapp' })}
                 >
+                  <MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" />
                   Cotizar por WhatsApp
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a href="#contacto" onClick={() => trackEvent('cta_click', { cta: 'cta_intermedio_formulario' })}>
-                  Formulario
+                  Usar el formulario
                 </a>
               </Button>
             </div>
@@ -649,7 +653,9 @@ export default function App() {
               <Card className={cn('rounded-[2rem] shadow-2xl shadow-black/20', redGlassCard)}>
                 <CardContent className="p-6 sm:p-8">
                   <p className="mb-5 text-sm text-white/70" aria-live="polite">
-                    {submitted ? 'Abriendo WhatsApp con tu cotización cargada.' : 'Completa tus datos y te ayudamos a cotizar rápido.'}
+                    {submitted
+                      ? 'Se abrió WhatsApp con tu mensaje. Presiona Enviar ahí para que nos llegue.'
+                      : 'Completa tus datos y se abrirá WhatsApp con tu mensaje listo para enviar.'}
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -678,11 +684,10 @@ export default function App() {
 
                       <div>
                         <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-white/85">
-                          Celular o WhatsApp
+                          Teléfono para llamarte <span className="font-normal text-white/60">(opcional)</span>
                         </label>
                         <Input
                           id="phone"
-                          required
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
@@ -704,11 +709,10 @@ export default function App() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label htmlFor="businessType" className="mb-2 block text-sm font-semibold text-white/85">
-                          Tipo de negocio
+                          Tipo de negocio <span className="font-normal text-white/60">(opcional)</span>
                         </label>
                         <select
                           id="businessType"
-                          required
                           name="businessType"
                           value={formData.businessType}
                           onChange={handleChange}
@@ -716,7 +720,7 @@ export default function App() {
                           aria-invalid={Boolean(errors.businessType)}
                           aria-describedby={errors.businessType ? 'businessType-error' : undefined}
                           className={cn(
-                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
                             errors.businessType ? 'border-red-500/70' : ''
                           )}
                         >
@@ -760,7 +764,7 @@ export default function App() {
                           aria-invalid={Boolean(errors.productInterest)}
                           aria-describedby={errors.productInterest ? 'productInterest-error' : undefined}
                           className={cn(
-                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20',
+                            'h-12 w-full rounded-2xl border border-[rgba(180,20,20,0.3)] bg-white/[0.07] px-4 text-white focus:border-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010]',
                             errors.productInterest ? 'border-red-500/70' : ''
                           )}
                         >
@@ -804,17 +808,12 @@ export default function App() {
                       ) : null}
                     </div>
 
-                    <Button
-                      type="submit"
-                      className={cn(
-                        'h-12 w-full rounded-2xl text-sm tracking-[0.18em]',
-                        submitted ? 'bg-emerald-600 hover:bg-emerald-600' : 'bg-[#E82127] hover:bg-[#FF2A2A]'
-                      )}
-                    >
-                      {submitted ? 'Abrir WhatsApp' : 'Enviar cotización'}
+                    <Button type="submit" className="h-12 w-full rounded-2xl">
+                      <MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" />
+                      Continuar en WhatsApp
                     </Button>
-                    <p className="text-center text-xs leading-5 text-white/55">
-                      Al enviar, aceptas que usemos tus datos para responder tu cotización, según nuestra{' '}
+                    <p className="text-center text-xs leading-5 text-white/60">
+                      Se abrirá WhatsApp con tu mensaje listo; solo presiona Enviar. Al continuar, aceptas que usemos tus datos para responder tu cotización, según nuestra{' '}
                       <a href={LEGAL_LINKS.privacidad} className="underline underline-offset-2 hover:text-red-300">
                         Política de privacidad
                       </a>

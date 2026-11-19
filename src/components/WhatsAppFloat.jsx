@@ -1,24 +1,66 @@
+import { useEffect, useState } from 'react';
+
+// Texto oscuro sobre el verde de WhatsApp: el blanco sobre #25D366 no llega al contraste mínimo.
+const INK = 'text-[#0B2A16]';
+
+/**
+ * Barra fija de WhatsApp en celular. Aparece cuando el botón del hero ya salió de pantalla
+ * (para no duplicarlo) y se esconde en #contacto (para no tapar el formulario ni el teclado).
+ */
+function useMobileBarVisible() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const heroCta = document.querySelector('#hero-cta');
+    const contact = document.querySelector('#contacto');
+    if (!heroCta || !('IntersectionObserver' in window)) {
+      setVisible(true);
+      return undefined;
+    }
+
+    const state = { heroVisible: true, contactVisible: false };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === heroCta) state.heroVisible = entry.isIntersecting;
+        if (entry.target === contact) state.contactVisible = entry.isIntersecting;
+      });
+      setVisible(!state.heroVisible && !state.contactVisible);
+    });
+
+    observer.observe(heroCta);
+    if (contact) observer.observe(contact);
+    return () => observer.disconnect();
+  }, []);
+
+  return visible;
+}
+
 export function WhatsAppFloat({ onAction }) {
+  const visible = useMobileBarVisible();
+
   return (
     <>
       <a
-        href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
+        href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos."
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => onAction?.('whatsapp_float_mobile')}
-        className="fixed inset-x-4 bottom-4 z-50 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-black/30 transition hover:scale-[1.02] sm:hidden"
-        aria-label="Cotizar por WhatsApp"
+        aria-hidden={!visible}
+        tabIndex={visible ? undefined : -1}
+        className={`fixed inset-x-4 bottom-4 z-50 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold ${INK} shadow-2xl shadow-black/30 transition-transform duration-300 ease-out active:scale-[0.97] sm:hidden ${
+          visible ? 'translate-y-0' : 'pointer-events-none translate-y-[160%]'
+        }`}
       >
         <WhatsAppIcon className="h-5 w-5" />
         Cotizar por WhatsApp
       </a>
 
       <a
-        href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
+        href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos."
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => onAction?.('whatsapp_float_desktop')}
-        className="group fixed bottom-6 right-6 z-50 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/30 transition hover:scale-105 sm:flex"
+        className="group fixed bottom-6 right-6 z-50 hidden h-[60px] w-[60px] items-center justify-center rounded-full bg-[#25D366] text-[#0B2A16] shadow-2xl shadow-black/30 transition hover:scale-105 sm:flex"
         aria-label="Cotizar por WhatsApp"
       >
         <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping" aria-hidden="true" />

@@ -59,7 +59,7 @@ export function ComoFunciona() {
           href="https://wa.me/51956701218?text=Hola,%20quiero%20cotizar%20repuestos"
           target="_blank"
           rel="noopener noreferrer"
-          className="mx-auto mt-12 inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-[#E82127] px-8 py-3.5 font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#FF2A2A] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
+          className="mx-auto mt-12 inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-[#D2191F] px-8 py-3.5 font-bold text-white transition-all duration-200 hover:-translate-y-px hover:scale-[1.02] hover:bg-[#B8151B] hover:shadow-[0_8px_24px_rgba(220,38,38,0.35)] active:scale-[0.98]"
         >
           Empezar ahora por WhatsApp
         </a>

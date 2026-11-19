@@ -144,7 +144,7 @@ export function RodajeSelector({ items, waLink }) {
                 {it.code.replace('-2NSL', '')}
                 <span className="text-[0.6em] lg:text-[0.55em]">-2NSL</span>
               </span>
-              <span className={`mt-1 text-xs tabular-nums lg:mt-0 lg:text-sm ${selected ? 'text-white/80' : 'text-white/45'}`}>
+              <span className={`mt-1 text-xs tabular-nums lg:mt-0 lg:text-sm ${selected ? 'text-white/80' : 'text-white/60'}`}>
                 {it.d} × {it.D} × {it.B}
                 <span className="hidden lg:inline"> mm</span>
               </span>
@@ -154,29 +154,30 @@ export function RodajeSelector({ items, waLink }) {
       </div>
 
       {/* Escritorio: foto | código + cotizar; debajo, plano a lo ancho junto a las medidas.
-          Celular: foto, código, plano, medidas y botón, en ese orden. */}
+          Celular: foto (más baja), código, botón de cotizar y luego plano y medidas,
+          para que el botón quede cerca de donde se elige la medida. */}
       <div
         id="panel-rodaje"
         role="tabpanel"
         aria-labelledby={`tab-${item.code}`}
         className="grid gap-6 sm:grid-cols-2 sm:gap-x-8"
       >
-        <div className="overflow-hidden rounded-[24px] bg-white sm:col-start-1 sm:row-span-2 sm:row-start-1">
+        <div className="order-1 overflow-hidden rounded-[24px] bg-white sm:order-none sm:col-start-1 sm:row-span-2 sm:row-start-1">
           <img
             key={item.code}
             src={item.image}
             alt={`Rodaje NBG Parts ${item.code}`}
             width="800"
             height="800"
-            className="aspect-square w-full object-contain"
+            className="aspect-[4/3] w-full object-contain sm:aspect-square"
           />
         </div>
 
-        <h3 className="font-display text-5xl font-bold uppercase leading-none sm:col-start-2 sm:row-start-1 sm:self-end sm:text-6xl">
+        <h3 className="order-2 font-display text-5xl font-bold uppercase leading-none sm:order-none sm:col-start-2 sm:row-start-1 sm:self-end sm:text-6xl">
           {item.code}
         </h3>
 
-        <div className="grid items-center gap-6 border-white/10 sm:col-span-2 sm:row-start-3 sm:grid-cols-[1.4fr_1fr] sm:border-t sm:pt-6">
+        <div className="order-4 grid items-center gap-6 border-white/10 sm:order-none sm:col-span-2 sm:row-start-3 sm:grid-cols-[1.4fr_1fr] sm:border-t sm:pt-6">
           <BearingDiagram d={item.d} D={item.D} B={item.B} />
           <dl className="grid grid-cols-3 gap-4 border-t border-white/10 pt-4 text-sm sm:grid-cols-1 sm:border-0 sm:pt-0">
             <div>
@@ -199,7 +200,7 @@ export function RodajeSelector({ items, waLink }) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('cta_click', { cta: 'nbg_rodaje', product: item.code })}
-          className="inline-flex min-h-12 items-center justify-center gap-2 self-start rounded-full bg-[#E82127] px-6 text-sm font-bold text-white transition-colors hover:bg-[#FF2A2A] sm:col-start-2 sm:row-start-2"
+          className="order-3 inline-flex min-h-12 items-center justify-center gap-2 self-start rounded-full bg-[#D2191F] px-6 text-sm font-bold text-white transition-colors hover:bg-[#B8151B] active:scale-[0.97] sm:order-none sm:col-start-2 sm:row-start-2"
         >
           <MessageCircle size={20} strokeWidth={1.5} aria-hidden="true" />
           Cotizar {item.code}

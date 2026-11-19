@@ -163,7 +163,7 @@ export function WhyUsTabs({ reduceMotion, onTabChange, onCtaClick }: WhyUsTabsPr
                 <a
                   href={activeTab.href}
                   onClick={() => onCtaClick?.(activeTab.cta)}
-                  className="mt-8 inline-flex w-fit items-center rounded-xl bg-[#ef2428] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-red-500"
+                  className="mt-8 inline-flex w-fit items-center rounded-xl bg-[#D2191F] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#B8151B]"
                 >
                   {activeTab.cta}
                 </a>

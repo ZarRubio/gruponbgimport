@@ -20,4 +20,8 @@ export default {
     },
   },
   plugins: [],
+  // En pantallas táctiles, hover: no se aplica (evita el hover que se queda pegado tras tocar).
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 };

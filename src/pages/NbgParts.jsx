@@ -18,9 +18,9 @@ export const RODAJES = [
 const waLink = (text) => `https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const primaryBtn =
-  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#E82127] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#FF2A2A]';
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#D2191F] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#B8151B] active:scale-[0.97]';
 const secondaryBtn =
-  'inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-[#E82127]/60 hover:bg-white/[0.06]';
+  'inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-[#E82127]/60 hover:bg-white/[0.06] active:scale-[0.97]';
 
 export function NbgParts() {
   const year = new Date().getFullYear();
@@ -29,22 +29,22 @@ export function NbgParts() {
     <div className="min-h-screen text-white">
       <AmbientBackground />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-[rgba(180,20,20,0.2)] bg-[rgba(10,0,0,0.88)] backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <a href="/" className="flex shrink-0 items-center" aria-label={`${COMPANY.tradeName} - Inicio`}>
             <img src="/images/brand/nbg-logo-white.png" alt={COMPANY.tradeName} className="h-10 w-auto object-contain" />
           </a>
           <nav aria-label="Secciones de NBG Parts" className="hidden items-center gap-1 sm:flex">
-            <a href="#rodajes" className="px-3 py-2 text-sm font-semibold text-white/70 transition-colors hover:text-white">
+            <a href="#rodajes" className="px-3 py-2 text-sm font-semibold text-white/80 transition-colors hover:text-white">
               Rodajes
             </a>
-            <a href="#asientos" className="px-3 py-2 text-sm font-semibold text-white/70 transition-colors hover:text-white">
+            <a href="#asientos" className="px-3 py-2 text-sm font-semibold text-white/80 transition-colors hover:text-white">
               Asientos para mototaxi
             </a>
           </nav>
           <a
             href="/#marcas"
-            className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-white/70 transition-colors hover:text-white"
+            className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-white/80 transition-colors hover:text-white"
           >
             <ArrowLeft size={16} strokeWidth={1.75} aria-hidden="true" />
             <span className="hidden sm:inline">Todas las marcas</span>

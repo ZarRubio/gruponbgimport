@@ -85,7 +85,7 @@ function buildText(d, numero, fecha) {
 }
 
 const fieldBase =
-  'mt-2 w-full rounded-xl border bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-red-400';
+  'mt-2 w-full rounded-xl border bg-white/[0.04] px-4 py-3 text-base text-white placeholder:text-white/55 outline-none transition focus:border-red-400';
 
 function Field({ label, name, error, required = true, children, hint }) {
   return (
@@ -180,7 +180,7 @@ export function LibroReclamaciones() {
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <a
               href={mailtoFor(result)}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#E82127] px-5 text-sm font-bold text-white transition hover:bg-[#FF2A2A]"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#D2191F] px-5 text-sm font-bold text-white transition hover:bg-[#B8151B]"
             >
               <Mail size={18} aria-hidden="true" />
               Abrir el correo otra vez
@@ -369,7 +369,7 @@ export function LibroReclamaciones() {
 
         <button
           type="submit"
-          className="h-12 w-full rounded-2xl bg-[#E82127] text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#FF2A2A] sm:w-auto sm:px-10"
+          className="h-12 w-full rounded-2xl bg-[#D2191F] text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#B8151B] sm:w-auto sm:px-10"
         >
           Registrar hoja de reclamación
         </button>
